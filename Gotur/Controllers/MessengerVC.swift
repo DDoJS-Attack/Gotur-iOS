@@ -22,4 +22,8 @@ class MessengerVC: BaseVC {
     override func fetchData() {
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.view.backgroundColor = .white
+    }
 }

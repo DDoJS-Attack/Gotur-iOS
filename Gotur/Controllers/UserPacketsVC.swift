@@ -10,6 +10,10 @@ import UIKit
 import GoogleMaps
 
 class UserPacketsVC: BaseVC {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.view.backgroundColor = .white
+    }
 
     override func setupViews() {
         // Create a GMSCameraPosition that tells the map to display the
