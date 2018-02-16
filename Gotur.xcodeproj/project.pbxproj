@@ -1,0 +1,582 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EC01512C203766D8003025CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01512B203766D8003025CF /* AppDelegate.swift */; };
+		EC015131203766D8003025CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC01512F203766D8003025CF /* Main.storyboard */; };
+		EC015134203766D8003025CF /* Gotur.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC015132203766D8003025CF /* Gotur.xcdatamodeld */; };
+		EC015136203766D8003025CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC015135203766D8003025CF /* Assets.xcassets */; };
+		EC015139203766D8003025CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC015137203766D8003025CF /* LaunchScreen.storyboard */; };
+		EC015144203766D8003025CF /* GoturTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC015143203766D8003025CF /* GoturTests.swift */; };
+		EC01514F203766D8003025CF /* GoturUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01514E203766D8003025CF /* GoturUITests.swift */; };
+		EC015160203766FF003025CF /* ViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01515D203766FF003025CF /* ViewHelper.swift */; };
+		EC015161203766FF003025CF /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01515F203766FF003025CF /* BaseVC.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EC015140203766D8003025CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC015120203766D8003025CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC015127203766D8003025CF;
+			remoteInfo = Gotur;
+		};
+		EC01514B203766D8003025CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EC015120203766D8003025CF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC015127203766D8003025CF;
+			remoteInfo = Gotur;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EC015128203766D8003025CF /* Gotur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gotur.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC01512B203766D8003025CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EC015130203766D8003025CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EC015133203766D8003025CF /* Gotur.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gotur.xcdatamodel; sourceTree = "<group>"; };
+		EC015135203766D8003025CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EC015138203766D8003025CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EC01513A203766D8003025CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC01513F203766D8003025CF /* GoturTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoturTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC015143203766D8003025CF /* GoturTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoturTests.swift; sourceTree = "<group>"; };
+		EC015145203766D8003025CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC01514A203766D8003025CF /* GoturUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoturUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC01514E203766D8003025CF /* GoturUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoturUITests.swift; sourceTree = "<group>"; };
+		EC015150203766D8003025CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC01515D203766FF003025CF /* ViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewHelper.swift; sourceTree = "<group>"; };
+		EC01515F203766FF003025CF /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC015125203766D8003025CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC01513C203766D8003025CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC015147203766D8003025CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EC01511F203766D8003025CF = {
+			isa = PBXGroup;
+			children = (
+				EC01512A203766D8003025CF /* Gotur */,
+				EC015142203766D8003025CF /* GoturTests */,
+				EC01514D203766D8003025CF /* GoturUITests */,
+				EC015129203766D8003025CF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EC015129203766D8003025CF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC015128203766D8003025CF /* Gotur.app */,
+				EC01513F203766D8003025CF /* GoturTests.xctest */,
+				EC01514A203766D8003025CF /* GoturUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EC01512A203766D8003025CF /* Gotur */ = {
+			isa = PBXGroup;
+			children = (
+				EC01516220376738003025CF /* Views */,
+				EC01515C203766FF003025CF /* Extensions */,
+				EC01515E203766FF003025CF /* Controllers */,
+				EC01512B203766D8003025CF /* AppDelegate.swift */,
+				EC01512F203766D8003025CF /* Main.storyboard */,
+				EC015135203766D8003025CF /* Assets.xcassets */,
+				EC015137203766D8003025CF /* LaunchScreen.storyboard */,
+				EC01513A203766D8003025CF /* Info.plist */,
+				EC015132203766D8003025CF /* Gotur.xcdatamodeld */,
+			);
+			path = Gotur;
+			sourceTree = "<group>";
+		};
+		EC015142203766D8003025CF /* GoturTests */ = {
+			isa = PBXGroup;
+			children = (
+				EC015143203766D8003025CF /* GoturTests.swift */,
+				EC015145203766D8003025CF /* Info.plist */,
+			);
+			path = GoturTests;
+			sourceTree = "<group>";
+		};
+		EC01514D203766D8003025CF /* GoturUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EC01514E203766D8003025CF /* GoturUITests.swift */,
+				EC015150203766D8003025CF /* Info.plist */,
+			);
+			path = GoturUITests;
+			sourceTree = "<group>";
+		};
+		EC01515C203766FF003025CF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EC01515D203766FF003025CF /* ViewHelper.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EC01515E203766FF003025CF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EC01515F203766FF003025CF /* BaseVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		EC01516220376738003025CF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EC015127203766D8003025CF /* Gotur */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC015153203766D8003025CF /* Build configuration list for PBXNativeTarget "Gotur" */;
+			buildPhases = (
+				EC015124203766D8003025CF /* Sources */,
+				EC015125203766D8003025CF /* Frameworks */,
+				EC015126203766D8003025CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Gotur;
+			productName = Gotur;
+			productReference = EC015128203766D8003025CF /* Gotur.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EC01513E203766D8003025CF /* GoturTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC015156203766D8003025CF /* Build configuration list for PBXNativeTarget "GoturTests" */;
+			buildPhases = (
+				EC01513B203766D8003025CF /* Sources */,
+				EC01513C203766D8003025CF /* Frameworks */,
+				EC01513D203766D8003025CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EC015141203766D8003025CF /* PBXTargetDependency */,
+			);
+			name = GoturTests;
+			productName = GoturTests;
+			productReference = EC01513F203766D8003025CF /* GoturTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EC015149203766D8003025CF /* GoturUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC015159203766D8003025CF /* Build configuration list for PBXNativeTarget "GoturUITests" */;
+			buildPhases = (
+				EC015146203766D8003025CF /* Sources */,
+				EC015147203766D8003025CF /* Frameworks */,
+				EC015148203766D8003025CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EC01514C203766D8003025CF /* PBXTargetDependency */,
+			);
+			name = GoturUITests;
+			productName = GoturUITests;
+			productReference = EC01514A203766D8003025CF /* GoturUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EC015120203766D8003025CF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "DDosJS-Attack";
+				TargetAttributes = {
+					EC015127203766D8003025CF = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = V6KFG398S6;
+						ProvisioningStyle = Automatic;
+					};
+					EC01513E203766D8003025CF = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = V6KFG398S6;
+						ProvisioningStyle = Automatic;
+						TestTargetID = EC015127203766D8003025CF;
+					};
+					EC015149203766D8003025CF = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = V6KFG398S6;
+						ProvisioningStyle = Automatic;
+						TestTargetID = EC015127203766D8003025CF;
+					};
+				};
+			};
+			buildConfigurationList = EC015123203766D8003025CF /* Build configuration list for PBXProject "Gotur" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EC01511F203766D8003025CF;
+			productRefGroup = EC015129203766D8003025CF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EC015127203766D8003025CF /* Gotur */,
+				EC01513E203766D8003025CF /* GoturTests */,
+				EC015149203766D8003025CF /* GoturUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EC015126203766D8003025CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC015139203766D8003025CF /* LaunchScreen.storyboard in Resources */,
+				EC015136203766D8003025CF /* Assets.xcassets in Resources */,
+				EC015131203766D8003025CF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC01513D203766D8003025CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC015148203766D8003025CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EC015124203766D8003025CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC01512C203766D8003025CF /* AppDelegate.swift in Sources */,
+				EC015160203766FF003025CF /* ViewHelper.swift in Sources */,
+				EC015134203766D8003025CF /* Gotur.xcdatamodeld in Sources */,
+				EC015161203766FF003025CF /* BaseVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC01513B203766D8003025CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC015144203766D8003025CF /* GoturTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC015146203766D8003025CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC01514F203766D8003025CF /* GoturUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EC015141203766D8003025CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC015127203766D8003025CF /* Gotur */;
+			targetProxy = EC015140203766D8003025CF /* PBXContainerItemProxy */;
+		};
+		EC01514C203766D8003025CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EC015127203766D8003025CF /* Gotur */;
+			targetProxy = EC01514B203766D8003025CF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EC01512F203766D8003025CF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC015130203766D8003025CF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EC015137203766D8003025CF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC015138203766D8003025CF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EC015151203766D8003025CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EC015152203766D8003025CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EC015154203766D8003025CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V6KFG398S6;
+				INFOPLIST_FILE = Gotur/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		EC015155203766D8003025CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = V6KFG398S6;
+				INFOPLIST_FILE = Gotur/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		EC015157203766D8003025CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = V6KFG398S6;
+				INFOPLIST_FILE = GoturTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.GoturTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gotur.app/Gotur";
+			};
+			name = Debug;
+		};
+		EC015158203766D8003025CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = V6KFG398S6;
+				INFOPLIST_FILE = GoturTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.GoturTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gotur.app/Gotur";
+			};
+			name = Release;
+		};
+		EC01515A203766D8003025CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = V6KFG398S6;
+				INFOPLIST_FILE = GoturUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.GoturUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Gotur;
+			};
+			name = Debug;
+		};
+		EC01515B203766D8003025CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = V6KFG398S6;
+				INFOPLIST_FILE = GoturUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.GoturUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Gotur;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EC015123203766D8003025CF /* Build configuration list for PBXProject "Gotur" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC015151203766D8003025CF /* Debug */,
+				EC015152203766D8003025CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC015153203766D8003025CF /* Build configuration list for PBXNativeTarget "Gotur" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC015154203766D8003025CF /* Debug */,
+				EC015155203766D8003025CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EC015156203766D8003025CF /* Build configuration list for PBXNativeTarget "GoturTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC015157203766D8003025CF /* Debug */,
+				EC015158203766D8003025CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EC015159203766D8003025CF /* Build configuration list for PBXNativeTarget "GoturUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC01515A203766D8003025CF /* Debug */,
+				EC01515B203766D8003025CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EC015132203766D8003025CF /* Gotur.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EC015133203766D8003025CF /* Gotur.xcdatamodel */,
+			);
+			currentVersion = EC015133203766D8003025CF /* Gotur.xcdatamodel */;
+			path = Gotur.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = EC015120203766D8003025CF /* Project object */;
+}
