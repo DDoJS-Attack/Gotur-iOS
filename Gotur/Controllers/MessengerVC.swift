@@ -12,10 +12,13 @@ import GoogleMaps
 class MessengerVC: BaseVC {
     
     override func setupViews() {
+        
     }
+    
     override func setupAnchors() {
         
     }
+    
     override func fetchData() {
         
     }
