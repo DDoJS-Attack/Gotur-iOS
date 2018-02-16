@@ -1,0 +1,6 @@
+framework module Pods_Gotur {
+  umbrella header "Pods-Gotur-umbrella.h"
+
+  export *
+  module * { export * }
+}

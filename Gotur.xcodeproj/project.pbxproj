@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		547507C5ED0A410EC198CFBE /* Pods_Gotur.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A992AF81C813A17BD4627E05 /* Pods_Gotur.framework */; };
+		6138CCDF8202A13B643E6E2D /* Pods_GoturUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E822E4356887176BAD32E /* Pods_GoturUITests.framework */; };
 		EC01512C203766D8003025CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01512B203766D8003025CF /* AppDelegate.swift */; };
 		EC015131203766D8003025CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC01512F203766D8003025CF /* Main.storyboard */; };
 		EC015134203766D8003025CF /* Gotur.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC015132203766D8003025CF /* Gotur.xcdatamodeld */; };
@@ -16,6 +18,7 @@
 		EC01514F203766D8003025CF /* GoturUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01514E203766D8003025CF /* GoturUITests.swift */; };
 		EC015160203766FF003025CF /* ViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01515D203766FF003025CF /* ViewHelper.swift */; };
 		EC015161203766FF003025CF /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01515F203766FF003025CF /* BaseVC.swift */; };
+		EFEC9DABCCD4896B2874BE51 /* Pods_GoturTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2A76B020FE0CD92BBBCD19 /* Pods_GoturTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +39,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		242E822E4356887176BAD32E /* Pods_GoturUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoturUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5553430FB71397977C7D49ED /* Pods-GoturTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoturTests/Pods-GoturTests.release.xcconfig"; sourceTree = "<group>"; };
+		6D2A76B020FE0CD92BBBCD19 /* Pods_GoturTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoturTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		70B98C94183924CB296A4D91 /* Pods-GoturTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoturTests/Pods-GoturTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7A9124AC26E81AB9A561EF28 /* Pods-Gotur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gotur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gotur/Pods-Gotur.debug.xcconfig"; sourceTree = "<group>"; };
+		97F47CBF5D3489511506C003 /* Pods-GoturUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoturUITests/Pods-GoturUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A992AF81C813A17BD4627E05 /* Pods_Gotur.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gotur.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB8DF95A950EBD837F6229D2 /* Pods-GoturUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoturUITests/Pods-GoturUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D55F4E0BEDA76EF3C053F880 /* Pods-Gotur.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gotur.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gotur/Pods-Gotur.release.xcconfig"; sourceTree = "<group>"; };
 		EC015128203766D8003025CF /* Gotur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gotur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC01512B203766D8003025CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC015130203766D8003025CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -58,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				547507C5ED0A410EC198CFBE /* Pods_Gotur.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFEC9DABCCD4896B2874BE51 /* Pods_GoturTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +86,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6138CCDF8202A13B643E6E2D /* Pods_GoturUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55EC591949B2EF2BDEACDA9A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A992AF81C813A17BD4627E05 /* Pods_Gotur.framework */,
+				6D2A76B020FE0CD92BBBCD19 /* Pods_GoturTests.framework */,
+				242E822E4356887176BAD32E /* Pods_GoturUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B594B9A883C0B3381D32D3DF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7A9124AC26E81AB9A561EF28 /* Pods-Gotur.debug.xcconfig */,
+				D55F4E0BEDA76EF3C053F880 /* Pods-Gotur.release.xcconfig */,
+				70B98C94183924CB296A4D91 /* Pods-GoturTests.debug.xcconfig */,
+				5553430FB71397977C7D49ED /* Pods-GoturTests.release.xcconfig */,
+				CB8DF95A950EBD837F6229D2 /* Pods-GoturUITests.debug.xcconfig */,
+				97F47CBF5D3489511506C003 /* Pods-GoturUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		EC01511F203766D8003025CF = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +123,8 @@
 				EC015142203766D8003025CF /* GoturTests */,
 				EC01514D203766D8003025CF /* GoturUITests */,
 				EC015129203766D8003025CF /* Products */,
+				B594B9A883C0B3381D32D3DF /* Pods */,
+				55EC591949B2EF2BDEACDA9A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -162,9 +202,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC015153203766D8003025CF /* Build configuration list for PBXNativeTarget "Gotur" */;
 			buildPhases = (
+				69D81367D9D9BE9149784BC3 /* [CP] Check Pods Manifest.lock */,
 				EC015124203766D8003025CF /* Sources */,
 				EC015125203766D8003025CF /* Frameworks */,
 				EC015126203766D8003025CF /* Resources */,
+				B9C49FB2E7874CA6477BB1A1 /* [CP] Embed Pods Frameworks */,
+				B9373926D12A4D808DFCA7FF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -179,9 +222,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC015156203766D8003025CF /* Build configuration list for PBXNativeTarget "GoturTests" */;
 			buildPhases = (
+				E7A221654A872FC0A31FC8A4 /* [CP] Check Pods Manifest.lock */,
 				EC01513B203766D8003025CF /* Sources */,
 				EC01513C203766D8003025CF /* Frameworks */,
 				EC01513D203766D8003025CF /* Resources */,
+				3DF8FBAE350D8BEF305518B6 /* [CP] Embed Pods Frameworks */,
+				D6ECE10FD1BA0F46A7B33A80 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,9 +243,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EC015159203766D8003025CF /* Build configuration list for PBXNativeTarget "GoturUITests" */;
 			buildPhases = (
+				61EA505B65FB92B147DFE07D /* [CP] Check Pods Manifest.lock */,
 				EC015146203766D8003025CF /* Sources */,
 				EC015147203766D8003025CF /* Frameworks */,
 				EC015148203766D8003025CF /* Resources */,
+				0BE3256EAC85FBC5266A7ECE /* [CP] Embed Pods Frameworks */,
+				B3CAB7389F1AB0118B17939C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -286,6 +335,161 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0BE3256EAC85FBC5266A7ECE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoturUITests/Pods-GoturUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3DF8FBAE350D8BEF305518B6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoturTests/Pods-GoturTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61EA505B65FB92B147DFE07D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoturUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69D81367D9D9BE9149784BC3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Gotur-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3CAB7389F1AB0118B17939C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoturUITests/Pods-GoturUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9373926D12A4D808DFCA7FF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Gotur/Pods-Gotur-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Gotur/Pods-Gotur-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9C49FB2E7874CA6477BB1A1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Gotur/Pods-Gotur-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Gotur/Pods-Gotur-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6ECE10FD1BA0F46A7B33A80 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoturTests/Pods-GoturTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E7A221654A872FC0A31FC8A4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GoturTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EC015124203766D8003025CF /* Sources */ = {
@@ -445,6 +649,7 @@
 		};
 		EC015154203766D8003025CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7A9124AC26E81AB9A561EF28 /* Pods-Gotur.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V6KFG398S6;
@@ -458,6 +663,7 @@
 		};
 		EC015155203766D8003025CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D55F4E0BEDA76EF3C053F880 /* Pods-Gotur.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V6KFG398S6;
@@ -471,6 +677,7 @@
 		};
 		EC015157203766D8003025CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70B98C94183924CB296A4D91 /* Pods-GoturTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -486,6 +693,7 @@
 		};
 		EC015158203766D8003025CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5553430FB71397977C7D49ED /* Pods-GoturTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -501,6 +709,7 @@
 		};
 		EC01515A203766D8003025CF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB8DF95A950EBD837F6229D2 /* Pods-GoturUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = V6KFG398S6;
@@ -515,6 +724,7 @@
 		};
 		EC01515B203766D8003025CF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97F47CBF5D3489511506C003 /* Pods-GoturUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = V6KFG398S6;
