@@ -11,3 +11,8 @@
 "Do you want to deliver this packet?" = "Bu paketi götürmek istiyor musunuz?";
 "Yes" = "Evet";
 "No" = "Hayır";
+"Enter source address" = "Başlangıç adresini giriniz...";
+"Enter destination address" = "Varış adresini giriniz...";
+"Enter the weight of the item" = "Ağırlığı giriniz";
+"Enter the price of the item" = "Verilecek fiyatı giriniz";
+"Save" = "Kaydet";

@@ -25,6 +25,7 @@
 		ECFB27B920379347008462E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27B820379347008462E0 /* Constants.swift */; };
 		ECFB27BE203793DF008462E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECFB27C0203793DF008462E0 /* Localizable.strings */; };
 		ECFB27C4203796FB008462E0 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27C3203796FB008462E0 /* Packet.swift */; };
+		ECFB27C62037B451008462E0 /* AddPacketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27C52037B451008462E0 /* AddPacketVC.swift */; };
 		EFEC9DABCCD4896B2874BE51 /* Pods_GoturTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2A76B020FE0CD92BBBCD19 /* Pods_GoturTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		ECFB27BF203793DF008462E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECFB27C1203793E2008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECFB27C3203796FB008462E0 /* Packet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
+		ECFB27C52037B451008462E0 /* AddPacketVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPacketVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 				6875FEA020376CDB001706D6 /* MessengerVC.swift */,
 				6875FEA2203770E2001706D6 /* EntranceVC.swift */,
 				EC01516320377795003025CF /* UserPacketsVC.swift */,
+				ECFB27C52037B451008462E0 /* AddPacketVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				EC015160203766FF003025CF /* ViewHelper.swift in Sources */,
 				EC015134203766D8003025CF /* Gotur.xcdatamodeld in Sources */,
 				ECFB27C4203796FB008462E0 /* Packet.swift in Sources */,
+				ECFB27C62037B451008462E0 /* AddPacketVC.swift in Sources */,
 				EC015161203766FF003025CF /* BaseVC.swift in Sources */,
 				ECFB27B920379347008462E0 /* Constants.swift in Sources */,
 			);

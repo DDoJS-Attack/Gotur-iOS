@@ -84,7 +84,6 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         mapView.animate(to: camera)
         
         self.locationManager.stopUpdatingLocation()
-        
     }
     
     func takePacket() {
@@ -92,6 +91,8 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         // Push appropriate data
         // Draw path from courier to packet to destination
         drawPath()
+        let addPacketVC = AddPacketVC()
+        present(addPacketVC, animated: true, completion: nil)
     }
     
     func drawPath()

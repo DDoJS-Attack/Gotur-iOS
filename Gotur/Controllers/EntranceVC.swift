@@ -44,8 +44,12 @@ class EntranceVC: BaseVC {
     }
     
     func goToUserPacketsVC(){
+        /*
         let userPackets = UserPacketsVC()
         present(userPackets, animated: true, completion: nil)
+        */
+        let addPacket = AddPacketVC()
+        present(addPacket, animated: true, completion: nil)
     }
     
 
