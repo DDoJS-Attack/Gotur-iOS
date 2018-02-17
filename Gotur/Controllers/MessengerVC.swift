@@ -21,7 +21,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     
     var locationManager = CLLocationManager()
     
-    let tempArray = [Packet.init(withData: ["source": ["37.793414", "-122.408586"], "destionation": ["38.793414", "-123.408586"]], withName: "Fish", withWeight: "100", withPrice: "30"), Packet.init(withData: ["source": ["35.793414", "-122.408586"], "destionation": ["37.793414", "-123.408586"]], withName: "Pen", withWeight: "20", withPrice: "20"),    Packet.init(withData: ["source": ["35.793414", "-121.408586"], "destionation": ["34.793414", "-123.408586"]], withName: "Paper", withWeight: "10", withPrice: "60")  ]
+    let packageList = [Packet.init(withData: ["source": [-122.408586,   37.793414], "destination": [-123.408586, 38.793414]], withName: "Fish", withWeight: "100", withPrice: "30"), Packet.init(withData: ["source": [-122.408586, 35.793414], "destination": [-123.408586, 37.793414]], withName: "Pen", withWeight: "20", withPrice: "20"),    Packet.init(withData: ["source": [-121.408586, 35.793414], "destination": [-123.408586, 34.793414]], withName: "Paper", withWeight: "10", withPrice: "60")  ]
     
     
     
@@ -65,8 +65,36 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     override func setupViews() {
         self.view.addSubview(mapView)
         self.mapView.addSubview(myPackages)
+        
+        setupMarkersAndLinesBetweenThem()
+    }
+    
+    func setupMarkersAndLinesBetweenThem() {
+        
+        for p in packageList{
+            
+            let sourcePosition = CLLocationCoordinate2D(latitude: p.source.latitude, longitude: p.source.longitude)
+            let sourceMarker = GMSMarker(position: sourcePosition)
+            sourceMarker.title = "\(p.name) - Source"
+            sourceMarker.map = mapView
+            
+            let destinationPosition = CLLocationCoordinate2D(latitude: p.destination.latitude, longitude: p.destination.longitude)
+            let destionationMarker = GMSMarker(position: destinationPosition)
+            destionationMarker.title = "\(p.name) - Dest"
+            destionationMarker.map = mapView
+            
+            let path = GMSMutablePath()
+            path.add(sourcePosition)
+            path.add(destinationPosition)
+            let line = GMSPolyline(path: path)
+            line.strokeWidth = CGFloat(3)
+            line.strokeColor = UIColor(red: 18.0/255.0, green: 137.0/255.0, blue: 142.0/255.0, alpha: 0.7)
+            line.map = mapView
+        }
 
     }
+    
+    
     
     override func setupAnchors() {
         _ = mapView.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
@@ -92,20 +120,19 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude:(location?.coordinate.longitude)!, zoom:14)
         mapView.animate(to: camera)
         
-        //Finally stop updating location otherwise it will come again and again in this delegate
         self.locationManager.stopUpdatingLocation()
         
     }
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tempArray.count
+        return packageList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = self.tableView.dequeueReusableCell(withIdentifier: "cell") as! MessengerPopupTableViewCell
         //Assigning values to custom cell
-        cell.nameLabel.text = tempArray[indexPath.item].name
+        cell.nameLabel.text = packageList[indexPath.item].name
         
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 0.1
@@ -114,14 +141,14 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let drop = UITableViewRowAction(style: .destructive, title: "Dropped") { (action, indexPath) in
-            let droppedPackage = self.tempArray[indexPath.row]
-            self.confirmDelete(withPackage: droppedPackage)
+            let droppedPackage = self.packageList[indexPath.row]
+            self.confirmDrop(withPackage: droppedPackage)
         }
         drop.backgroundColor = UIColor(red: 186.0/255.0, green: 46.0/255.0, blue: 88.0/255.0, alpha: 1.0)
         return [drop]
     }
     
-    func confirmDelete(withPackage package: Packet) {
+    func confirmDrop(withPackage package: Packet) {
         // Handle package drop
         print("Package dropped")
     }

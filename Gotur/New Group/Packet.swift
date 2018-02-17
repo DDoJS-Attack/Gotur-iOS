@@ -9,8 +9,8 @@
 import Foundation
 
 struct Coordinate {
-    var longitude: String!
-    var latitude: String!
+    var longitude: Double!
+    var latitude: Double!
 }
 
 class Packet {
@@ -42,13 +42,13 @@ class Packet {
     }
     
     
-    init(withData data: Dictionary<String, Any>,withName name: String, withWeight weight: String, withPrice price: String) {
-        if let src = data["source"] as? [String] {
+    init(withData data: Dictionary<String, [Double]>,withName name: String, withWeight weight: String, withPrice price: String) {
+        if let src = data["source"]{
             let coordinate = Coordinate(longitude: src[0], latitude: src[1])
             _source = coordinate
         }
         
-        if let dest = data["destination"] as? [String] {
+        if let dest = data["destination"]{
             let coordinate = Coordinate(longitude: dest[0], latitude: dest[1])
             _destination = coordinate
         }

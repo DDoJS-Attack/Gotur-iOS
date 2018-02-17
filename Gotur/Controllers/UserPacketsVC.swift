@@ -69,7 +69,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func parsePackets() {
         for packet in packets {
-            let packetMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: Double(packet.source.latitude)!, longitude: Double(packet.source.longitude)!))
+            let packetMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: packet.source.latitude, longitude: packet.source.longitude))
             packetMarker.title = "Sydney"
             packetMarker.snippet = "Ağırlık: 10 kg\nFiyat: 12 tl\nKargoyu götürmek için tıklayınız."
             packetMarker.icon = UIImage(named: "ic_feedback_white")
