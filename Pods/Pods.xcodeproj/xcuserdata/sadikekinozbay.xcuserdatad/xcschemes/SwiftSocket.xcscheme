@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5CA216BBE145DBDEEA374B9BC33711E7"
-               BuildableName = "StarReview.framework"
-               BlueprintName = "StarReview"
+               BlueprintIdentifier = "7C1EAB633428454CABBD771008FB1302"
+               BuildableName = "SwiftSocket.framework"
+               BlueprintName = "SwiftSocket"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5CA216BBE145DBDEEA374B9BC33711E7"
-            BuildableName = "StarReview.framework"
-            BlueprintName = "StarReview"
+            BlueprintIdentifier = "7C1EAB633428454CABBD771008FB1302"
+            BuildableName = "SwiftSocket.framework"
+            BlueprintName = "SwiftSocket"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

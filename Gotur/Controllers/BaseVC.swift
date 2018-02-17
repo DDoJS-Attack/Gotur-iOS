@@ -53,7 +53,8 @@ class BaseVC: UIViewController {
         // Creating a marker for every item in the list and connects them
 
         var index = 0
-        for p in packageList{
+        while index < packageList.count{
+            let p = packageList[index]
             let sourcePosition = CLLocationCoordinate2D(latitude: p.sourceLoc.latitude, longitude: p.sourceLoc.longitude)
             let sourceMarker = GMSMarker(position: sourcePosition)
             var sourceImageView = UIImageView()
