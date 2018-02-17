@@ -53,7 +53,7 @@ class BaseVC: UIViewController {
         
         // Creating a marker for every item in the list and connects them
         for p in packageTakenList{
-            let sourcePosition = CLLocationCoordinate2D(latitude: p.source.latitude, longitude: p.source.longitude)
+            let sourcePosition = CLLocationCoordinate2D(latitude: p.sourceLoc.latitude, longitude: p.sourceLoc.longitude)
             let sourceMarker = GMSMarker(position: sourcePosition)
             let sourceImageView = UIImageView(image: UIImage(named: "nontakenPackage"))
             sourceImageView.tag = 1
@@ -62,7 +62,7 @@ class BaseVC: UIViewController {
             sourceMarker.title = "\(p.name) - Source"
             sourceMarker.map = mapView
             
-            let destinationPosition = CLLocationCoordinate2D(latitude: p.destination.latitude, longitude: p.destination.longitude)
+            let destinationPosition = CLLocationCoordinate2D(latitude: p.destinationLoc.latitude, longitude: p.destinationLoc.longitude)
             let destinationMarker = GMSMarker(position: destinationPosition)
             destinationMarker.isTappable = false
             destinationMarker.iconView = UIImageView(image: UIImage(named: "destinationPackage"))
@@ -78,7 +78,7 @@ class BaseVC: UIViewController {
         }
         
         for p in packageNontakenList{
-            let sourcePosition = CLLocationCoordinate2D(latitude: p.source.latitude, longitude: p.source.longitude)
+            let sourcePosition = CLLocationCoordinate2D(latitude: p.sourceLoc.latitude, longitude: p.sourceLoc.longitude)
             let sourceMarker = GMSMarker(position: sourcePosition)
             let sourceImageView = UIImageView(image: UIImage(named: "takenPackage"))
             sourceImageView.tag = 0
@@ -87,7 +87,7 @@ class BaseVC: UIViewController {
             sourceMarker.title = "\(p.name) - Source"
             sourceMarker.map = mapView
             
-            let destinationPosition = CLLocationCoordinate2D(latitude: p.destination.latitude, longitude: p.destination.longitude)
+            let destinationPosition = CLLocationCoordinate2D(latitude: p.destinationLoc.latitude, longitude: p.destinationLoc.longitude)
             let destinationMarker = GMSMarker(position: destinationPosition)
             destinationMarker.isTappable = false
             destinationMarker.iconView = UIImageView(image: UIImage(named: "destinationPackage"))

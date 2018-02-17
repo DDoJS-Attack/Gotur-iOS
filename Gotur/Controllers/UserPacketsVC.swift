@@ -15,8 +15,10 @@ import StarReview
 class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     var mapView: GMSMapView!
-    
+
     var locationManager = CLLocationManager()
+    
+    var packetList = [Packet]()
     
     lazy var addButton: UIButton = {
         let button = UIButton()
@@ -96,6 +98,32 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     }
     
     override func fetchData() {
+        let urlString = "https://chatbot-avci.olut.xyz/cargo"
+        let param = ["customer": UID]
+        
+        Alamofire.request(urlString, method: .post, parameters: param,encoding: JSONEncoding.default, headers: nil).responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                if let json = response.result.value {
+                    let jsonKSwift = JSON(json)
+                    let jsonSwiftData = jsonKSwift["data"]
+                    for cargo in jsonSwiftData {
+                        print(cargo)
+                        print("--------------------")
+                        let packet = Packet(data: cargo.1)
+                        self.packageTakenList.append(packet)
+                    }
+                    DispatchQueue.main.async {
+                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+                    }
+                }
+                
+                break
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func checkPackageStatus(){
@@ -168,6 +196,35 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     func confirmDrop(withPackage package: Packet) {
         // Implement
         self.view.shake()
+    }
+    
+    func setupMarkersAndLinesBetweenLocations(withMap mapView: GMSMapView) {
+        
+        // Creating a marker for every item in the list and connects them
+        for p in packetList{
+            let sourcePosition = CLLocationCoordinate2D(latitude: p.sourceLoc.latitude, longitude: p.sourceLoc.longitude)
+            let sourceMarker = GMSMarker(position: sourcePosition)
+            let sourceImageView = UIImageView(image: UIImage(named: "nontakenPackage"))
+            sourceImageView.tag = 1
+            sourceMarker.iconView = sourceImageView
+            sourceMarker.snippet = "Ağırlık: \(p.weight) kg\nFiyat: \(p.price) tl"
+            sourceMarker.title = "\(p.name) - Source"
+            sourceMarker.map = mapView
+            
+            let destinationPosition = CLLocationCoordinate2D(latitude: p.destinationLoc.latitude, longitude: p.destinationLoc.longitude)
+            let destinationMarker = GMSMarker(position: destinationPosition)
+            destinationMarker.isTappable = false
+            destinationMarker.iconView = UIImageView(image: UIImage(named: "destinationPackage"))
+            destinationMarker.map = mapView
+            
+            let path = GMSMutablePath()
+            path.add(sourcePosition)
+            path.add(destinationPosition)
+            let line = GMSPolyline(path: path)
+            line.strokeWidth = CGFloat(3)
+            line.strokeColor = UIColor(red: 106.0/255.0, green: 111.0/255.0, blue: 119.0/255.0, alpha: 1.0)
+            line.map = mapView
+        }
     }
     
     func goToAddPacketVC() {

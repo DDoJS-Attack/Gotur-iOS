@@ -86,7 +86,6 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
                 }
             }
-    
         }
     }
     
@@ -187,12 +186,12 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     
     func confirmDrop(withPackage package: Packet) {
         print(package.name)
-        print(findDistanceBetweenTwoLocations(package.destination, currentLocation))
-        print("destionation: location: \(package.destination.longitude) - \(package.destination.latitude)")
+        print(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation))
+        print("destionation: location: \(package.destinationLoc.longitude) - \(package.destinationLoc.latitude)")
         print("current location: \(currentLocation.longitude) - \(currentLocation.latitude)")
         print("---------------")
         
-        if(findDistanceBetweenTwoLocations(package.destination, currentLocation) <= 0.05){
+        if(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation) <= 0.05){
             print("Package dropped")
         }else {
             self.view.shake()
