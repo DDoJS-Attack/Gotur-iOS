@@ -18,6 +18,8 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     var locationManager = CLLocationManager()
     
     var isSource: Bool!
+    var sourceCoordinate: Coordinate!
+    var destinationCoordinate:
     
     lazy var navBar: UIView = {
         let view = UIView()
@@ -146,10 +148,12 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         if isSource {
             sourceButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
                 .joined(separator: "\n")
+            sourceCoordinate = Coordinate(longitude: place.coordinate.longitude, latitude: place.coordinate.latitude)
         }
         else {
             destinationButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
                 .joined(separator: "\n")
+            destinationCoordinate = Coordinate(longitude: place.coordinate.longitude, latitude: place.coordinate.latitude)
         }
     }
     
@@ -180,9 +184,58 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     
     func savePacket() {
         // Check constraints (Error handling)
-        // Push to db
-        // Return UserPacketsVC
-        self.dismiss(animated: true, completion: nil)
+        if isSatisfied() {
+            // Push to db
+            // Return UserPacketsVC
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func alertDisplay(title: String, message: String?, buttonTitle: String, buttonStyle: UIAlertActionStyle, sender: UIViewController?) -> UIAlertController{
+        
+        let alert = UIAlertController(title: title,message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: buttonTitle, style: buttonStyle, handler: nil))
+        
+        return alert
+    }
+    
+    func isSatisfied() -> Bool {
+        guard let _ = sourceCoordinate else {
+            // Display error
+            self.present(alertDisplay(title: errorSourceAddress, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
+            return false
+        }
+        
+        guard let _ = destinationCoordinate else {
+            // Display error
+            self.present(alertDisplay(title: errorDestinationAddress, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
+            return false
+        }
+        
+        guard let weight = weightTextField.text, !weight.isEmpty else {
+            // Display error
+            self.present(alertDisplay(title: errorEmptyWeight, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
+            return false
+        }
+        
+        guard let weightTemp = weightTextField.text, Double(weightTemp) != nil else {
+            self.present(alertDisplay(title: errorIncorrectWeight, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
+            return false
+        }
+        
+        guard let price = priceTextField.text, !price.isEmpty else {
+            // Display error
+            self.present(alertDisplay(title: errorEmptyPrice, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
+            return false
+        }
+        
+        guard let priceTemp = priceTextField.text, Double(priceTemp) != nil else {
+            // Display error
+            self.present(alertDisplay(title: errorIncorrectPrice, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
+            return false
+        }
+        
+        return true
     }
 
 }
