@@ -42,16 +42,10 @@ class Packet {
     }
     
     // Creating an Packet Object with given parameters
-    init(withData data: Dictionary<String, [Double]>,withName name: String, withWeight weight: String, withPrice price: String) {
-        if let src = data["source"]{
-            let coordinate = Coordinate(longitude: src[0], latitude: src[1])
-            _source = coordinate
-        }
+    init(destCoorLat: Double, destCoorLong: Double, sourceCoorLat: Double, sourceCoorLong: Double , name: String,  weight: String,  price: String) {
+         _source =  Coordinate(longitude: sourceCoorLat, latitude: sourceCoorLong)
         
-        if let dest = data["destination"]{
-            let coordinate = Coordinate(longitude: dest[0], latitude: dest[1])
-            _destination = coordinate
-        }
+        _destination = Coordinate(longitude: destCoorLong, latitude: destCoorLat)
         
         _name = name
         
