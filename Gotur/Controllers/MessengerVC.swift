@@ -207,7 +207,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         print("current location: \(currentLocation.longitude) - \(currentLocation.latitude)")
         print("---------------")
         
-        if(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation) <= 0.05){
+        if(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation) <= 0){
             // Update in database
             let packet: Dictionary<String, String> = [
                 "cargoId": String(describing: package.id),
@@ -221,6 +221,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                 case .success:
                     print(response)
                     self.packageTakenList = self.packageTakenList.filter { $0.id != package.id }
+                    self.tableView.reloadData()
                 case .failure(let error):
                     
                     print(error)
