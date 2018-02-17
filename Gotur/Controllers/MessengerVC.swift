@@ -8,6 +8,9 @@
 
 import UIKit
 import GoogleMaps
+import Alamofire
+import SwiftyJSON
+
 class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate {
     
     var currentLocation = Coordinate()
@@ -51,6 +54,51 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     
 
     override func fetchData() {
+        // Parsing datas from api
+        Alamofire.request("https://chatbot-avci.olut.xyz/courier/my?courier_id=5a87f7c9f931fb4955496ddc").responseJSON { response in
+            if let json = response.result.value {
+                let jsonKSwift = JSON(json)
+                let jsonSwiftData = jsonKSwift["data"]
+                var i = 0
+                // While data is not null append values to charity array that will be used for tableview
+                while(jsonSwiftData[i] != JSON.null){
+                    let tempPacket = self.packetCreator(withJSONData: jsonSwiftData, withIndex: i)
+                    self.packageTakenList.append(tempPacket)
+                    i += 1
+                }
+                DispatchQueue.main.async {
+                    self.mapView.reloadInputViews()
+                }
+            }
+        }
+            
+        Alamofire.request("https://chatbot-avci.olut.xyz/courier/my").responseJSON { response in
+            if let json = response.result.value {
+                let jsonKSwift = JSON(json)
+                let jsonSwiftData = jsonKSwift["data"]
+                var i = 0
+                // While data is not null append values to charity array that will be used for tableview
+                while(jsonSwiftData[i] != JSON.null){
+                    let tempPacket = self.packetCreator(withJSONData: jsonSwiftData, withIndex: i)
+                    self.packageNontakenList.append(tempPacket)
+                    i += 1
+                }
+                DispatchQueue.main.async {
+                    self.mapView.reloadInputViews()
+                }
+            }
+    
+        }
+    }
+    
+    func packetCreator(withJSONData jsonSwiftData : JSON, withIndex i: Int) -> Packet{
+        return Packet.init(destCoorLat: Double(jsonSwiftData[i]["DestinationLoc"][1].stringValue)!, destCoorLong: Double(jsonSwiftData[i]["DestinationLoc"][0].stringValue)!, sourceCoorLat: Double(jsonSwiftData[i]["SourceLoc"][1].stringValue)!, sourceCoorLong: Double(jsonSwiftData[i]["SourceLoc"][0].stringValue)!, name: jsonSwiftData[i]["Note"].stringValue, weight: jsonSwiftData[i]["Weigth"].stringValue, price: jsonSwiftData[i]["Price"].stringValue)
+    }
+    
+    override func setupViews() {
+        self.view.addSubview(mapView)
+        self.mapView.addSubview(myPackages)
+        
         tableView.delegate = self
         tableView.dataSource = self
         mapView.delegate = self
@@ -58,11 +106,6 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         //Location Manager code to fetch current location
         self.locationManager.delegate = self
         self.locationManager.startUpdatingLocation()
-    }
-    
-    override func setupViews() {
-        self.view.addSubview(mapView)
-        self.mapView.addSubview(myPackages)
         
         setupMarkersAndLinesBetweenThem(withMap: mapView)
     }
@@ -98,16 +141,37 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         self.locationManager.stopUpdatingLocation()
         
     }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        // Tag = 0 -> Taken, Tag = 1 -> Nontaken
+        
+        let alert = UIAlertController(title: "Package", message: "Do you want to take this package", preferredStyle: .alert)
+        let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+        let okayButton = UIAlertAction(title: "Okay", style: .default) { (alert) in
+            if (marker.iconView?.tag == 1) {
+                let sourceImageView = UIImageView(image: UIImage(named: "takenPackage"))
+                sourceImageView.tag = 0
+                marker.iconView = sourceImageView
+                // Update in database
+                
+                
+            }
+        }
+        alert.addAction(cancelButton)
+        alert.addAction(okayButton)
+        present(alert, animated: true, completion: nil)
+        return true
+    }
 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return packageList.count
+        return packageTakenList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = self.tableView.dequeueReusableCell(withIdentifier: "cell") as! MessengerPopupTableViewCell
         //Assigning values to custom cell
-        cell.nameLabel.text = packageList[indexPath.item].name
+        cell.nameLabel.text = packageTakenList[indexPath.item].name
         
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 0.1
@@ -117,8 +181,8 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         //adding left pull action
-        let drop = UITableViewRowAction(style: .destructive, title: "Dropped") { (action, indexPath) in
-            let droppedPackage = self.packageList[indexPath.row]
+        let drop = UITableViewRowAction(style: .destructive, title: "Dropp") { (action, indexPath) in
+            let droppedPackage = self.packageTakenList[indexPath.row]
             self.confirmDrop(withPackage: droppedPackage)
         }
         drop.backgroundColor = UIColor(red: 186.0/255.0, green: 46.0/255.0, blue: 88.0/255.0, alpha: 1.0)
