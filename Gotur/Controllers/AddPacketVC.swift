@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
-
+import Alamofire
 
 class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate {
 
@@ -18,8 +18,8 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     var locationManager = CLLocationManager()
     
     var isSource: Bool!
-    var sourceCoordinate: Coordinate!
-    var destinationCoordinate:
+    var source: GMSPlace!
+    var destination: GMSPlace!
     
     lazy var navBar: UIView = {
         let view = UIView()
@@ -33,8 +33,22 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         button.setTitle(cancelString, for: .normal)
         button.titleLabel?.font = primaryFont
         button.titleLabel?.textAlignment = NSTextAlignment.center
+        button.layer.borderWidth = 0
         button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         return button
+    }()
+    
+    lazy var nameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = enterNameOfItem
+        textField.font = primaryFont
+        textField.borderStyle = UITextBorderStyle.roundedRect
+        textField.autocorrectionType = UITextAutocorrectionType.no
+        textField.keyboardType = UIKeyboardType.default
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.clearButtonMode = UITextFieldViewMode.whileEditing;
+        textField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+        return textField
     }()
     
     lazy var sourceButton: BaseButton = {
@@ -67,19 +81,6 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         textField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
         return textField
     }()
-
-    lazy var nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = enterNameOfItem
-        textField.font = primaryFont
-        textField.borderStyle = UITextBorderStyle.roundedRect
-        textField.autocorrectionType = UITextAutocorrectionType.no
-        textField.keyboardType = UIKeyboardType.default
-        textField.returnKeyType = UIReturnKeyType.done
-        textField.clearButtonMode = UITextFieldViewMode.whileEditing;
-        textField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
-        return textField
-    }()
     
     lazy var priceTextField: UITextField = {
         let textField = UITextField()
@@ -95,10 +96,11 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     }()
     
     lazy var saveButton: BaseButton = {
-        let view = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
-        view.setTitle(saveString, for: .normal)
-        view.addTarget(self, action: #selector(savePacket), for: .touchUpInside)
-        return view
+        let button = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
+        button.setTitle(saveString, for: .normal)
+        button.titleLabel?.font = primaryFont
+        button.addTarget(self, action: #selector(savePacket), for: .touchUpInside)
+        return button
     }()
     
     override func setupViews() {
@@ -125,12 +127,12 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         // TODO: Check wheter those are fits into smaller devices or not
         _ = navBar.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: self.view.frame.width, heightConstant: 60)
         _ = cancelButton.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: nil, topConstant: 20, leftConstant: 6, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 40)
-        _ = sourceButton.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: self.view.frame.height/4, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
-        _ = destinationButton.anchor(self.sourceButton.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
-        _ = weightTextField.anchor(self.destinationButton.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
-        _ = priceTextField.anchor(self.weightTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
-        _ = nameTextField.anchor(self.priceTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
-        _ = saveButton.anchor(self.nameTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 0, heightConstant: 40)
+        _ = nameTextField.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: self.view.frame.height / 4, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
+        _ = sourceButton.anchor(self.nameTextField.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 24, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
+        _ = destinationButton.anchor(self.sourceButton.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 24, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
+        _ = weightTextField.anchor(self.destinationButton.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 24, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
+        _ = priceTextField.anchor(self.weightTextField.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 24, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
+        _ = saveButton.anchor(self.priceTextField.bottomAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 24, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 0, heightConstant: 40)
     }
     
     
@@ -148,12 +150,12 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         if isSource {
             sourceButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
                 .joined(separator: "\n")
-            sourceCoordinate = Coordinate(longitude: place.coordinate.longitude, latitude: place.coordinate.latitude)
+            source = place
         }
         else {
             destinationButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
                 .joined(separator: "\n")
-            destinationCoordinate = Coordinate(longitude: place.coordinate.longitude, latitude: place.coordinate.latitude)
+            destination = place
         }
     }
     
@@ -185,10 +187,44 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     func savePacket() {
         // Check constraints (Error handling)
         if isSatisfied() {
+            // Initialize packet JSON
+            let packet: Dictionary<String, Any> = [
+                "name": nameTextField.text!,
+                "sourceAddress": source.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n") as AnyObject,
+                "destinationAddress": destination.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n") as AnyObject,
+                "sourceLoc": [source.coordinate.longitude, source.coordinate.latitude],
+                "destinationLoc": [destination.coordinate.longitude, destination.coordinate.latitude],
+                "owner": UID,
+                "price": calculatePriceAsKurus(price: priceTextField.text!),
+                "weight": Double(weightTextField.text!) as AnyObject
+            ]
+            print(packet)
             // Push to db
+            let urlString = "https://chatbot-avci.olut.xyz/customer/create"
+            
+            Alamofire.request(urlString, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
+                response in
+                switch response.result {
+                case .success:
+                    print(response)
+                    
+                    break
+                case .failure(let error):
+                    
+                    print(error)
+                }
+            }
             // Return UserPacketsVC
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func calculatePriceAsKurus(price: String) -> Double {
+        if let price = Double(price) {
+            return Double(price) * 60.0
+        }
+        
+        return 0.0
     }
     
     func alertDisplay(title: String, message: String?, buttonTitle: String, buttonStyle: UIAlertActionStyle, sender: UIViewController?) -> UIAlertController{
@@ -200,13 +236,24 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     }
     
     func isSatisfied() -> Bool {
-        guard let _ = sourceCoordinate else {
+        guard let name = nameTextField.text, !name.isEmpty else {
+            // Display error
+            self.present(alertDisplay(title: errorEmptyName, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
+            return false
+        }
+        
+        guard let nameTemp = nameTextField.text, nameTemp.characters.count >= 3, nameTemp.characters.count < 24  else {
+            self.present(alertDisplay(title: errorCharacterCount3To24, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
+            return false
+        }
+        
+        guard let _ = source else {
             // Display error
             self.present(alertDisplay(title: errorSourceAddress, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
             return false
         }
         
-        guard let _ = destinationCoordinate else {
+        guard let _ = destination else {
             // Display error
             self.present(alertDisplay(title: errorDestinationAddress, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
             return false

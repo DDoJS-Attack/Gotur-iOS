@@ -71,11 +71,10 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         setupMarkersAndLinesBetweenThem(withMap: mapView)
         
         self.view.addSubview(addButton)
-        
     }
     
     override func setupAnchors() {
-        _ = addButton.anchor(nil, left: nil, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 36, rightConstant: 8, widthConstant: 60, heightConstant: 60)
+        _ = addButton.anchor(nil, left: nil, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 36, rightConstant: 12, widthConstant: 60, heightConstant: 60)
     }
     
     override func fetchData() {

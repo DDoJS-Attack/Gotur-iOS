@@ -20,3 +20,12 @@
 "Save" = "Save";
 "My Location" = "My Location";
 "Cancel" = "Cancel";
+"Ok" = "Ok";
+"Source address must be initialized" = "Source address must be initialized";
+"Destination address must be initialized" = "Destination address must be initialized";
+"Please enter the weight" = "Please enter the weight";
+"Please enter the price" = "Please enter the price";
+"Please enter the weight correctly" = "Please enter the weight correctly";
+"Please enter the price correctly" = "Please enter the price correctly";
+"Please enter the name" = "Please enter the name";
+"Characters must be between 3 and 24" = "Characters must be between 3 and 24";
