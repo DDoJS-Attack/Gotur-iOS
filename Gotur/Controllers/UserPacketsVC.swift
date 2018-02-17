@@ -30,7 +30,6 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
         let view =  BaseButton(frame: CGRect(), withColor: UIColor(red: 81/255, green: 68/255, blue: 191/255, alpha: 1.0))
         view.setTitle(myPackagesButtonTitle, for: .normal)
         view.addTarget(self, action: #selector(myPackagesList), for: .touchUpInside)
-        view.titleLabel?.font = primaryFont
         return view
     }()
     
