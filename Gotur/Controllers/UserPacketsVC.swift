@@ -28,8 +28,8 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     lazy var showPackagesAlert: UIAlertController = {
         let controller = UIAlertController(title: "", message: nil, preferredStyle: .alert)
-        let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
-        let okayButton = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: { action in
+        let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        let okayButton = UIAlertAction(title: okString, style: UIAlertActionStyle.default, handler: { action in
             self.sendStars()
         })
         var height:NSLayoutConstraint = NSLayoutConstraint(item: controller.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.20)
