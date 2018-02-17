@@ -8,25 +8,29 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
+import GooglePlacePicker
 
-class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
+class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate {
     
     var mapView: GMSMapView!
-    
+    var placesClient: GMSPlacesClient!
     var locationManager = CLLocationManager()
     
-    lazy var sourceSearchBar: UISearchBar = {
-        let searchBar = UISearchBar(frame: CGRect())
-        searchBar.placeholder = enterSourceAddress
-        searchBar.barTintColor = primaryLightColor
-        return searchBar
+    var isSource: Bool!
+    
+    lazy var sourceButton: BaseButton = {
+        let view = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
+        view.setTitle(enterSourceAddress, for: .normal)
+        view.addTarget(self, action: #selector(sourcePicker), for: .touchUpInside)
+        return view
     }()
     
-    lazy var destinationSearchBar: UISearchBar = {
-        let searchBar = UISearchBar(frame: CGRect())
-        searchBar.placeholder = enterDestinationAddress
-        searchBar.barTintColor = primaryLightColor
-        return searchBar
+    lazy var destinationButton: BaseButton = {
+        let view = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
+        view.setTitle(enterDestinationAddress, for: .normal)
+        view.addTarget(self, action: #selector(destinationPicker), for: .touchUpInside)
+        return view
     }()
     
     lazy var weightTextField: UITextField = {
@@ -74,8 +78,12 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISear
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
         
-        self.view.addSubview(sourceSearchBar)
-        self.view.addSubview(destinationSearchBar)
+        placesClient = GMSPlacesClient.shared()
+        
+        isSource = true
+        
+        self.view.addSubview(sourceButton)
+        self.view.addSubview(destinationButton)
         self.view.addSubview(weightTextField)
         self.view.addSubview(priceTextField)
         self.view.addSubview(saveButton)
@@ -85,9 +93,9 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISear
     
     override func setupAnchors() {
         // TODO: Check wheter those are fits into smaller devices or not
-        _ = sourceSearchBar.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: self.view.frame.height/2-84, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 50)
-        _ = destinationSearchBar.anchor(self.sourceSearchBar.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 70, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 50)
-        _ = weightTextField.anchor(self.destinationSearchBar.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 70, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 33)
+        _ = sourceButton.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: self.view.frame.height/2-84, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 50)
+        _ = destinationButton.anchor(self.sourceButton.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 70, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 50)
+        _ = weightTextField.anchor(self.destinationButton.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 70, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 33)
         _ = priceTextField.anchor(self.weightTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 50, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 33)
         _ = saveButton.anchor(self.priceTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 50, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 0, heightConstant: 50)
        
@@ -112,12 +120,60 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISear
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        sourceSearchBar.text = myLocationString
+        placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
+            if let error = error {
+                // Error
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placeLikelihoodList = placeLikelihoodList {
+                let place = placeLikelihoodList.likelihoods.first?.place
+                if let place = place {
+                    self.sourceButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
+                        .joined(separator: "\n")
+                }
+            }
+        })
         return true
     }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    // To receive the results from the place picker 'self' will need to conform to
+    // GMSPlacePickerViewControllerDelegate and implement this code.
+    func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
+        viewController.dismiss(animated: true, completion: nil)
         
+        if isSource {
+            sourceButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
+                .joined(separator: "\n")
+        }
+        else {
+            destinationButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
+                .joined(separator: "\n")
+        }
+    }
+    
+    func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        print("No place selected")
+    }
+    
+    func displayPlacePicker() {
+        let config = GMSPlacePickerConfig(viewport: nil)
+        let placePicker = GMSPlacePickerViewController(config: config)
+        placePicker.delegate = self
+        present(placePicker, animated: true, completion: nil)
+    }
+    
+    func sourcePicker() {
+        isSource = true
+        displayPlacePicker()
+    }
+    
+    func destinationPicker() {
+        isSource = false
+        displayPlacePicker()
     }
     
     func savePacket() {
