@@ -14,7 +14,9 @@ import Alamofire
 import OmiseSDK
 
 class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate, CreditCardFormDelegate {
-
+    
+    private let publicKey = "pkey_test_5ayztv3t3nxkzyu2cm7"
+    
     var placesClient: GMSPlacesClient!
     var locationManager = CLLocationManager()
     
@@ -99,7 +101,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         let button = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
         button.setTitle(saveString, for: .normal)
         button.titleLabel?.font = primaryFont
-        button.addTarget(self, action: #selector(displayCreditCardForm), for: .touchUpInside)
+        button.addTarget(self, action: #selector(savePacket), for: .touchUpInside)
         return button
     }()
     
@@ -142,6 +144,22 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
 
     override func viewDidAppear(_ animated: Bool) {
         self.view.backgroundColor = primaryLightColor
+    }
+    
+    func displayCreditCardForm() {
+        let closeButton = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(dismissCreditCardForm))
+        
+        let creditCardView = CreditCardFormController.makeCreditCardForm(withPublicKey: publicKey)
+        creditCardView.delegate = self
+        creditCardView.handleErrors = true
+        creditCardView.navigationItem.rightBarButtonItem = closeButton
+        
+        let navigation = UINavigationController(rootViewController: creditCardView)
+        present(navigation, animated: true, completion: nil)
+    }
+    
+    func dismissCreditCardForm() {
+        dismiss(animated: true, completion: nil)
     }
     
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
@@ -215,7 +233,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
                 }
             }
             // Return UserPacketsVC
-            self.dismiss(animated: true, completion: nil)
+            displayCreditCardForm()
         }
     }
     
@@ -242,7 +260,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
             return false
         }
         
-        guard let nameTemp = nameTextField.text, nameTemp.characters.count >= 3, nameTemp.characters.count < 24  else {
+        guard let nameTemp = nameTextField.text, nameTemp.count >= 3, nameTemp.count < 24  else {
             self.present(alertDisplay(title: errorCharacterCount3To24, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
             return false
         }
@@ -285,35 +303,27 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         return true
     }
     
-    private let publicKey = "pkey_test_5ayztv3t3nxkzyu2cm7"
-    
     func creditCardForm(_ controller: CreditCardFormController, didSucceedWithToken token: OmiseToken) {
-        dismissCreditCardForm()
-        
+        print("success")
+        self.dismissCreditCardForm()
+        let alert = UIAlertController(title: "Completed",   message: "You just created your package", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler:{ (action) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
         // Sends `OmiseToken` to your server for creating a charge, or a customer object.
     }
     
     func creditCardForm(_ controller: CreditCardFormController, didFailWithError error: Error) {
-        dismissCreditCardForm()
-        
+        print("error")
+        self.dismissCreditCardForm()
+        let alert = UIAlertController(title: "Error",   message: "Something Bad Happened about your payment. However we have created you package", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler:{ (action) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
         // Only important if we set `handleErrors = false`.
         // You can send errors to a logging service, or display them to the user here.
-    }
-    
-    func displayCreditCardForm() {
-        let closeButton = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(dismissCreditCardForm))
-        
-        let creditCardView = CreditCardFormController.makeCreditCardForm(withPublicKey: publicKey)
-        creditCardView.delegate = self
-        creditCardView.handleErrors = true
-        creditCardView.navigationItem.rightBarButtonItem = closeButton
-        
-        let navigation = UINavigationController(rootViewController: creditCardView)
-        present(navigation, animated: true, completion: nil)
-    }
-    
-    func dismissCreditCardForm() {
-        dismiss(animated: true, completion: nil)
     }
 
 }
