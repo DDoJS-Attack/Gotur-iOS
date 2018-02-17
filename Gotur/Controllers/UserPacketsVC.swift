@@ -16,6 +16,8 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     
     var mapView: GMSMapView!
     
+    var packageTakenList = [Packet]()
+    
     var locationManager = CLLocationManager()
     
     lazy var addButton: UIButton = {
@@ -96,6 +98,13 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     }
     
     override func fetchData() {
+        // Setting up taken package
+        for e in packageList{
+            if(e.status == "ASSIGNED" || e.status == "ONWAY"){
+                packageTakenList.append(e)
+            }
+        }
+        self.tableView.reloadData()
     }
     
     func checkPackageStatus(){

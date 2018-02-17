@@ -15,6 +15,8 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     
     var currentLocation = Coordinate()
     
+    var packageTakenList = [Packet]()
+    
     var locationManager = CLLocationManager()
     
     lazy var myPackages : BaseButton = {
@@ -51,47 +53,46 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }()
     
     override func fetchData() {
-        let urlString = "https://chatbot-avci.olut.xyz/courier/my?courier_id=" + CID
+        let urlString = "https://chatbot-avci.olut.xyz/cargo"
         // Parsing datas from api
-        Alamofire.request(urlString).responseJSON { response in
-            if let json = response.result.value {
-                let jsonKSwift = JSON(json)
-                let jsonSwiftData = jsonKSwift["data"]
-                var i = 0
-                // While data is not null append values to charity array that will be used for tableview
-                while(jsonSwiftData[i] != JSON.null){
-                    let tempPacket = self.packetCreator(withJSONData: jsonSwiftData, withIndex: i)
-                    self.packageTakenList.append(tempPacket)
-                    i += 1
+         let packet = Dictionary<String, Any>()
+        // Push to db
+        Alamofire.request(urlString, method: .post, parameters: packet, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+            switch response.result {
+            case .success:
+                if let json = response.result.value {
+                    let jsonKSwift = JSON(json)
+                    let jsonSwiftData = jsonKSwift["data"]
+                    var i = 0
+                    // While data is not null append values to charity array that will be used for tableview
+                    while(jsonSwiftData[i] != JSON.null){
+                        let tempPacket = self.packetCreator(withJSONData: jsonSwiftData, withIndex: i)
+                        self.packageList.append(tempPacket)
+                        print("status: \(jsonSwiftData[i]["status"].stringValue)")
+                        i += 1
+                    }
+                    DispatchQueue.main.async {
+                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+                    }
                 }
-                DispatchQueue.main.async {
-                    self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+                
+                // Setting up taken package
+                for e in self.packageList{
+                    if(e.status == "ASSIGNED" || e.status == "ONWAY"){
+                        self.packageTakenList.append(e)
+                    }
                 }
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error)
             }
         }
-            
-        Alamofire.request("https://chatbot-avci.olut.xyz/courier/my").responseJSON { response in
-            if let json = response.result.value {
-                let jsonKSwift = JSON(json)
-                let jsonSwiftData = jsonKSwift["data"]
-                var i = 0
-                // While data is not null append values to charity array that will be used for tableview
-                print("jsonSwiftData: \(jsonSwiftData.count)")
-                while(jsonSwiftData[i] != JSON.null){
-                    let tempPacket = self.packetCreator(withJSONData: jsonSwiftData, withIndex: i)
-                    self.packageNontakenList.append(tempPacket)
-                    i += 1
-                }
-                DispatchQueue.main.async {
-                    self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
-                }
-            }
-    
-        }
+        
     }
     
+    
     func packetCreator(withJSONData jsonSwiftData : JSON, withIndex i: Int) -> Packet{
-        return Packet.init(destCoorLat: Double(jsonSwiftData[i]["destinationLoc"][1].stringValue)!, destCoorLong: Double(jsonSwiftData[i]["destinationLoc"][0].stringValue)!, sourceCoorLat: Double(jsonSwiftData[i]["sourceLoc"][1].stringValue)!, sourceCoorLong: Double(jsonSwiftData[i]["sourceLoc"][0].stringValue)!, name: jsonSwiftData[i]["name"].stringValue, weight: jsonSwiftData[i]["weight"].stringValue, price: jsonSwiftData[i]["price"].stringValue)
+        return Packet.init(destCoorLat: Double(jsonSwiftData[i]["destinationLoc"][1].stringValue)!, destCoorLong: Double(jsonSwiftData[i]["destinationLoc"][0].stringValue)!, sourceCoorLat: Double(jsonSwiftData[i]["sourceLoc"][1].stringValue)!, sourceCoorLong: Double(jsonSwiftData[i]["sourceLoc"][0].stringValue)!, name: jsonSwiftData[i]["name"].stringValue, weight: jsonSwiftData[i]["weight"].stringValue, price: jsonSwiftData[i]["price"].stringValue, id: jsonSwiftData[i]["_id"].stringValue, status: jsonSwiftData[i]["status"].stringValue)
     }
     
     override func setupViews() {
@@ -139,23 +140,41 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        // Tag = 0 -> Taken, Tag = 1 -> Nontaken
         
         let alert = UIAlertController(title: "Package", message: "Do you want to take this package", preferredStyle: .alert)
         let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
         let okayButton = UIAlertAction(title: "Okay", style: .default) { (alert) in
-            if (marker.iconView?.tag == 1) {
-                let sourceImageView = UIImageView(image: UIImage(named: "takenPackage"))
-                sourceImageView.tag = 0
-                marker.iconView = sourceImageView
+            let location = marker.iconView!.tag
+            if (self.packageList[location].status == "INITIAL") {
                 // Update in database
-                
-                
+                let packet: Dictionary<String, String> = [
+                    "cargoId": String(describing: self.packageList[location].id),
+                    "courierId":"5a88606059efcb2d3f60fef5"
+                ]
+                print(packet)
+                // Push to db
+                let urlString = "https://chatbot-avci.olut.xyz/courier/own"
+                Alamofire.request(urlString, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
+                    response in
+                    switch response.result {
+                    case .success:
+                        print(response)
+                        self.packageTakenList.append(self.packageList[location])
+                        marker.iconView = UIImageView(image: UIImage(named: "takenPackage"))
+                        self.packageList.remove(at: location)
+                    case .failure(let error):
+                        
+                        print(error)
+                    }
+                }
+
+
             }
         }
         alert.addAction(cancelButton)
         alert.addAction(okayButton)
         present(alert, animated: true, completion: nil)
+        
         return true
     }
     
@@ -170,7 +189,6 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 0.1
-        
         return cell
     }
     
