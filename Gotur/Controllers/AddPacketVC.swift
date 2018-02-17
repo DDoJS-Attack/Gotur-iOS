@@ -84,6 +84,7 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     override func setupAnchors() {
+        // TODO: Check wheter those are fits into smaller devices or not
         _ = sourceSearchBar.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: self.view.frame.height/2-84, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 50)
         _ = destinationSearchBar.anchor(self.sourceSearchBar.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 70, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 50)
         _ = weightTextField.anchor(self.destinationSearchBar.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 70, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 33)
@@ -108,6 +109,11 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         mapView.animate(to: camera)
         
         self.locationManager.stopUpdatingLocation()
+    }
+    
+    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+        sourceSearchBar.text = "My location"
+        return true
     }
     
     func savePacket() {
