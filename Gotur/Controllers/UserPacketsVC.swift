@@ -61,10 +61,10 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         let lng2 = "\(Double((locationManager.location?.coordinate.longitude)!))"
         let lat2 = "\((Double((locationManager.location?.coordinate.latitude)!)) - 0.01)"
 
-        let item1 = Packet(data: ["source": [lng2, lat2], "destination": [lng, lat]])
-        let item2 = Packet(data: ["source": ["150", "-32"], "destination": ["-30", "180"]])
-        packets.append(item1)
-        packets.append(item2)
+//        let item1 = Packet(data: ["source": [lng2, lat2], "destination": [lng, lat]])
+//        let item2 = Packet(data: ["source": ["150", "-32"], "destination": ["-30", "180"]])
+//        packets.append(item1)
+//        packets.append(item2)
     }
     
     func parsePackets() {

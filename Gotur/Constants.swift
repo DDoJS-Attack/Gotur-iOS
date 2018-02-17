@@ -29,3 +29,4 @@ let enterPriceOfItem = NSLocalizedString("Enter the price of the item", comment:
 let saveString = NSLocalizedString("Save", comment: "")
 let myLocationString = NSLocalizedString("My Location", comment: "") // Not used
 let cancelString = NSLocalizedString("Cancel", comment: "")
+let myPackagesButtonTitle = NSLocalizedString("My Packages", comment: "")
