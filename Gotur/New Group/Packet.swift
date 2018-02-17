@@ -93,6 +93,10 @@ class Packet {
         _id = data["_id"].stringValue
         _status = data["status"].stringValue
         _courier = data["courier"].stringValue
+        
+        print(_sourceLoc)
+        print(_destinationLoc)
+        print("--------")
     }
     
 }
