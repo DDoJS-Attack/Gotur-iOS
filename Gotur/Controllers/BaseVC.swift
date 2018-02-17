@@ -15,6 +15,7 @@ class BaseVC: UIViewController {
     
     var packageTakenList = [Packet]()
     var packageNontakenList =   [Packet]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
