@@ -25,6 +25,7 @@
 		EC015161203766FF003025CF /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01515F203766FF003025CF /* BaseVC.swift */; };
 		EC01516420377795003025CF /* UserPacketsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01516320377795003025CF /* UserPacketsVC.swift */; };
 		ECC7059F2038832200C51C05 /* OmiseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECC7059E2038832200C51C05 /* OmiseSDK.framework */; };
+		ECC705A22038C8BD00C51C05 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC705A12038C8BD00C51C05 /* DataService.swift */; };
 		ECFB27B920379347008462E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27B820379347008462E0 /* Constants.swift */; };
 		ECFB27BE203793DF008462E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECFB27C0203793DF008462E0 /* Localizable.strings */; };
 		ECFB27C62037B451008462E0 /* AddPacketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27C52037B451008462E0 /* AddPacketVC.swift */; };
@@ -80,6 +81,7 @@
 		EC01515F203766FF003025CF /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		EC01516320377795003025CF /* UserPacketsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPacketsVC.swift; sourceTree = "<group>"; };
 		ECC7059E2038832200C51C05 /* OmiseSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OmiseSDK.framework; path = Carthage/Build/iOS/OmiseSDK.framework; sourceTree = "<group>"; };
+		ECC705A12038C8BD00C51C05 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		ECFB27B820379347008462E0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ECFB27BA20379390008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Main.strings; sourceTree = "<group>"; };
 		ECFB27BB20379390008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				EC01513A203766D8003025CF /* Info.plist */,
 				EC015132203766D8003025CF /* Gotur.xcdatamodeld */,
 				ECFB27B820379347008462E0 /* Constants.swift */,
+				ECC705A12038C8BD00C51C05 /* DataService.swift */,
 				ECFB27C0203793DF008462E0 /* Localizable.strings */,
 			);
 			path = Gotur;
@@ -566,6 +569,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6875FEA3203770E2001706D6 /* EntranceVC.swift in Sources */,
+				ECC705A22038C8BD00C51C05 /* DataService.swift in Sources */,
 				EC01512C203766D8003025CF /* AppDelegate.swift in Sources */,
 				6875FEA82037760F001706D6 /* BaseButton.swift in Sources */,
 				6875FEA120376CDB001706D6 /* MessengerVC.swift in Sources */,

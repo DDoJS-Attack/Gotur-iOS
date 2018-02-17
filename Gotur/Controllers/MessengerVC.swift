@@ -53,11 +53,10 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }()
     
     override func fetchData() {
-        let urlString = "https://chatbot-avci.olut.xyz/cargo"
         // Parsing datas from api
          let packet = Dictionary<String, Any>()
         // Push to db
-        Alamofire.request(urlString, method: .post, parameters: packet, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+        Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: packet, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
             switch response.result {
             case .success:
                 if let json = response.result.value {
@@ -68,7 +67,6 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     while(jsonSwiftData[i] != JSON.null){
                         let tempPacket = self.packetCreator(withJSONData: jsonSwiftData[i])
                         self.packageList.append(tempPacket)
-                        print("status: \(jsonSwiftData[i]["status"].stringValue)")
                         i += 1
                     }
                     DispatchQueue.main.async {
@@ -90,7 +88,6 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         
     }
     
-    
     func packetCreator(withJSONData jsonSwiftData : JSON) -> Packet{
         return Packet.init(data: jsonSwiftData)
     }
@@ -111,7 +108,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     
     override func setupAnchors() {
         _ = mapView.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        _ = myPackages.anchor(nil, left: nil, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 24, rightConstant: 24, widthConstant: self.view.frame.width*2/5, heightConstant: self.view.frame.height/12)
+        _ = myPackages.anchor(nil, left: nil, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 24, rightConstant: 24, widthConstant: self.view.frame.width/2, heightConstant: self.view.frame.height/12)
     }
     
     
@@ -132,7 +129,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         
         currentLocation.longitude = (locations.last?.coordinate.longitude)!
         currentLocation.latitude = (locations.last?.coordinate.latitude)!
-        let camera = GMSCameraPosition.camera(withLatitude:  currentLocation.latitude, longitude:  currentLocation.longitude, zoom: 10.0)
+        let camera = GMSCameraPosition.camera(withLatitude:  currentLocation.latitude, longitude:  currentLocation.longitude, zoom: courierMapViewZoom)
         mapView.animate(to: camera)
         
         self.locationManager.stopUpdatingLocation()
