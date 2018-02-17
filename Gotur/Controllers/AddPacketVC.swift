@@ -99,7 +99,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         let button = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
         button.setTitle(saveString, for: .normal)
         button.titleLabel?.font = primaryFont
-        button.addTarget(self, action: #selector(displayCreditCardForm), for: .touchUpInside)
+        button.addTarget(self, action: #selector(savePacket), for: .touchUpInside)
         return button
     }()
     
@@ -194,7 +194,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
                 "destinationAddress": destination.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n") as AnyObject,
                 "sourceLoc": [source.coordinate.longitude, source.coordinate.latitude],
                 "destinationLoc": [destination.coordinate.longitude, destination.coordinate.latitude],
-                "owner": UID,
+                "customer": UID,
                 "price": calculatePriceAsKurus(price: priceTextField.text!),
                 "weight": Double(weightTextField.text!) as AnyObject
             ]
