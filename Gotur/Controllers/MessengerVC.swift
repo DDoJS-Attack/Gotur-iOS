@@ -65,7 +65,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     i += 1
                 }
                 DispatchQueue.main.async {
-                    self.mapView.reloadInputViews()
+                    self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
                 }
             }
         }
@@ -76,13 +76,14 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                 let jsonSwiftData = jsonKSwift["data"]
                 var i = 0
                 // While data is not null append values to charity array that will be used for tableview
+                print("jsonSwiftData: \(jsonSwiftData.count)")
                 while(jsonSwiftData[i] != JSON.null){
                     let tempPacket = self.packetCreator(withJSONData: jsonSwiftData, withIndex: i)
                     self.packageNontakenList.append(tempPacket)
                     i += 1
                 }
                 DispatchQueue.main.async {
-                    self.mapView.reloadInputViews()
+                    self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
                 }
             }
     
@@ -90,7 +91,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     func packetCreator(withJSONData jsonSwiftData : JSON, withIndex i: Int) -> Packet{
-        return Packet.init(destCoorLat: Double(jsonSwiftData[i]["destinationLoc"][1].stringValue)!, destCoorLong: Double(jsonSwiftData[i]["destinationLoc"][0].stringValue)!, sourceCoorLat: Double(jsonSwiftData[i]["sourceLoc"][1].stringValue)!, sourceCoorLong: Double(jsonSwiftData[i]["sourceLoc"][0].stringValue)!, name: jsonSwiftData[i]["name"].stringValue, weight: jsonSwiftData[i]["weigth"].stringValue, price: jsonSwiftData[i]["price"].stringValue)
+        return Packet.init(destCoorLat: Double(jsonSwiftData[i]["destinationLoc"][1].stringValue)!, destCoorLong: Double(jsonSwiftData[i]["destinationLoc"][0].stringValue)!, sourceCoorLat: Double(jsonSwiftData[i]["sourceLoc"][1].stringValue)!, sourceCoorLong: Double(jsonSwiftData[i]["sourceLoc"][0].stringValue)!, name: jsonSwiftData[i]["name"].stringValue, weight: jsonSwiftData[i]["weight"].stringValue, price: jsonSwiftData[i]["price"].stringValue)
     }
     
     override func setupViews() {
@@ -105,7 +106,6 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         self.locationManager.delegate = self
         self.locationManager.startUpdatingLocation()
         
-        setupMarkersAndLinesBetweenThem(withMap: mapView)
     }
     
     override func setupAnchors() {
