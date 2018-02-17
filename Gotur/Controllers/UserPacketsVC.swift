@@ -18,6 +18,13 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     var locationManager = CLLocationManager()
     
+    lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "ic_add_circle_48pt"), for: .normal)
+        button.addTarget(self, action: #selector(goToAddPacketVC), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         self.view.backgroundColor = .white
     }
@@ -36,10 +43,12 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         fillDB()
         parsePackets()
+        
+        self.view.addSubview(addButton)
     }
     
     override func setupAnchors() {
-        
+        _ = addButton.anchor(nil, left: nil, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 70, rightConstant: 8, widthConstant: 60, heightConstant: 60)
     }
     
     override func fetchData() {
@@ -77,7 +86,6 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         let location = locations.last
         
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude:(location?.coordinate.longitude)!, zoom:14)
@@ -91,6 +99,11 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         // Push appropriate data
         // Draw path from courier to packet to destination
         drawPath()
+        let addPacketVC = AddPacketVC()
+        present(addPacketVC, animated: true, completion: nil)
+    }
+    
+    func goToAddPacketVC() {
         let addPacketVC = AddPacketVC()
         present(addPacketVC, animated: true, completion: nil)
     }
