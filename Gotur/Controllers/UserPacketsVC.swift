@@ -29,7 +29,9 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     lazy var showPackagesAlert: UIAlertController = {
         let controller = UIAlertController(title: "", message: nil, preferredStyle: .alert)
         let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
-        let okayButton = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in print("OKay")})
+        let okayButton = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: { action in
+            self.sendStars()
+        })
         var height:NSLayoutConstraint = NSLayoutConstraint(item: controller.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.20)
         controller.view.addConstraint(height)
         controller.addAction(cancelButton)
@@ -74,9 +76,6 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     override func setupAnchors() {
         _ = addButton.anchor(nil, left: nil, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 36, rightConstant: 8, widthConstant: 60, heightConstant: 60)
-        
-
-
     }
     
     override func fetchData() {
@@ -84,18 +83,17 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     
     func checkPackageStatus(){
         if(checkIfPackageDropredOrNot()){
-            print("asdf")
-            
             showPackagesAlert.title = "Fish has been dropped"
             showPackagesAlert.view.addSubview(starView)
             
-            _ = starView.anchor(self.showPackagesAlert.view.topAnchor, left: self.showPackagesAlert.view.leftAnchor, bottom: self.showPackagesAlert.view.bottomAnchor, right: self.showPackagesAlert.view.rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 24, rightConstant: 8, widthConstant: 0, heightConstant: 0)
+            _ = starView.anchor(self.showPackagesAlert.view.topAnchor, left: self.showPackagesAlert.view.leftAnchor, bottom: self.showPackagesAlert.view.bottomAnchor, right: self.showPackagesAlert.view.rightAnchor, topConstant: 48, leftConstant: 8, bottomConstant: 48, rightConstant: 8, widthConstant: 0, heightConstant: 0)
             
             self.present(showPackagesAlert, animated: true, completion:{})
         }
     }
     func sendStars() {
         // Send stars to database
+        print("current Start Value \(starView.value)")
     }
     func checkIfPackageDropredOrNot() -> Bool {
         // Implement this
