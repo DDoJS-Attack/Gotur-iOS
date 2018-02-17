@@ -11,7 +11,11 @@ import GoogleMaps
 //import PopupDialog
 
 class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate {
-
+    
+    var currentLocation = Coordinate()
+    
+    var locationManager = CLLocationManager()
+    
     lazy var myPackages : BaseButton = {
         let view =  BaseButton(frame: CGRect(), withColor: UIColor(red: 81/255, green: 68/255, blue: 191/255, alpha: 1.0))
         view.setTitle(myPackagesButtonTitle, for: .normal)
@@ -19,9 +23,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         return view
     }()
     
-    var locationManager = CLLocationManager()
-    
-    let packageList = [Packet.init(withData: ["source": [-122.408586,   37.793414], "destination": [-123.408586, 38.793414]], withName: "Fish", withWeight: "100", withPrice: "30"), Packet.init(withData: ["source": [-122.408586, 35.793414], "destination": [-123.408586, 37.793414]], withName: "Pen", withWeight: "20", withPrice: "20"),    Packet.init(withData: ["source": [-121.408586, 35.793414], "destination": [-123.408586, 34.793414]], withName: "Paper", withWeight: "10", withPrice: "60")  ]
+    let packageList = [Packet.init(withData: ["source": [-122.448586,   37.793414], "destination": [-123.408586, 38.793414]], withName: "Fish", withWeight: "100", withPrice: "30"),Packet.init(withData: ["source": [-122.408586, 37.795914], "destination": [-122.408586,   37.781414]], withName: "Honey", withWeight: "10", withPrice: "100"), Packet.init(withData: ["source": [-122.408586, 35.793414], "destination": [-123.408586, 37.793414]], withName: "Pen", withWeight: "20", withPrice: "20"),    Packet.init(withData: ["source": [-121.408586, 35.793414], "destination": [-123.408586, 34.793414]], withName: "Paper", withWeight: "10", withPrice: "60")  ]
     
     
     
@@ -71,8 +73,8 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     
     func setupMarkersAndLinesBetweenThem() {
         
+        // Creating a marker for every item in the list and connects them
         for p in packageList{
-            
             let sourcePosition = CLLocationCoordinate2D(latitude: p.source.latitude, longitude: p.source.longitude)
             let sourceMarker = GMSMarker(position: sourcePosition)
             sourceMarker.title = "\(p.name) - Source"
@@ -107,17 +109,20 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     func myPackagesList() {
+        //It shows current packets for user
         showPackagesAlert.view.addSubview(tableView)
+        
         _ = tableView.anchor(self.showPackagesAlert.view.topAnchor, left: self.showPackagesAlert.view.leftAnchor, bottom: self.showPackagesAlert.view.bottomAnchor, right: self.showPackagesAlert.view.rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 72, rightConstant: 8, widthConstant: 0, heightConstant: 0)
+        
         self.present(showPackagesAlert, animated: true, completion:{})
         
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let location = locations.last
-        
-        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude:(location?.coordinate.longitude)!, zoom:14)
+        currentLocation.longitude = (locations.last?.coordinate.longitude)!
+        currentLocation.latitude = (locations.last?.coordinate.latitude)!
+        let camera = GMSCameraPosition.camera(withLatitude:  currentLocation.latitude, longitude:  currentLocation.longitude, zoom:14)
         mapView.animate(to: camera)
         
         self.locationManager.stopUpdatingLocation()
@@ -140,6 +145,8 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         return cell
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        //adding left pull action
         let drop = UITableViewRowAction(style: .destructive, title: "Dropped") { (action, indexPath) in
             let droppedPackage = self.packageList[indexPath.row]
             self.confirmDrop(withPackage: droppedPackage)
@@ -149,7 +156,22 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     func confirmDrop(withPackage package: Packet) {
-        // Handle package drop
-        print("Package dropped")
+        print(package.name)
+        print(findDistanceBetweenTwoLocations(package.destination, currentLocation))
+        print("destionation: location: \(package.destination.longitude) - \(package.destination.latitude)")
+        print("current location: \(currentLocation.longitude) - \(currentLocation.latitude)")
+        print("---------------")
+        if(findDistanceBetweenTwoLocations(package.destination, currentLocation) <= 0.05){
+            print("Package dropped")
+        }else {
+            self.view.shake()
+        }
+    }
+    
+    func findDistanceBetweenTwoLocations(_ locationOne: Coordinate, _ locationTwo: Coordinate) -> Double{
+        let differenceLatitude = abs(abs(locationOne.latitude)-abs(locationTwo.latitude))
+        let differenceLongtitude = abs(abs(locationOne.longitude)-abs(locationTwo.longitude))
+        
+        return  (differenceLatitude*differenceLatitude + differenceLongtitude*differenceLongtitude).squareRoot()
     }
 }

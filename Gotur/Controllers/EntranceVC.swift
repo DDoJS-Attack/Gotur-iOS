@@ -10,6 +10,7 @@ import UIKit
 
 class EntranceVC: BaseVC {
     
+    // this VC is basicly for selecting if you are messenger or normal user
     lazy var normalUser: BaseButton = {
         let view = BaseButton(frame: CGRect(), withColor: UIColor(red: 81/255, green: 68/255, blue: 191/255, alpha: 1.0))
         view.setTitle(signInUser, for: .normal)

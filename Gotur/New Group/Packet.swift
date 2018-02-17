@@ -41,7 +41,7 @@ class Packet {
         return _price
     }
     
-    
+    // Creating an Packet Object with given parameters
     init(withData data: Dictionary<String, [Double]>,withName name: String, withWeight weight: String, withPrice price: String) {
         if let src = data["source"]{
             let coordinate = Coordinate(longitude: src[0], latitude: src[1])
