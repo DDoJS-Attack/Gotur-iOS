@@ -141,11 +141,11 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        let alert = UIAlertController(title: "Package", message: "Do you want to take this package", preferredStyle: .alert)
-        let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
-        let okayButton = UIAlertAction(title: "Okay", style: .default) { (alert) in
-            let location = marker.iconView!.tag
-            if (self.packageList[location].status == "INITIAL") {
+        if (self.packageList[marker.iconView!.tag].status == "INITIAL") {
+            let alert = UIAlertController(title: "Package", message: "Do you want to take this package", preferredStyle: .alert)
+            let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
+            let okayButton = UIAlertAction(title: "Okay", style: .default) { (alert) in
+                let location = marker.iconView!.tag
                 // Update in database
                 let packet: Dictionary<String, String> = [
                     "cargoId": String(describing: self.packageList[location].id),
@@ -167,14 +167,11 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                         print(error)
                     }
                 }
-
-
             }
+            alert.addAction(cancelButton)
+            alert.addAction(okayButton)
+            present(alert, animated: true, completion: nil)
         }
-        alert.addAction(cancelButton)
-        alert.addAction(okayButton)
-        present(alert, animated: true, completion: nil)
-        
         return true
     }
     
@@ -211,6 +208,24 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         print("---------------")
         
         if(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation) <= 0.05){
+            // Update in database
+            let packet: Dictionary<String, String> = [
+                "cargoId": String(describing: package.id),
+            ]
+            print(packet)
+            // Push to db
+            let urlString = "https://chatbot-avci.olut.xyz/courier/deliver"
+            Alamofire.request(urlString, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
+                response in
+                switch response.result {
+                case .success:
+                    print(response)
+                    self.packageTakenList = self.packageTakenList.filter { $0.id != package.id }
+                case .failure(let error):
+                    
+                    print(error)
+                }
+            }
             print("Package dropped")
         }else {
             self.view.shake()
