@@ -14,6 +14,7 @@ class BaseVC: UIViewController {
     // This is the base View Controller. It will be the parent Class of every controller.
     
     let packageList = [Packet.init(withData: ["source": [-122.448586,   37.793414], "destination": [-123.408586, 38.793414]], withName: "Fish", withWeight: "100", withPrice: "30"),Packet.init(withData: ["source": [-122.408586, 37.795914], "destination": [-122.408586,   37.781414]], withName: "Honey", withWeight: "10", withPrice: "100"), Packet.init(withData: ["source": [-122.408586, 35.793414], "destination": [-123.408586, 37.793414]], withName: "Pen", withWeight: "20", withPrice: "20"),    Packet.init(withData: ["source": [-121.408586, 35.793414], "destination": [-123.408586, 34.793414]], withName: "Paper", withWeight: "10", withPrice: "60")  ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()

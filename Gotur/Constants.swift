@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+// Hard coded user id
+let UID = "5a87974855e6360f936a6528"
+
 let primaryFont = UIFont.systemFont(ofSize: 15)
 let primaryBigFont = UIFont.systemFont(ofSize: 24)
 
@@ -30,4 +33,13 @@ let enterNameOfItem = NSLocalizedString("Enter the name of the item", comment: "
 let saveString = NSLocalizedString("Save", comment: "")
 let myLocationString = NSLocalizedString("My Location", comment: "") // Not used
 let cancelString = NSLocalizedString("Cancel", comment: "")
+let okString = NSLocalizedString("Ok", comment: "")
+let errorSourceAddress = NSLocalizedString("Source address must be initialized", comment: "")
+let errorDestinationAddress = NSLocalizedString("Destination address must be initialized", comment: "")
+let errorEmptyWeight = NSLocalizedString("Please enter the weight", comment: "")
+let errorEmptyPrice = NSLocalizedString("Please enter the price", comment: "")
+let errorIncorrectWeight = NSLocalizedString("Please enter the weight correctly", comment: "")
+let errorIncorrectPrice = NSLocalizedString("Please enter the price correctly", comment: "")
 let myPackagesButtonTitle = NSLocalizedString("My Packages", comment: "")
+let errorEmptyName = NSLocalizedString("Please enter the name", comment: "")
+let errorCharacterCount3To24 = NSLocalizedString("Characters must be between 3 and 24", comment: "")
