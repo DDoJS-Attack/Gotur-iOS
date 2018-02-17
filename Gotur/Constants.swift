@@ -26,6 +26,7 @@ let clickToEnterSourceAddress = NSLocalizedString("Click to enter source address
 let clickToEnterDestinationAddress = NSLocalizedString("Click to enter destination address", comment: "")
 let enterWeightOfItem = NSLocalizedString("Enter the weight of the item", comment: "")
 let enterPriceOfItem = NSLocalizedString("Enter the price of the item", comment: "")
+let enterNameOfItem = NSLocalizedString("Enter the name of the item", comment: "")
 let saveString = NSLocalizedString("Save", comment: "")
 let myLocationString = NSLocalizedString("My Location", comment: "") // Not used
 let cancelString = NSLocalizedString("Cancel", comment: "")

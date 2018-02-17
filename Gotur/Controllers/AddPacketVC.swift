@@ -11,6 +11,7 @@ import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
 
+
 class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate {
 
     var placesClient: GMSPlacesClient!
@@ -23,6 +24,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         view.backgroundColor = primaryDarkColor
         return view
     }()
+
     
     lazy var cancelButton: BaseButton = {
         let button = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
@@ -54,6 +56,19 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     lazy var weightTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = enterWeightOfItem
+        textField.font = primaryFont
+        textField.borderStyle = UITextBorderStyle.roundedRect
+        textField.autocorrectionType = UITextAutocorrectionType.no
+        textField.keyboardType = UIKeyboardType.default
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.clearButtonMode = UITextFieldViewMode.whileEditing;
+        textField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
+        return textField
+    }()
+
+    lazy var nameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = enterNameOfItem
         textField.font = primaryFont
         textField.borderStyle = UITextBorderStyle.roundedRect
         textField.autocorrectionType = UITextAutocorrectionType.no
@@ -101,6 +116,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         self.view.addSubview(weightTextField)
         self.view.addSubview(priceTextField)
         self.view.addSubview(saveButton)
+        self.view.addSubview(nameTextField)
     }
     
     override func setupAnchors() {
@@ -111,13 +127,15 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         _ = destinationButton.anchor(self.sourceButton.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
         _ = weightTextField.anchor(self.destinationButton.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
         _ = priceTextField.anchor(self.weightTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
-        _ = saveButton.anchor(self.priceTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 0, heightConstant: 40)
+        _ = nameTextField.anchor(self.priceTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
+        _ = saveButton.anchor(self.nameTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 0, heightConstant: 40)
     }
+    
     
     override func fetchData() {
-        
     }
     
+
     override func viewDidAppear(_ animated: Bool) {
         self.view.backgroundColor = primaryLightColor
     }
@@ -157,14 +175,14 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     }
     
     func cancelButtonTapped() {
-        let userPackets = UserPacketsVC()
-        present(userPackets, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func savePacket() {
         // Check constraints (Error handling)
         // Push to db
         // Return UserPacketsVC
+        self.dismiss(animated: true, completion: nil)
     }
 
 }
