@@ -69,19 +69,6 @@ class Packet {
         return nil
     }
     
-    // Creating an Packet Object with given parameters
-    init(destCoorLat: Double, destCoorLong: Double, sourceCoorLat: Double, sourceCoorLong: Double , name: String,  weight: String,  price: String) {
-         _sourceLoc =  Coordinate(longitude: sourceCoorLat, latitude: sourceCoorLong)
-        
-        _destinationLoc = Coordinate(longitude: destCoorLong, latitude: destCoorLat)
-        
-        _name = name
-        
-        _weight = weight
-        
-        _price = price
-    }
-    
     init(data: JSON) {
         _sourceAddress = data["sourceAddress"].stringValue
         _destinationAddress = data["destinationAddress"].stringValue
@@ -93,10 +80,6 @@ class Packet {
         _id = data["_id"].stringValue
         _status = data["status"].stringValue
         _courier = data["courier"].stringValue
-        
-        print(_sourceLoc)
-        print(_destinationLoc)
-        print("--------")
     }
     
 }
