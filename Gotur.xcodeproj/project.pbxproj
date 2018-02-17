@@ -23,6 +23,7 @@
 		EC015160203766FF003025CF /* ViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01515D203766FF003025CF /* ViewHelper.swift */; };
 		EC015161203766FF003025CF /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01515F203766FF003025CF /* BaseVC.swift */; };
 		EC01516420377795003025CF /* UserPacketsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01516320377795003025CF /* UserPacketsVC.swift */; };
+		ECC7059F2038832200C51C05 /* OmiseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECC7059E2038832200C51C05 /* OmiseSDK.framework */; };
 		ECFB27B920379347008462E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27B820379347008462E0 /* Constants.swift */; };
 		ECFB27BE203793DF008462E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECFB27C0203793DF008462E0 /* Localizable.strings */; };
 		ECFB27C4203796FB008462E0 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27C3203796FB008462E0 /* Packet.swift */; };
@@ -77,6 +78,7 @@
 		EC01515D203766FF003025CF /* ViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewHelper.swift; sourceTree = "<group>"; };
 		EC01515F203766FF003025CF /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		EC01516320377795003025CF /* UserPacketsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPacketsVC.swift; sourceTree = "<group>"; };
+		ECC7059E2038832200C51C05 /* OmiseSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OmiseSDK.framework; path = Carthage/Build/iOS/OmiseSDK.framework; sourceTree = "<group>"; };
 		ECFB27B820379347008462E0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ECFB27BA20379390008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Main.strings; sourceTree = "<group>"; };
 		ECFB27BB20379390008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				547507C5ED0A410EC198CFBE /* Pods_Gotur.framework in Frameworks */,
+				ECC7059F2038832200C51C05 /* OmiseSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +120,7 @@
 		55EC591949B2EF2BDEACDA9A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECC7059E2038832200C51C05 /* OmiseSDK.framework */,
 				A992AF81C813A17BD4627E05 /* Pods_Gotur.framework */,
 				6D2A76B020FE0CD92BBBCD19 /* Pods_GoturTests.framework */,
 				242E822E4356887176BAD32E /* Pods_GoturUITests.framework */,
@@ -247,6 +251,7 @@
 				EC015126203766D8003025CF /* Resources */,
 				B9C49FB2E7874CA6477BB1A1 /* [CP] Embed Pods Frameworks */,
 				B9373926D12A4D808DFCA7FF /* [CP] Copy Pods Resources */,
+				ECC705A02038833000C51C05 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -539,6 +544,20 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		ECC705A02038833000C51C05 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/OmiseSDK.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -736,6 +755,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V6KFG398S6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Gotur/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur";
@@ -750,6 +773,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = V6KFG398S6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Gotur/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur";

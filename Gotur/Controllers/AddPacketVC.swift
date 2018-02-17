@@ -11,8 +11,9 @@ import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
 import Alamofire
+import OmiseSDK
 
-class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate {
+class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate, CreditCardFormDelegate {
 
     var placesClient: GMSPlacesClient!
     var locationManager = CLLocationManager()
@@ -27,7 +28,6 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         return view
     }()
 
-    
     lazy var cancelButton: BaseButton = {
         let button = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
         button.setTitle(cancelString, for: .normal)
@@ -99,7 +99,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         let button = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
         button.setTitle(saveString, for: .normal)
         button.titleLabel?.font = primaryFont
-        button.addTarget(self, action: #selector(savePacket), for: .touchUpInside)
+        button.addTarget(self, action: #selector(displayCreditCardForm), for: .touchUpInside)
         return button
     }()
     
@@ -283,6 +283,37 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         }
         
         return true
+    }
+    
+    private let publicKey = "pkey_test_5ayztv3t3nxkzyu2cm7"
+    
+    func creditCardForm(_ controller: CreditCardFormController, didSucceedWithToken token: OmiseToken) {
+        dismissCreditCardForm()
+        
+        // Sends `OmiseToken` to your server for creating a charge, or a customer object.
+    }
+    
+    func creditCardForm(_ controller: CreditCardFormController, didFailWithError error: Error) {
+        dismissCreditCardForm()
+        
+        // Only important if we set `handleErrors = false`.
+        // You can send errors to a logging service, or display them to the user here.
+    }
+    
+    func displayCreditCardForm() {
+        let closeButton = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(dismissCreditCardForm))
+        
+        let creditCardView = CreditCardFormController.makeCreditCardForm(withPublicKey: publicKey)
+        creditCardView.delegate = self
+        creditCardView.handleErrors = true
+        creditCardView.navigationItem.rightBarButtonItem = closeButton
+        
+        let navigation = UINavigationController(rootViewController: creditCardView)
+        present(navigation, animated: true, completion: nil)
+    }
+    
+    func dismissCreditCardForm() {
+        dismiss(animated: true, completion: nil)
     }
 
 }
