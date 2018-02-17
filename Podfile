@@ -12,6 +12,7 @@ target 'Gotur' do
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
   pod 'StarReview', '~> 1.0'
+  pod 'SwiftSocket'
   
   target 'GoturTests' do
     inherit! :search_paths

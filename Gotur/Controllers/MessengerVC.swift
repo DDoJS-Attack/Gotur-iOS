@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import Alamofire
 import SwiftyJSON
+import SwiftSocket
 
 class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate {
     
@@ -26,6 +27,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         return view
     }()
     
+    // Variable for creating an alert with tableview
     lazy var showPackagesAlert: UIAlertController = {
         let controller = UIAlertController(title: "", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
@@ -54,9 +56,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     
     override func fetchData() {
         // Parsing datas from api
-         let packet = Dictionary<String, Any>()
-        // Push to db
-        Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: packet, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+        Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
             switch response.result {
             case .success:
                 if let json = response.result.value {
@@ -85,7 +85,25 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                 print(error)
             }
         }
-        
+        startSocket()
+    }
+    func startSocket() {
+        let client = TCPClient(address: "www.apple.com", port: 80)
+        switch client.connect(timeout: 1) {
+        case .success:
+            switch client.send(string: "GET / HTTP/1.0\n\n" ) {
+            case .success:
+                guard let data = client.read(1024*10) else { return }
+                
+                if let response = String(bytes: data, encoding: .utf8) {
+                    print(response)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        case .failure(let error):
+            print(error)
+        }
     }
     
     func packetCreator(withJSONData jsonSwiftData : JSON) -> Packet{
@@ -126,7 +144,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
+        // getting current location
         currentLocation.longitude = (locations.last?.coordinate.longitude)!
         currentLocation.latitude = (locations.last?.coordinate.latitude)!
         let camera = GMSCameraPosition.camera(withLatitude:  currentLocation.latitude, longitude:  currentLocation.longitude, zoom: courierMapViewZoom)
@@ -137,7 +155,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
+        // When user tapped to marker, it runs this code
         if (self.packageList[marker.iconView!.tag].status == "INITIAL") {
             let alert = UIAlertController(title: "Package", message: "Do you want to take this package", preferredStyle: .alert)
             let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
@@ -189,7 +207,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         //adding left pull action
-        let drop = UITableViewRowAction(style: .destructive, title: "Dropp") { (action, indexPath) in
+        let drop = UITableViewRowAction(style: .destructive, title: "Delivered") { (action, indexPath) in
             let droppedPackage = self.packageTakenList[indexPath.row]
             self.confirmDrop(withPackage: droppedPackage)
         }

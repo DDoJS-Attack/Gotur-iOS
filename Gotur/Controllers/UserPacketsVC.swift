@@ -171,14 +171,19 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return packageTakenList.count
+        return packageList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell  = self.tableView.dequeueReusableCell(withIdentifier: "cell") as! MessengerPopupTableViewCell
         //Assigning values to custom cell
-        cell.nameLabel.text = packageTakenList[indexPath.item].name
+        cell.nameLabel.text = packageList[indexPath.item].name
         
+        if(packageList[indexPath.item].status == "ASSIGNED" || packageList[indexPath.item].status == "ONWAY"){
+//            cell.backgroundColor = 
+        }else{
+            
+        }
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 0.1
         

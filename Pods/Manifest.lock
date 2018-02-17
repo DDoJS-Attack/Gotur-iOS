@@ -11,6 +11,7 @@ PODS:
   - GooglePlaces (2.5.0):
     - GoogleMaps/Base (= 2.5.0)
   - StarReview (1.0.0)
+  - SwiftSocket (2.0.2)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - GooglePlacePicker
   - GooglePlaces
   - StarReview (~> 1.0)
+  - SwiftSocket
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -27,8 +29,9 @@ SPEC CHECKSUMS:
   GooglePlacePicker: 1573e644ab54564d95c2643edc0f29091609e966
   GooglePlaces: dd70d9d71ea1c7944846afe67de3712c99b30a77
   StarReview: 0578f61607b89b3f0ad87ab417907818c1f39532
+  SwiftSocket: 6f4c9c63fbc5c1d61188936bb3c599fd546f40ae
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: af5e35b97aa14ba27cf79d5f3a14b35c185bbfc3
+PODFILE CHECKSUM: d32ea3639bfc046c8a7ac6de8a7d77d8b4737871
 
 COCOAPODS: 1.4.0
