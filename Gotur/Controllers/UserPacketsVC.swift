@@ -25,7 +25,6 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         return button
     }()
     
-    
     lazy var showPackagesAlert: UIAlertController = {
         let controller = UIAlertController(title: "", message: nil, preferredStyle: .alert)
         let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
@@ -64,6 +63,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         mapView.delegate = self
         mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
         
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
@@ -74,7 +74,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     override func setupAnchors() {
-        _ = addButton.anchor(nil, left: nil, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 36, rightConstant: 12, widthConstant: 60, heightConstant: 60)
+        _ = addButton.anchor(nil, left: nil, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 72, rightConstant: 12, widthConstant: 50, heightConstant: 50)
     }
     
     override func fetchData() {
@@ -100,7 +100,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func mapViewSnapshotReady(_ mapView: GMSMapView) {
-        checkPackageStatus()
+        //checkPackageStatus()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
