@@ -11,9 +11,12 @@ import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
 import Alamofire
+import OmiseSDK
 
-class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate {
-
+class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate, CreditCardFormDelegate {
+    
+    private let publicKey = "pkey_test_5ayztv3t3nxkzyu2cm7"
+    
     var placesClient: GMSPlacesClient!
     var locationManager = CLLocationManager()
     
@@ -27,7 +30,6 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         return view
     }()
 
-    
     lazy var cancelButton: BaseButton = {
         let button = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
         button.setTitle(cancelString, for: .normal)
@@ -144,6 +146,22 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         self.view.backgroundColor = primaryLightColor
     }
     
+    func displayCreditCardForm() {
+        let closeButton = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(dismissCreditCardForm))
+        
+        let creditCardView = CreditCardFormController.makeCreditCardForm(withPublicKey: publicKey)
+        creditCardView.delegate = self
+        creditCardView.handleErrors = true
+        creditCardView.navigationItem.rightBarButtonItem = closeButton
+        
+        let navigation = UINavigationController(rootViewController: creditCardView)
+        present(navigation, animated: true, completion: nil)
+    }
+    
+    func dismissCreditCardForm() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         viewController.dismiss(animated: true, completion: nil)
         
@@ -194,7 +212,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
                 "destinationAddress": destination.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n") as AnyObject,
                 "sourceLoc": [source.coordinate.longitude, source.coordinate.latitude],
                 "destinationLoc": [destination.coordinate.longitude, destination.coordinate.latitude],
-                "owner": UID,
+                "customer": UID,
                 "price": calculatePriceAsKurus(price: priceTextField.text!),
                 "weight": Double(weightTextField.text!) as AnyObject
             ]
@@ -215,7 +233,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
                 }
             }
             // Return UserPacketsVC
-            self.dismiss(animated: true, completion: nil)
+            displayCreditCardForm()
         }
     }
     
@@ -283,6 +301,29 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         }
         
         return true
+    }
+    
+    func creditCardForm(_ controller: CreditCardFormController, didSucceedWithToken token: OmiseToken) {
+        print("success")
+        self.dismissCreditCardForm()
+        let alert = UIAlertController(title: "Completed",   message: "You just created your package", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler:{ (action) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
+        // Sends `OmiseToken` to your server for creating a charge, or a customer object.
+    }
+    
+    func creditCardForm(_ controller: CreditCardFormController, didFailWithError error: Error) {
+        print("error")
+        self.dismissCreditCardForm()
+        let alert = UIAlertController(title: "Error",   message: "Something Bad Happened about your payment. However we have created you package", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler:{ (action) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
+        // Only important if we set `handleErrors = false`.
+        // You can send errors to a logging service, or display them to the user here.
     }
 
 }

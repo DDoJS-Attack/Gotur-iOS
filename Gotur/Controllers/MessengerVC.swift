@@ -24,11 +24,9 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         return view
     }()
     
-    
-    
     lazy var showPackagesAlert: UIAlertController = {
         let controller = UIAlertController(title: "", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
         var height:NSLayoutConstraint = NSLayoutConstraint(item: controller.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.40)
         controller.view.addConstraint(height)
         controller.addAction(cancelButton)
@@ -52,10 +50,10 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         return view
     }()
     
-
     override func fetchData() {
+        let urlString = "https://chatbot-avci.olut.xyz/courier/my?courier_id=" + CID
         // Parsing datas from api
-        Alamofire.request("https://chatbot-avci.olut.xyz/courier/my?courier_id=5a87f7c9f931fb4955496ddc").responseJSON { response in
+        Alamofire.request(urlString).responseJSON { response in
             if let json = response.result.value {
                 let jsonKSwift = JSON(json)
                 let jsonSwiftData = jsonKSwift["data"]
@@ -67,7 +65,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     i += 1
                 }
                 DispatchQueue.main.async {
-                    self.mapView.reloadInputViews()
+                    self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
                 }
             }
         }
@@ -78,13 +76,14 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                 let jsonSwiftData = jsonKSwift["data"]
                 var i = 0
                 // While data is not null append values to charity array that will be used for tableview
+                print("jsonSwiftData: \(jsonSwiftData.count)")
                 while(jsonSwiftData[i] != JSON.null){
                     let tempPacket = self.packetCreator(withJSONData: jsonSwiftData, withIndex: i)
                     self.packageNontakenList.append(tempPacket)
                     i += 1
                 }
                 DispatchQueue.main.async {
-                    self.mapView.reloadInputViews()
+                    self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
                 }
             }
     
@@ -92,7 +91,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     func packetCreator(withJSONData jsonSwiftData : JSON, withIndex i: Int) -> Packet{
-        return Packet.init(destCoorLat: Double(jsonSwiftData[i]["DestinationLoc"][1].stringValue)!, destCoorLong: Double(jsonSwiftData[i]["DestinationLoc"][0].stringValue)!, sourceCoorLat: Double(jsonSwiftData[i]["SourceLoc"][1].stringValue)!, sourceCoorLong: Double(jsonSwiftData[i]["SourceLoc"][0].stringValue)!, name: jsonSwiftData[i]["Note"].stringValue, weight: jsonSwiftData[i]["Weigth"].stringValue, price: jsonSwiftData[i]["Price"].stringValue)
+        return Packet.init(destCoorLat: Double(jsonSwiftData[i]["destinationLoc"][1].stringValue)!, destCoorLong: Double(jsonSwiftData[i]["destinationLoc"][0].stringValue)!, sourceCoorLat: Double(jsonSwiftData[i]["sourceLoc"][1].stringValue)!, sourceCoorLong: Double(jsonSwiftData[i]["sourceLoc"][0].stringValue)!, name: jsonSwiftData[i]["name"].stringValue, weight: jsonSwiftData[i]["weight"].stringValue, price: jsonSwiftData[i]["price"].stringValue)
     }
     
     override func setupViews() {
@@ -107,9 +106,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         self.locationManager.delegate = self
         self.locationManager.startUpdatingLocation()
         
-        setupMarkersAndLinesBetweenThem(withMap: mapView)
     }
-    
     
     override func setupAnchors() {
         _ = mapView.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
@@ -128,7 +125,6 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         _ = tableView.anchor(self.showPackagesAlert.view.topAnchor, left: self.showPackagesAlert.view.leftAnchor, bottom: self.showPackagesAlert.view.bottomAnchor, right: self.showPackagesAlert.view.rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 72, rightConstant: 8, widthConstant: 0, heightConstant: 0)
         
         self.present(showPackagesAlert, animated: true, completion:{})
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -162,7 +158,6 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         present(alert, animated: true, completion: nil)
         return true
     }
-
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return packageTakenList.count
@@ -178,6 +173,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         //adding left pull action
@@ -198,12 +194,6 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         
         if(findDistanceBetweenTwoLocations(package.destination, currentLocation) <= 0.05){
             print("Package dropped")
-            
-            
-            
-            
-            
-            
         }else {
             self.view.shake()
         }

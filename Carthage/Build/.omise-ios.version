@@ -1,0 +1,9 @@
+{
+  "commitish" : "v2.5.0",
+  "iOS" : [
+    {
+      "name" : "OmiseSDK",
+      "hash" : "b84ca46a681c3ab2275f144cbeec7cbc1e745a648b81f3980ba27c5ead15b3da"
+    }
+  ]
+}
