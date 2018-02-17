@@ -77,11 +77,13 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         for p in packageList{
             let sourcePosition = CLLocationCoordinate2D(latitude: p.source.latitude, longitude: p.source.longitude)
             let sourceMarker = GMSMarker(position: sourcePosition)
+            sourceMarker.icon = UIImage(named: "transportablePackage")
             sourceMarker.title = "\(p.name) - Source"
             sourceMarker.map = mapView
             
             let destinationPosition = CLLocationCoordinate2D(latitude: p.destination.latitude, longitude: p.destination.longitude)
             let destionationMarker = GMSMarker(position: destinationPosition)
+            destionationMarker.icon = UIImage(named: "destinationPackage")
             destionationMarker.title = "\(p.name) - Dest"
             destionationMarker.map = mapView
             
@@ -90,7 +92,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
             path.add(destinationPosition)
             let line = GMSPolyline(path: path)
             line.strokeWidth = CGFloat(3)
-            line.strokeColor = UIColor(red: 18.0/255.0, green: 137.0/255.0, blue: 142.0/255.0, alpha: 0.7)
+            line.strokeColor = UIColor(red: 193.0/255.0, green: 180.0/255.0, blue: 81.0/255.0, alpha: 0.7)
             line.map = mapView
         }
 
@@ -122,7 +124,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         
         currentLocation.longitude = (locations.last?.coordinate.longitude)!
         currentLocation.latitude = (locations.last?.coordinate.latitude)!
-        let camera = GMSCameraPosition.camera(withLatitude:  currentLocation.latitude, longitude:  currentLocation.longitude, zoom:14)
+        let camera = GMSCameraPosition.camera(withLatitude:  currentLocation.latitude, longitude:  currentLocation.longitude, zoom: 20)
         mapView.animate(to: camera)
         
         self.locationManager.stopUpdatingLocation()
@@ -161,6 +163,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         print("destionation: location: \(package.destination.longitude) - \(package.destination.latitude)")
         print("current location: \(currentLocation.longitude) - \(currentLocation.latitude)")
         print("---------------")
+        
         if(findDistanceBetweenTwoLocations(package.destination, currentLocation) <= 0.05){
             print("Package dropped")
         }else {
