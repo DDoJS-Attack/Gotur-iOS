@@ -22,6 +22,10 @@
 		EC015160203766FF003025CF /* ViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01515D203766FF003025CF /* ViewHelper.swift */; };
 		EC015161203766FF003025CF /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01515F203766FF003025CF /* BaseVC.swift */; };
 		EC01516420377795003025CF /* UserPacketsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01516320377795003025CF /* UserPacketsVC.swift */; };
+		ECFB27B920379347008462E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27B820379347008462E0 /* Constants.swift */; };
+		ECFB27BE203793DF008462E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECFB27C0203793DF008462E0 /* Localizable.strings */; };
+		ECFB27C4203796FB008462E0 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27C3203796FB008462E0 /* Packet.swift */; };
+		ECFB27C62037B451008462E0 /* AddPacketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27C52037B451008462E0 /* AddPacketVC.swift */; };
 		EFEC9DABCCD4896B2874BE51 /* Pods_GoturTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2A76B020FE0CD92BBBCD19 /* Pods_GoturTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +75,13 @@
 		EC01515D203766FF003025CF /* ViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewHelper.swift; sourceTree = "<group>"; };
 		EC01515F203766FF003025CF /* BaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		EC01516320377795003025CF /* UserPacketsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPacketsVC.swift; sourceTree = "<group>"; };
+		ECFB27B820379347008462E0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		ECFB27BA20379390008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Main.strings; sourceTree = "<group>"; };
+		ECFB27BB20379390008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		ECFB27BF203793DF008462E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ECFB27C1203793E2008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		ECFB27C3203796FB008462E0 /* Packet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
+		ECFB27C52037B451008462E0 /* AddPacketVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPacketVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +160,7 @@
 		EC01512A203766D8003025CF /* Gotur */ = {
 			isa = PBXGroup;
 			children = (
+				ECFB27C2203796E7008462E0 /* Models */,
 				EC01516220376738003025CF /* Views */,
 				EC01515C203766FF003025CF /* Extensions */,
 				EC01515E203766FF003025CF /* Controllers */,
@@ -158,6 +170,8 @@
 				EC015137203766D8003025CF /* LaunchScreen.storyboard */,
 				EC01513A203766D8003025CF /* Info.plist */,
 				EC015132203766D8003025CF /* Gotur.xcdatamodeld */,
+				ECFB27B820379347008462E0 /* Constants.swift */,
+				ECFB27C0203793DF008462E0 /* Localizable.strings */,
 			);
 			path = Gotur;
 			sourceTree = "<group>";
@@ -195,6 +209,7 @@
 				6875FEA020376CDB001706D6 /* MessengerVC.swift */,
 				6875FEA2203770E2001706D6 /* EntranceVC.swift */,
 				EC01516320377795003025CF /* UserPacketsVC.swift */,
+				ECFB27C52037B451008462E0 /* AddPacketVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -205,6 +220,14 @@
 				6875FEA72037760F001706D6 /* BaseButton.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		ECFB27C2203796E7008462E0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ECFB27C3203796FB008462E0 /* Packet.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,6 +334,7 @@
 			knownRegions = (
 				en,
 				Base,
+				tr,
 			);
 			mainGroup = EC01511F203766D8003025CF;
 			productRefGroup = EC015129203766D8003025CF /* Products */;
@@ -330,6 +354,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EC015139203766D8003025CF /* LaunchScreen.storyboard in Resources */,
+				ECFB27BE203793DF008462E0 /* Localizable.strings in Resources */,
 				EC015136203766D8003025CF /* Assets.xcassets in Resources */,
 				EC015131203766D8003025CF /* Main.storyboard in Resources */,
 			);
@@ -397,7 +422,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		69D81367D9D9BE9149784BC3 /* [CP] Check Pods Manifest.lock */ = {
@@ -415,7 +440,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B3CAB7389F1AB0118B17939C /* [CP] Copy Pods Resources */ = {
@@ -501,7 +526,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -518,7 +543,10 @@
 				EC01516420377795003025CF /* UserPacketsVC.swift in Sources */,
 				EC015160203766FF003025CF /* ViewHelper.swift in Sources */,
 				EC015134203766D8003025CF /* Gotur.xcdatamodeld in Sources */,
+				ECFB27C4203796FB008462E0 /* Packet.swift in Sources */,
+				ECFB27C62037B451008462E0 /* AddPacketVC.swift in Sources */,
 				EC015161203766FF003025CF /* BaseVC.swift in Sources */,
+				ECFB27B920379347008462E0 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +586,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				EC015130203766D8003025CF /* Base */,
+				ECFB27BA20379390008462E0 /* tr */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -566,8 +595,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				EC015138203766D8003025CF /* Base */,
+				ECFB27BB20379390008462E0 /* tr */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		ECFB27C0203793DF008462E0 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ECFB27BF203793DF008462E0 /* Base */,
+				ECFB27C1203793E2008462E0 /* tr */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -577,6 +616,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -633,6 +673,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

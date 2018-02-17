@@ -9,6 +9,9 @@ target 'Gotur' do
   pod 'Alamofire', '~> 4.5'
   pod 'SwiftyJSON'
   pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
+  
   target 'GoturTests' do
     inherit! :search_paths
     # Pods for testing

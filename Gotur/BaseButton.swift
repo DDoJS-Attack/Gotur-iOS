@@ -25,7 +25,7 @@ class BaseButton: UIButton {
         self.backgroundColor = color
         self.layer.borderWidth = 0.2
         self.layer.cornerRadius = 5
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+        self.titleLabel?.font = primaryBigFont
         self.setTitleColor(UIColor.white , for: .normal)
         self.addShadow()
     }

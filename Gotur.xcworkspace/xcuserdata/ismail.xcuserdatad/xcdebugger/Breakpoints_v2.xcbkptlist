@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Gotur/Controllers/AddPacketVC.swift"
+            timestampString = "540531372.746954"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "navBar"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Gotur.AddPacketVC.sourceButton.getter : Gotur.BaseButton"
+                  moduleName = "Gotur"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismail/Desktop/Gotur-iOS/Gotur/Controllers/AddPacketVC.swift"
+                  timestampString = "540531373.723138"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "176">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Gotur.AddPacketVC.sourceButton.setter : Gotur.BaseButton"
+                  moduleName = "Gotur"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismail/Desktop/Gotur-iOS/Gotur/Controllers/AddPacketVC.swift"
+                  timestampString = "540531373.728588"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "65">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Gotur.AddPacketVC.(sourceButton.getter : Gotur.BaseButton).(closure #1)"
+                  moduleName = "Gotur"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismail/Desktop/Gotur-iOS/Gotur/Controllers/AddPacketVC.swift"
+                  timestampString = "540531373.73078"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "15">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Gotur.AddPacketVC.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; Gotur.AddPacketVC"
+                  moduleName = "Gotur"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismail/Desktop/Gotur-iOS/Gotur/Controllers/AddPacketVC.swift"
+                  timestampString = "540531373.732411"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "184">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Gotur.AddPacketVC.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;Gotur.AddPacketVC&gt;"
+                  moduleName = "Gotur"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ismail/Desktop/Gotur-iOS/Gotur/Controllers/AddPacketVC.swift"
+                  timestampString = "540531373.733924"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "107">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
