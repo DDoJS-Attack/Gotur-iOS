@@ -10,20 +10,46 @@ import UIKit
 import GoogleMaps
 import Alamofire
 import SwiftyJSON
+import StarReview
 
 class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     
-    var packets = [Packet]()
     var mapView: GMSMapView!
     
     var locationManager = CLLocationManager()
     
     lazy var addButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "ic_add_circle_48pt"), for: .normal)
+        button.setImage(UIImage(named: "addPackage"), for: .normal)
         button.addTarget(self, action: #selector(goToAddPacketVC), for: .touchUpInside)
         return button
     }()
+    
+    
+    lazy var showPackagesAlert: UIAlertController = {
+        let controller = UIAlertController(title: "", message: nil, preferredStyle: .alert)
+        let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        let okayButton = UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: {(alert: UIAlertAction!) in print("OKay")})
+        var height:NSLayoutConstraint = NSLayoutConstraint(item: controller.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.20)
+        controller.view.addConstraint(height)
+        controller.addAction(cancelButton)
+        controller.addAction(okayButton)
+        return controller
+    }()
+
+    lazy var starView: StarReview = {
+        let star = StarReview()
+        star.starMarginScale = 0.3
+        star.value = 5
+        star.starCount = 5
+        star.allowEdit = true
+        star.allowAccruteStars = true
+        
+        star.starFillColor = UIColor.orange
+        star.starBackgroundColor = UIColor.lightGray
+        return star
+    }()
+
     
     override func viewWillAppear(_ animated: Bool) {
         self.view.backgroundColor = .white
@@ -36,53 +62,48 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         
         mapView.delegate = self
         mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
         
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
         
-        fillDB()
-        parsePackets()
+        setupMarkersAndLinesBetweenThem(withMap: mapView)
         
         self.view.addSubview(addButton)
+        
     }
     
     override func setupAnchors() {
-        _ = addButton.anchor(nil, left: nil, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 70, rightConstant: 8, widthConstant: 60, heightConstant: 60)
+        _ = addButton.anchor(nil, left: nil, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 36, rightConstant: 8, widthConstant: 60, heightConstant: 60)
+        
+
+
     }
     
     override func fetchData() {
-        
     }
     
-    func fillDB() {
-        let lng = "\(Double((locationManager.location?.coordinate.longitude)!))"
-        let lat = "\(Double((locationManager.location?.coordinate.latitude)!))"
-        let lng2 = "\(Double((locationManager.location?.coordinate.longitude)!))"
-        let lat2 = "\((Double((locationManager.location?.coordinate.latitude)!)) - 0.01)"
-
-//        let item1 = Packet(data: ["source": [lng2, lat2], "destination": [lng, lat]])
-//        let item2 = Packet(data: ["source": ["150", "-32"], "destination": ["-30", "180"]])
-//        packets.append(item1)
-//        packets.append(item2)
-    }
-    
-    func parsePackets() {
-        for packet in packets {
-            let packetMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: packet.source.latitude, longitude: packet.source.longitude))
-            packetMarker.title = "Sydney"
-            packetMarker.snippet = "Ağırlık: 10 kg\nFiyat: 12 tl\nKargoyu götürmek için tıklayınız."
-            packetMarker.icon = UIImage(named: "ic_feedback_white")
-            packetMarker.map = mapView
+    func checkPackageStatus(){
+        if(checkIfPackageDropredOrNot()){
+            print("asdf")
+            
+            showPackagesAlert.title = "Fish has been dropped"
+            showPackagesAlert.view.addSubview(starView)
+            
+            _ = starView.anchor(self.showPackagesAlert.view.topAnchor, left: self.showPackagesAlert.view.leftAnchor, bottom: self.showPackagesAlert.view.bottomAnchor, right: self.showPackagesAlert.view.rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 24, rightConstant: 8, widthConstant: 0, heightConstant: 0)
+            
+            self.present(showPackagesAlert, animated: true, completion:{})
         }
     }
+    func sendStars() {
+        // Send stars to database
+    }
+    func checkIfPackageDropredOrNot() -> Bool {
+        // Implement this
+        return true
+    }
     
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        // Display alert
-        let alert = UIAlertController(title: "", message: doYouWantToDeliverThisPacket, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: yesString, style: UIAlertActionStyle.default, handler:{action in self.takePacket()}))
-        alert.addAction(UIAlertAction(title: noString, style: UIAlertActionStyle.destructive, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+    func mapViewSnapshotReady(_ mapView: GMSMapView) {
+        checkPackageStatus()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -94,46 +115,10 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         self.locationManager.stopUpdatingLocation()
     }
     
-    func takePacket() {
-        // Change marker
-        // Push appropriate data
-        // Draw path from courier to packet to destination
-        drawPath()
-        let addPacketVC = AddPacketVC()
-        present(addPacketVC, animated: true, completion: nil)
-    }
+    
     
     func goToAddPacketVC() {
         let addPacketVC = AddPacketVC()
         present(addPacketVC, animated: true, completion: nil)
-    }
-    
-    func drawPath()
-    {
-        let origin = "\(Double(packets[0].source.latitude)),\(Double(packets[0].source.longitude))"
-        let destination = "\(Double(packets[0].destination.latitude)),\(Double(packets[0].destination.longitude))"
-        
-        let url = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&sensor=false"
-        
-        Alamofire.request(url).responseJSON { response in
-            print(response.result)   // result of response serialization
-            
-            do {
-                let json = try JSON(data: response.data!)
-                let routes = json["routes"].arrayValue
-                print(json)
-                for route in routes
-                {
-                    let routeOverviewPolyline = route["overview_polyline"].dictionary
-                    let points = routeOverviewPolyline?["points"]?.stringValue
-                    let path = GMSPath.init(fromEncodedPath: points!)
-                    let polyline = GMSPolyline.init(path: path)
-                    polyline.map = self.mapView
-                }
-            } catch {
-                // Error
-                print("Error")
-            }
-        }
     }
 }
