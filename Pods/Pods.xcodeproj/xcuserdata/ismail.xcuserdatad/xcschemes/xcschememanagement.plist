@@ -37,6 +37,11 @@
 			<key>orderHint</key>
 			<integer>6</integer>
 		</dict>
+		<key>SwiftSocket.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -52,12 +57,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2AB1C00D447CD55173990F1D64E8C95E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3CC5B9862913A83EBB17BC714A43D0E5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>49680CD4DE3B699DE829ECD9E525221A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5CA216BBE145DBDEEA374B9BC33711E7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7C1EAB633428454CABBD771008FB1302</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -83,6 +103,11 @@
 			<true/>
 		</dict>
 		<key>EDC0C00CA2A20F3A3FFC4A136AA728FB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F89467994969F542B9F9F794BA01CB65</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -35,7 +35,9 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     
     lazy var showPackagesAlert: UIAlertController = {
         let controller = UIAlertController(title: "", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")
+        
+        })
         var height:NSLayoutConstraint = NSLayoutConstraint(item: controller.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.40)
         controller.view.addConstraint(height)
         controller.addAction(cancelButton)
@@ -179,29 +181,41 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
         //Assigning values to custom cell
         cell.nameLabel.text = packageList[indexPath.item].name
         
-        if(packageList[indexPath.item].status == "ASSIGNED" || packageList[indexPath.item].status == "ONWAY"){
-//            cell.backgroundColor = 
-        }else{
-            
+        // If packet is assigned to courier add icon that indicates this status
+        if(packageList[indexPath.item].status == "ASSIGNED" || packageList[indexPath.item].status == "ONWAY" || packageList[indexPath.item].status == "DELIVERY"){
+            cell.icon.image = UIImage(named: "courierItself")!
+        } else {
+            cell.icon.image = UIImage(named: "nontakenPackage")
         }
+        
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 0.1
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        //adding left pull action
-        let drop = UITableViewRowAction(style: .destructive, title: cancelString) { (action, indexPath) in
-            let droppedPackage = self.packageList[indexPath.row]
-            self.confirmDrop(withPackage: droppedPackage)
-        }
-        drop.backgroundColor = UIColor(red: 186.0/255.0, green: 46.0/255.0, blue: 88.0/255.0, alpha: 1.0)
-        return [drop]
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
-    func confirmDrop(withPackage package: Packet) {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        //adding left pull action
+        if packageList[indexPath.row].status == "INITIAL" {
+            // Cancel action
+            let cancel = UITableViewRowAction(style: .destructive, title: cancelString) { (action, indexPath) in
+                let canceledPackage = self.packageList[indexPath.row]
+                self.confirmCancel(withPackage: canceledPackage)
+            }
+            cancel.backgroundColor = UIColor(red: 186.0/255.0, green: 46.0/255.0, blue: 88.0/255.0, alpha: 1.0)
+            return [cancel]
+        }
+        return [UITableViewRowAction()]
+    }
+    
+    func confirmCancel(withPackage package: Packet) {
         // Implement
+        // Remove from packageList
+        // Remove from db
         self.view.shake()
     }
     
