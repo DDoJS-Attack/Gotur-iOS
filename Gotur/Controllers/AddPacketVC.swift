@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMaps
 
-class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
+class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate {
     
     var mapView: GMSMapView!
     
@@ -112,8 +112,12 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        sourceSearchBar.text = "My location"
+        sourceSearchBar.text = myLocationString
         return true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
     }
     
     func savePacket() {
