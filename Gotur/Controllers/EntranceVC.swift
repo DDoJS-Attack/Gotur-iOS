@@ -12,14 +12,14 @@ class EntranceVC: BaseVC {
     
     lazy var normalUser: BaseButton = {
         let view = BaseButton(frame: CGRect(), withColor: UIColor(red: 81/255, green: 68/255, blue: 191/255, alpha: 1.0))
-        view.setTitle("Kullanıcı Olarak Gir", for: .normal)
+        view.setTitle(signInUser, for: .normal)
         view.addTarget(self, action: #selector(goToUserPacketsVC), for: .touchUpInside)
         return view
     }()
     
     lazy var messengerUser: BaseButton = {
         let view = BaseButton(frame: CGRect(), withColor: UIColor(red: 95/255, green: 153/255, blue: 90/255, alpha: 1.0))
-        view.setTitle("Kurye Olarak Gir", for: .normal)
+        view.setTitle(signInCourier, for: .normal)
         view.addTarget(self, action: #selector(goToMessengerVC), for: .touchUpInside)
         return view
     }()
@@ -32,6 +32,10 @@ class EntranceVC: BaseVC {
     override func setupViews() {
         self.view.addSubview(normalUser)
         self.view.addSubview(messengerUser)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.view.backgroundColor = .white
     }
     
     func goToMessengerVC() {
