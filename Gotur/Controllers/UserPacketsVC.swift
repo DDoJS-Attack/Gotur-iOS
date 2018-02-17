@@ -97,11 +97,9 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     }
     
     override func fetchData() {
-
-        let urlString = "https://chatbot-avci.olut.xyz/cargo"
         let param = ["customer": UID]
         
-        Alamofire.request(urlString, method: .post, parameters: param,encoding: JSONEncoding.default, headers: nil).responseJSON {
+        Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: param,encoding: JSONEncoding.default, headers: nil).responseJSON {
             response in
             switch response.result {
             case .success:
@@ -109,11 +107,10 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
                     let jsonKSwift = JSON(json)
                     let jsonSwiftData = jsonKSwift["data"]
                     for cargo in jsonSwiftData {
-                        print(cargo)
-                        print("--------------------")
                         let packet = Packet(data: cargo.1)
                         self.packageList.append(packet)
                     }
+                    
                     DispatchQueue.main.async {
                         self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
                     }
@@ -158,7 +155,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last
         
-        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude:(location?.coordinate.longitude)!, zoom:14)
+        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude:(location?.coordinate.longitude)!, zoom: userMapViewZoom)
         mapView.animate(to: camera)
         
         self.locationManager.stopUpdatingLocation()
@@ -189,10 +186,9 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
         //adding left pull action
-        let drop = UITableViewRowAction(style: .destructive, title: "Dropp") { (action, indexPath) in
-            let droppedPackage = self.packageTakenList[indexPath.row]
+        let drop = UITableViewRowAction(style: .destructive, title: cancelString) { (action, indexPath) in
+            let droppedPackage = self.packageList[indexPath.row]
             self.confirmDrop(withPackage: droppedPackage)
         }
         drop.backgroundColor = UIColor(red: 186.0/255.0, green: 46.0/255.0, blue: 88.0/255.0, alpha: 1.0)

@@ -9,11 +9,18 @@
 import Foundation
 import UIKit
 
-// Hard coded user id
+// Hard Coded User ID
 let UID = "5a884c04947e116eed78b2f7"
 
-// Hard coded courier id
+// Hard Coded Courier ID
 let CID = "5a88606e59efcb2d3f60fef6"
+
+// Credit Card Payment Key
+let publicKey = "pkey_test_5ayztv3t3nxkzyu2cm7"
+
+// Map zoom
+let courierMapViewZoom: Float = 14.0
+let userMapViewZoom: Float = 14.0
 
 // Fonts
 let primaryFont = UIFont.systemFont(ofSize: 15)

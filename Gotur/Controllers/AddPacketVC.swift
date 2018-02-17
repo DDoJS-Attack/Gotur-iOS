@@ -15,8 +15,6 @@ import OmiseSDK
 
 class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate, CreditCardFormDelegate {
     
-    private let publicKey = "pkey_test_5ayztv3t3nxkzyu2cm7"
-    
     var placesClient: GMSPlacesClient!
     var locationManager = CLLocationManager()
     
@@ -216,23 +214,23 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
                 "price": calculatePriceAsKurus(price: priceTextField.text!),
                 "weight": Double(weightTextField.text!) as AnyObject
             ]
-            print(packet)
-            // Push to db
-            let urlString = "https://chatbot-avci.olut.xyz/customer/create"
             
-            Alamofire.request(urlString, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
+            // Push packet to db
+            Alamofire.request(DataService.ds.REF_CUSTOMER_CREATE, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
                 response in
                 switch response.result {
                 case .success:
-                    print(response)
-                    
+                    self.present(self.alertDisplay(title: "Success", message: "Packet successfully added your list", buttonTitle: okString, buttonStyle: .default, sender: nil), animated: true)
                     break
                 case .failure(let error):
-                    
+                    self.present(self.alertDisplay(title: "Fail", message: "Error occured! Please contact Götür A.Ş", buttonTitle: okString, buttonStyle: .default, sender: nil), animated: true)
                     print(error)
                 }
             }
-            // Return UserPacketsVC
+            
+            // Go to payment
+            // Packet data will be pushed before the payment
+            // Customer can also pay later
             displayCreditCardForm()
         }
     }
@@ -304,10 +302,9 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     }
     
     func creditCardForm(_ controller: CreditCardFormController, didSucceedWithToken token: OmiseToken) {
-        print("success")
         self.dismissCreditCardForm()
         let alert = UIAlertController(title: "Completed",   message: "You just created your package", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler:{ (action) in
+        alert.addAction(UIAlertAction(title: okString, style: .default, handler:{ (action) in
             self.dismiss(animated: true, completion: nil)
         }))
         present(alert, animated: true, completion: nil)
@@ -315,10 +312,9 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     }
     
     func creditCardForm(_ controller: CreditCardFormController, didFailWithError error: Error) {
-        print("error")
         self.dismissCreditCardForm()
         let alert = UIAlertController(title: "Error",   message: "Something Bad Happened about your payment. However we have created you package", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: .default, handler:{ (action) in
+        alert.addAction(UIAlertAction(title: okString, style: .default, handler:{ (action) in
             self.dismiss(animated: true, completion: nil)
         }))
         present(alert, animated: true, completion: nil)
