@@ -11,26 +11,44 @@ import GoogleMaps
 import GooglePlaces
 import GooglePlacePicker
 
-class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate {
-    
-    var mapView: GMSMapView!
+class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPlacePickerViewControllerDelegate {
+
     var placesClient: GMSPlacesClient!
     var locationManager = CLLocationManager()
     
     var isSource: Bool!
     
-    lazy var sourceButton: BaseButton = {
-        let view = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
-        view.setTitle(enterSourceAddress, for: .normal)
-        view.addTarget(self, action: #selector(sourcePicker), for: .touchUpInside)
+    lazy var navBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = primaryDarkColor
         return view
     }()
     
+    lazy var cancelButton: BaseButton = {
+        let button = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
+        button.setTitle(cancelString, for: .normal)
+        button.titleLabel?.font = primaryFont
+        button.titleLabel?.textAlignment = NSTextAlignment.center
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var sourceButton: BaseButton = {
+        let button = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
+        button.setTitle(clickToEnterSourceAddress, for: .normal)
+        button.titleLabel?.font = primaryFont
+        button.titleLabel?.textAlignment = NSTextAlignment.center
+        button.addTarget(self, action: #selector(sourcePlacePicker), for: .touchUpInside)
+        return button
+    }()
+    
     lazy var destinationButton: BaseButton = {
-        let view = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
-        view.setTitle(enterDestinationAddress, for: .normal)
-        view.addTarget(self, action: #selector(destinationPicker), for: .touchUpInside)
-        return view
+        let button = BaseButton(frame: CGRect(), withColor: primaryDarkColor)
+        button.setTitle(clickToEnterDestinationAddress, for: .normal)
+        button.titleLabel?.font = primaryFont
+        button.titleLabel?.textAlignment = NSTextAlignment.center
+        button.addTarget(self, action: #selector(destinationPlacePicker), for: .touchUpInside)
+        return button
     }()
     
     lazy var weightTextField: UITextField = {
@@ -67,14 +85,6 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISear
     }()
     
     override func setupViews() {
-        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        //view = mapView
-        
-        mapView.delegate = self
-        mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
-        
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
         
@@ -82,24 +92,24 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISear
         
         isSource = true
         
+        self.navBar.addSubview(cancelButton)
+        self.view.addSubview(navBar)
         self.view.addSubview(sourceButton)
         self.view.addSubview(destinationButton)
         self.view.addSubview(weightTextField)
         self.view.addSubview(priceTextField)
         self.view.addSubview(saveButton)
-        self.view.addSubview(mapView)
-        self.view.sendSubview(toBack: mapView)
     }
     
     override func setupAnchors() {
         // TODO: Check wheter those are fits into smaller devices or not
-        _ = sourceButton.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: self.view.frame.height/2-84, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 50)
-        _ = destinationButton.anchor(self.sourceButton.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 70, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 50)
-        _ = weightTextField.anchor(self.destinationButton.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 70, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 33)
-        _ = priceTextField.anchor(self.weightTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 50, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 33)
-        _ = saveButton.anchor(self.priceTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 50, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 0, heightConstant: 50)
-       
-        _ = mapView.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: self.view.frame.width, heightConstant: 250)
+        _ = navBar.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: self.view.frame.width, heightConstant: 60)
+        _ = cancelButton.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 20, leftConstant: 6, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 40)
+        _ = sourceButton.anchor(self.view.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: self.view.frame.height/4, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
+        _ = destinationButton.anchor(self.sourceButton.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
+        _ = weightTextField.anchor(self.destinationButton.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
+        _ = priceTextField.anchor(self.weightTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 250, heightConstant: 40)
+        _ = saveButton.anchor(self.priceTextField.topAnchor, left: self.view.leftAnchor, bottom: nil, right: self.view.rightAnchor, topConstant: 60, leftConstant: 24, bottomConstant: 0, rightConstant: 24, widthConstant: 0, heightConstant: 40)
     }
     
     override func fetchData() {
@@ -110,35 +120,6 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISear
         self.view.backgroundColor = primaryLightColor
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location = locations.last
-        
-        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude:(location?.coordinate.longitude)!, zoom:14)
-        mapView.animate(to: camera)
-        
-        self.locationManager.stopUpdatingLocation()
-    }
-    
-    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
-        placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
-            if let error = error {
-                // Error
-                print("Pick Place error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let placeLikelihoodList = placeLikelihoodList {
-                let place = placeLikelihoodList.likelihoods.first?.place
-                if let place = place {
-                    self.sourceButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
-                        .joined(separator: "\n")
-                }
-            }
-        })
-        return true
-    }
-    // To receive the results from the place picker 'self' will need to conform to
-    // GMSPlacePickerViewControllerDelegate and implement this code.
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         viewController.dismiss(animated: true, completion: nil)
         
@@ -153,10 +134,7 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISear
     }
     
     func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
-        // Dismiss the place picker, as it cannot dismiss itself.
         viewController.dismiss(animated: true, completion: nil)
-        
-        print("No place selected")
     }
     
     func displayPlacePicker() {
@@ -166,14 +144,19 @@ class AddPacketVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UISear
         present(placePicker, animated: true, completion: nil)
     }
     
-    func sourcePicker() {
+    func sourcePlacePicker() {
         isSource = true
         displayPlacePicker()
     }
     
-    func destinationPicker() {
+    func destinationPlacePicker() {
         isSource = false
         displayPlacePicker()
+    }
+    
+    func cancelButtonTapped() {
+        let userPackets = UserPacketsVC()
+        present(userPackets, animated: true, completion: nil)
     }
     
     func savePacket() {

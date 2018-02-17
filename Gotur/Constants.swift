@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 let primaryFont = UIFont.systemFont(ofSize: 15)
+let primaryBigFont = UIFont.systemFont(ofSize: 24)
 
 let primaryColor = UIColor(red: 0.00, green: 0.54, blue: 0.48, alpha: 1.0);
 let primaryLightColor = UIColor(red: 0.31, green: 0.73, blue: 0.67, alpha: 1.0);
@@ -21,9 +22,10 @@ let signInCourier = NSLocalizedString("Sign in as courier", comment: "")
 let doYouWantToDeliverThisPacket = NSLocalizedString("Do you want to deliver this packet?", comment: "")
 let yesString = NSLocalizedString("Yes", comment: "")
 let noString = NSLocalizedString("No", comment: "")
-let enterSourceAddress = NSLocalizedString("Enter source address", comment: "")
-let enterDestinationAddress = NSLocalizedString("Enter destination address", comment: "")
+let clickToEnterSourceAddress = NSLocalizedString("Click to enter source address", comment: "")
+let clickToEnterDestinationAddress = NSLocalizedString("Click to enter destination address", comment: "")
 let enterWeightOfItem = NSLocalizedString("Enter the weight of the item", comment: "")
 let enterPriceOfItem = NSLocalizedString("Enter the price of the item", comment: "")
 let saveString = NSLocalizedString("Save", comment: "")
 let myLocationString = NSLocalizedString("My Location", comment: "") // Not used
+let cancelString = NSLocalizedString("Cancel", comment: "")
