@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 struct Coordinate {
     var longitude: Double!
@@ -14,28 +15,31 @@ struct Coordinate {
 }
 
 class Packet {
-    private var _source: Coordinate!
-    private var _destination: Coordinate!
+    private var _sourceAddress: String!
+    private var _destinationAddress: String!
+    private var _sourceLoc: Coordinate!
+    private var _destinationLoc: Coordinate!
     private var _name: String!
     private var _weight: String!
     private var _price: String!
     private var _id: String!
     private var _status: String!
+    private var _courier: String?
     
-    var status: String {
-        return _status
+    var sourceAddress: String {
+        return _sourceAddress
     }
     
-    var id: String {
-        return _id
+    var destinationAddress: String {
+        return _destinationAddress
     }
     
-    var source: Coordinate {
-        return _source
+    var sourceLoc: Coordinate {
+        return _sourceLoc
     }
     
-    var destination: Coordinate {
-        return _destination
+    var destinationLoc: Coordinate {
+        return _destinationLoc
     }
     
     var name: String {
@@ -50,21 +54,32 @@ class Packet {
         return _price
     }
     
-    // Creating an Packet Object with given parameters
-    init(destCoorLat: Double, destCoorLong: Double, sourceCoorLat: Double, sourceCoorLong: Double , name: String,  weight: String,  price: String, id: String, status: String) {
-        _status = status
-        
-        _id = id
-        
-         _source =  Coordinate(longitude: sourceCoorLat, latitude: sourceCoorLong)
-        
-        _destination = Coordinate(longitude: destCoorLong, latitude: destCoorLat)
-        
-        _name = name
-        
-        _weight = weight
-        
-        _price = price
+    var id: String {
+        return _id
+    }
+    
+    var status: String {
+        return _status
+    }
+    
+    var courier: String? {
+        if _courier != nil {
+            return _courier
+        }
+        return nil
+    }
+    
+    init(data: JSON) {
+        _sourceAddress = data["sourceAddress"].stringValue
+        _destinationAddress = data["destinationAddress"].stringValue
+        _sourceLoc = Coordinate(longitude: data["sourceLoc"].arrayValue[0].doubleValue, latitude: data["sourceLoc"].arrayValue[1].doubleValue)
+        _destinationLoc = Coordinate(longitude: data["destinationLoc"].arrayValue[0].doubleValue, latitude: data["destinationLoc"].arrayValue[1].doubleValue)
+        _name = data["name"].stringValue
+        _weight = String(data["weight"].doubleValue)
+        _price = String(data["price"].doubleValue)
+        _id = data["_id"].stringValue
+        _status = data["status"].stringValue
+        _courier = data["courier"].stringValue
     }
     
 }

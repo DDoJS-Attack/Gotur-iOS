@@ -15,10 +15,9 @@ import StarReview
 class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     var mapView: GMSMapView!
+    var locationManager = CLLocationManager()
     
     var packageTakenList = [Packet]()
-    
-    var locationManager = CLLocationManager()
     
     lazy var addButton: UIButton = {
         let button = UIButton()
@@ -98,13 +97,39 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     }
     
     override func fetchData() {
-        // Setting up taken package
-        for e in packageList{
-            if(e.status == "ASSIGNED" || e.status == "ONWAY"){
-                packageTakenList.append(e)
+
+        let urlString = "https://chatbot-avci.olut.xyz/cargo"
+        let param = ["customer": UID]
+        
+        Alamofire.request(urlString, method: .post, parameters: param,encoding: JSONEncoding.default, headers: nil).responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                if let json = response.result.value {
+                    let jsonKSwift = JSON(json)
+                    let jsonSwiftData = jsonKSwift["data"]
+                    for cargo in jsonSwiftData {
+                        print(cargo)
+                        print("--------------------")
+                        let packet = Packet(data: cargo.1)
+                        self.packageList.append(packet)
+                    }
+                    DispatchQueue.main.async {
+                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+                    }
+                    
+                    // Setting up taken package
+                    for e in self.packageList{
+                        if(e.status == "ASSIGNED" || e.status == "ONWAY"){
+                            self.packageTakenList.append(e)
+                        }
+                    }
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error)
             }
         }
-        self.tableView.reloadData()
     }
     
     func checkPackageStatus(){

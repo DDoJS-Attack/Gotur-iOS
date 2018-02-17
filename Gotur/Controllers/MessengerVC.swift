@@ -66,7 +66,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     var i = 0
                     // While data is not null append values to charity array that will be used for tableview
                     while(jsonSwiftData[i] != JSON.null){
-                        let tempPacket = self.packetCreator(withJSONData: jsonSwiftData, withIndex: i)
+                        let tempPacket = self.packetCreator(withJSONData: jsonSwiftData[i])
                         self.packageList.append(tempPacket)
                         print("status: \(jsonSwiftData[i]["status"].stringValue)")
                         i += 1
@@ -91,8 +91,8 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     
-    func packetCreator(withJSONData jsonSwiftData : JSON, withIndex i: Int) -> Packet{
-        return Packet.init(destCoorLat: Double(jsonSwiftData[i]["destinationLoc"][1].stringValue)!, destCoorLong: Double(jsonSwiftData[i]["destinationLoc"][0].stringValue)!, sourceCoorLat: Double(jsonSwiftData[i]["sourceLoc"][1].stringValue)!, sourceCoorLong: Double(jsonSwiftData[i]["sourceLoc"][0].stringValue)!, name: jsonSwiftData[i]["name"].stringValue, weight: jsonSwiftData[i]["weight"].stringValue, price: jsonSwiftData[i]["price"].stringValue, id: jsonSwiftData[i]["_id"].stringValue, status: jsonSwiftData[i]["status"].stringValue)
+    func packetCreator(withJSONData jsonSwiftData : JSON) -> Packet{
+        return Packet.init(data: jsonSwiftData)
     }
     
     override func setupViews() {
@@ -205,12 +205,12 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     
     func confirmDrop(withPackage package: Packet) {
         print(package.name)
-        print(findDistanceBetweenTwoLocations(package.destination, currentLocation))
-        print("destionation: location: \(package.destination.longitude) - \(package.destination.latitude)")
+        print(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation))
+        print("destionation: location: \(package.destinationLoc.longitude) - \(package.destinationLoc.latitude)")
         print("current location: \(currentLocation.longitude) - \(currentLocation.latitude)")
         print("---------------")
         
-        if(findDistanceBetweenTwoLocations(package.destination, currentLocation) <= 0.05){
+        if(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation) <= 0.05){
             print("Package dropped")
         }else {
             self.view.shake()
