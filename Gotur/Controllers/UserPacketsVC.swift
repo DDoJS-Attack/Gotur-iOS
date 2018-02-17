@@ -61,15 +61,15 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate {
         let lng2 = "\(Double((locationManager.location?.coordinate.longitude)!))"
         let lat2 = "\((Double((locationManager.location?.coordinate.latitude)!)) - 0.01)"
 
-        let item1 = Packet(data: ["source": [lng2, lat2], "destination": [lng, lat]])
-        let item2 = Packet(data: ["source": ["150", "-32"], "destination": ["-30", "180"]])
-        packets.append(item1)
-        packets.append(item2)
+//        let item1 = Packet(data: ["source": [lng2, lat2], "destination": [lng, lat]])
+//        let item2 = Packet(data: ["source": ["150", "-32"], "destination": ["-30", "180"]])
+//        packets.append(item1)
+//        packets.append(item2)
     }
     
     func parsePackets() {
         for packet in packets {
-            let packetMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: Double(packet.source.latitude)!, longitude: Double(packet.source.longitude)!))
+            let packetMarker = GMSMarker(position: CLLocationCoordinate2D(latitude: packet.source.latitude, longitude: packet.source.longitude))
             packetMarker.title = "Sydney"
             packetMarker.snippet = "Ağırlık: 10 kg\nFiyat: 12 tl\nKargoyu götürmek için tıklayınız."
             packetMarker.icon = UIImage(named: "ic_feedback_white")

@@ -10,6 +10,7 @@ import UIKit
 
 extension UIView {
     
+    // Setting up constraints for any UIView
     func anchor(_ top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, topConstant: CGFloat = 0, leftConstant: CGFloat = 0, bottomConstant: CGFloat = 0, rightConstant: CGFloat = 0, widthConstant: CGFloat = 0, heightConstant: CGFloat = 0) -> [NSLayoutConstraint] {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -44,12 +45,19 @@ extension UIView {
         return anchors
     }
     
-    
     func addShadow(){
         layer.shadowColor = UIColor.darkGray.cgColor
         layer.shadowOpacity = 0.3
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 2
+    }
+    
+    // For saying you can not do that
+    func shake() {
+        self.transform = CGAffineTransform(translationX: 25, y: 0)
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.2, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.transform = .identity
+        }, completion: nil)
     }
     
 }

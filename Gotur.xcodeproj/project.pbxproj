@@ -12,6 +12,7 @@
 		6875FEA120376CDB001706D6 /* MessengerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6875FEA020376CDB001706D6 /* MessengerVC.swift */; };
 		6875FEA3203770E2001706D6 /* EntranceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6875FEA2203770E2001706D6 /* EntranceVC.swift */; };
 		6875FEA82037760F001706D6 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6875FEA72037760F001706D6 /* BaseButton.swift */; };
+		68C2197B2037ED26002F3EE6 /* MessengerPopupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C2197A2037ED25002F3EE6 /* MessengerPopupTableViewCell.swift */; };
 		EC01512C203766D8003025CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01512B203766D8003025CF /* AppDelegate.swift */; };
 		EC015131203766D8003025CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC01512F203766D8003025CF /* Main.storyboard */; };
 		EC015134203766D8003025CF /* Gotur.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EC015132203766D8003025CF /* Gotur.xcdatamodeld */; };
@@ -52,6 +53,7 @@
 		6875FEA020376CDB001706D6 /* MessengerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerVC.swift; sourceTree = "<group>"; };
 		6875FEA2203770E2001706D6 /* EntranceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceVC.swift; sourceTree = "<group>"; };
 		6875FEA72037760F001706D6 /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		68C2197A2037ED25002F3EE6 /* MessengerPopupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessengerPopupTableViewCell.swift; sourceTree = "<group>"; };
 		6D2A76B020FE0CD92BBBCD19 /* Pods_GoturTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoturTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B98C94183924CB296A4D91 /* Pods-GoturTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoturTests/Pods-GoturTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7A9124AC26E81AB9A561EF28 /* Pods-Gotur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gotur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gotur/Pods-Gotur.debug.xcconfig"; sourceTree = "<group>"; };
@@ -122,6 +124,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		68C2197C2037ED4E002F3EE6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				68C2197A2037ED25002F3EE6 /* MessengerPopupTableViewCell.swift */,
+				6875FEA72037760F001706D6 /* BaseButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		68C2197D2037ED5B002F3EE6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ECFB27C3203796FB008462E0 /* Packet.swift */,
+			);
+			name = Models;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		B594B9A883C0B3381D32D3DF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,8 +180,8 @@
 		EC01512A203766D8003025CF /* Gotur */ = {
 			isa = PBXGroup;
 			children = (
-				ECFB27C2203796E7008462E0 /* Models */,
-				EC01516220376738003025CF /* Views */,
+				68C2197D2037ED5B002F3EE6 /* Models */,
+				68C2197C2037ED4E002F3EE6 /* Views */,
 				EC01515C203766FF003025CF /* Extensions */,
 				EC01515E203766FF003025CF /* Controllers */,
 				EC01512B203766D8003025CF /* AppDelegate.swift */,
@@ -212,22 +232,6 @@
 				ECFB27C52037B451008462E0 /* AddPacketVC.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		EC01516220376738003025CF /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				6875FEA72037760F001706D6 /* BaseButton.swift */,
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		ECFB27C2203796E7008462E0 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				ECFB27C3203796FB008462E0 /* Packet.swift */,
-			);
-			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -544,6 +548,7 @@
 				EC015160203766FF003025CF /* ViewHelper.swift in Sources */,
 				EC015134203766D8003025CF /* Gotur.xcdatamodeld in Sources */,
 				ECFB27C4203796FB008462E0 /* Packet.swift in Sources */,
+				68C2197B2037ED26002F3EE6 /* MessengerPopupTableViewCell.swift in Sources */,
 				ECFB27C62037B451008462E0 /* AddPacketVC.swift in Sources */,
 				EC015161203766FF003025CF /* BaseVC.swift in Sources */,
 				ECFB27B920379347008462E0 /* Constants.swift in Sources */,

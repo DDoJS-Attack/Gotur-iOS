@@ -9,7 +9,7 @@
 import UIKit
 
 class BaseVC: UIViewController {
-
+    // This is the base View Controller. It will be the parent Class of every controller.
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
