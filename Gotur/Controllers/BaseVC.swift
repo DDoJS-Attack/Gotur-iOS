@@ -51,9 +51,10 @@ class BaseVC: UIViewController {
     func setupMarkersAndLinesBetweenThem(withMap mapView: GMSMapView) {
         
         // Creating a marker for every item in the list and connects them
+
         var index = 0
         for p in packageList{
-            let sourcePosition = CLLocationCoordinate2D(latitude: p.source.latitude, longitude: p.source.longitude)
+            let sourcePosition = CLLocationCoordinate2D(latitude: p.sourceLoc.latitude, longitude: p.sourceLoc.longitude)
             let sourceMarker = GMSMarker(position: sourcePosition)
             var sourceImageView = UIImageView()
             if(p.status != "INITIAL"){
@@ -67,7 +68,7 @@ class BaseVC: UIViewController {
             sourceMarker.title = "\(p.name) - Source"
             sourceMarker.map = mapView
             
-            let destinationPosition = CLLocationCoordinate2D(latitude: p.destination.latitude, longitude: p.destination.longitude)
+            let destinationPosition = CLLocationCoordinate2D(latitude: p.destinationLoc.latitude, longitude: p.destinationLoc.longitude)
             let destinationMarker = GMSMarker(position: destinationPosition)
             destinationMarker.isTappable = false
             destinationMarker.iconView = UIImageView(image: UIImage(named: "destinationPackage"))
@@ -80,7 +81,6 @@ class BaseVC: UIViewController {
             line.strokeWidth = CGFloat(3)
             line.strokeColor = UIColor(red: 106.0/255.0, green: 111.0/255.0, blue: 119.0/255.0, alpha: 1.0)
             line.map = mapView
-            
             index += 1
         }
         
