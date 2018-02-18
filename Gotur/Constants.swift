@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // Hard Coded User ID
-let UID = "5a884c04947e116eed78b2f7"
+let UID = "5a88c87130f43a52aa00e4eb"
 
 // Hard Coded Courier ID
 let CID = "5a88606e59efcb2d3f60fef6"
@@ -56,3 +56,11 @@ let errorIncorrectPrice = NSLocalizedString("Please enter the price correctly", 
 let myPackagesButtonTitle = NSLocalizedString("My Packages", comment: "")
 let errorEmptyName = NSLocalizedString("Please enter the name", comment: "")
 let errorCharacterCount3To24 = NSLocalizedString("Characters must be between 3 and 24", comment: "")
+let errorString = NSLocalizedString("Error", comment: "")
+let justCreatedPackage = NSLocalizedString("You just created your package", comment: "")
+let completedString = NSLocalizedString("Completed", comment: "")
+let somethingBadHappened = NSLocalizedString("Something Bad Happened about your payment. However we have created you package", comment: "")
+let successString = NSLocalizedString("Success", comment: "")
+let failString = NSLocalizedString("Fail", comment: "")
+let packetSuccessfullyAdded = NSLocalizedString("Packet is successfully added", comment: "")
+let errorOccured = NSLocalizedString("Error occured! Please contact Götür A.Ş", comment: "")

@@ -220,10 +220,10 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
                 response in
                 switch response.result {
                 case .success:
-                    self.present(self.alertDisplay(title: "Success", message: "Packet successfully added your list", buttonTitle: okString, buttonStyle: .default, sender: nil), animated: true)
+                    self.present(self.alertDisplay(title: successString, message: packetSuccessfullyAdded, buttonTitle: okString, buttonStyle: .default, sender: nil), animated: true)
                     break
                 case .failure(let error):
-                    self.present(self.alertDisplay(title: "Fail", message: "Error occured! Please contact Götür A.Ş", buttonTitle: okString, buttonStyle: .default, sender: nil), animated: true)
+                    self.present(self.alertDisplay(title: failString, message: errorOccured, buttonTitle: okString, buttonStyle: .default, sender: nil), animated: true)
                     print(error)
                 }
             }
@@ -237,7 +237,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     
     func calculatePriceAsKurus(price: String) -> Double {
         if let price = Double(price) {
-            return Double(price) * 60.0
+            return Double(price) * 100.0
         }
         
         return 0.0
@@ -303,7 +303,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     
     func creditCardForm(_ controller: CreditCardFormController, didSucceedWithToken token: OmiseToken) {
         self.dismissCreditCardForm()
-        let alert = UIAlertController(title: "Completed",   message: "You just created your package", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: completedString,   message: justCreatedPackage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: okString, style: .default, handler:{ (action) in
             self.dismiss(animated: true, completion: nil)
         }))
@@ -313,7 +313,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     
     func creditCardForm(_ controller: CreditCardFormController, didFailWithError error: Error) {
         self.dismissCreditCardForm()
-        let alert = UIAlertController(title: "Error",   message: "Something Bad Happened about your payment. However we have created you package", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: errorString,   message: somethingBadHappened, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: okString, style: .default, handler:{ (action) in
             self.dismiss(animated: true, completion: nil)
         }))

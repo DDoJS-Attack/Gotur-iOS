@@ -76,7 +76,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                 
                 // Setting up taken package
                 for e in self.packageList{
-                    if(e.status == "ASSIGNED" || e.status == "ONWAY"){
+                    if(e.status == "ASSIGNED" || e.status == "ONWAY" || e.status == "DELIVERY"){
                         self.packageTakenList.append(e)
                     }
                 }
@@ -168,8 +168,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                 ]
                 print(packet)
                 // Push to db
-                let urlString = "https://chatbot-avci.olut.xyz/courier/own"
-                Alamofire.request(urlString, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
+                Alamofire.request(DataService.ds.REF_COURIER_OWN, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
                     response in
                     switch response.result {
                     case .success:
@@ -229,8 +228,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
             ]
             print(packet)
             // Push to db
-            let urlString = "https://chatbot-avci.olut.xyz/courier/deliver"
-            Alamofire.request(urlString, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
+            Alamofire.request(DataService.ds.REF_COURIER_DELIVER, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
                 response in
                 switch response.result {
                 case .success:

@@ -131,6 +131,8 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
         }
     }
     
+    // When my package delivered 
+    // pop up an info alert view
     func checkPackageStatus(){
         if(checkIfPackageDropredOrNot()){
             showPackagesAlert.title = "Fish has been dropped"
@@ -203,8 +205,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
         if packageList[indexPath.row].status == "INITIAL" {
             // Cancel action
             let cancel = UITableViewRowAction(style: .destructive, title: cancelString) { (action, indexPath) in
-                let canceledPackage = self.packageList[indexPath.row]
-                self.confirmCancel(withPackage: canceledPackage)
+                self.confirmCancel(index: indexPath.row)
             }
             cancel.backgroundColor = UIColor(red: 186.0/255.0, green: 46.0/255.0, blue: 88.0/255.0, alpha: 1.0)
             return [cancel]
@@ -212,11 +213,35 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
         return [UITableViewRowAction()]
     }
     
-    func confirmCancel(withPackage package: Packet) {
+    func confirmCancel(index: Int) {
         // Implement
-        // Remove from packageList
+        let param = ["cargoId": packageList[index].id, "customerId": UID]
+        print(param)
         // Remove from db
+        Alamofire.request(DataService.ds.REF_CUSTOMER_DELETE_CARGO, method: .delete, parameters: param,encoding: JSONEncoding.default, headers: nil).responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                print(response)
+                print("SUCCESS")
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        // Remove from packageList
+        self.packageList.remove(at: index)
+        // Remove markers and lines from map
+        self.removePacketFromMap(index: index)
+        
+        self.tableView.reloadData()
         self.view.shake()
+    }
+    
+    func removePacketFromMap(index: Int) {
+        self.srcMarkers[index].map = nil
+        self.destMarkers[index].map = nil
+        self.polylines[index].map = nil
     }
     
     func goToAddPacketVC() {

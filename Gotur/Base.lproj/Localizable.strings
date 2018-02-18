@@ -29,3 +29,11 @@
 "Please enter the price correctly" = "Please enter the price correctly";
 "Please enter the name" = "Please enter the name";
 "Characters must be between 3 and 24" = "Characters must be between 3 and 24";
+"Error" = "Error";
+"You just created your package" = "You just created your package";
+"Completed" = "Completed";
+"Something Bad Happened about your payment. However we have created you package" = "Something Bad Happened about your payment. However we have created you package";
+"Success" = "Success";
+"Fail" = "Fail";
+"Packet is successfully added" = "Packet is successfully added";
+"Error occured! Please contact Götür A.Ş" = "Error occured! Please contact Götür A.Ş";
