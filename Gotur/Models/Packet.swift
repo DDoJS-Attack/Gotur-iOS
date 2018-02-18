@@ -17,7 +17,7 @@ struct Coordinate {
 class Packet {
     private var _sourceAddress: String!
     private var _destinationAddress: String!
-    //private var _sourceLoc: Coordinate!
+    private var _sourceLoc: Coordinate!
     private var _destinationLoc: Coordinate!
     private var _name: String!
     private var _weight: String!
@@ -34,7 +34,14 @@ class Packet {
         return _destinationAddress
     }
     
-    var sourceLoc: Coordinate
+    var sourceLoc: Coordinate{
+        get{
+            return _sourceLoc
+        }
+        set{
+            _sourceLoc = newValue
+        }
+    }
     
     var destinationLoc: Coordinate {
         return _destinationLoc
@@ -57,7 +64,12 @@ class Packet {
     }
     
     var status: String {
-        return _status
+        get{
+            return  _status
+        }
+        set{
+            _status = newValue
+        }
     }
     
     var courier: String? {
@@ -70,8 +82,7 @@ class Packet {
     init(data: JSON) {
         _sourceAddress = data["sourceAddress"].stringValue
         _destinationAddress = data["destinationAddress"].stringValue
-        sourceLoc = Coordinate(longitude: data["sourceLoc"].arrayValue[0].doubleValue, latitude: data["sourceLoc"].arrayValue[1].doubleValue)
-        //_sourceLoc = Coordinate(longitude: data["sourceLoc"].arrayValue[0].doubleValue, latitude: data["sourceLoc"].arrayValue[1].doubleValue)
+        _sourceLoc = Coordinate(longitude: data["sourceLoc"].arrayValue[0].doubleValue, latitude: data["sourceLoc"].arrayValue[1].doubleValue)
         _destinationLoc = Coordinate(longitude: data["destinationLoc"].arrayValue[0].doubleValue, latitude: data["destinationLoc"].arrayValue[1].doubleValue)
         _name = data["name"].stringValue
         _weight = String(data["weight"].doubleValue)

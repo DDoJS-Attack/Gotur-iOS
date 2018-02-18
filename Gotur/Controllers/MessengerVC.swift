@@ -159,6 +159,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     // While data is not null append values to charity array that will be used for tableview
                     while(jsonSwiftData[i] != JSON.null){
                         let tempPacket = self.packetCreator(withJSONData: jsonSwiftData[i])
+                        print("fetchNearPackets: \(tempPacket.name)")
                         self.packageList.append(tempPacket)
                         i += 1
                     }
@@ -183,7 +184,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         // When user tapped to marker, it runs this code
         if (self.packageList[marker.iconView!.tag].status == "INITIAL") {
-            let alert = UIAlertController(title: packageString, message: doYouWantToTakeThisPacket, preferredStyle: .alert)
+            let alert = UIAlertController(title: packageString, message: "\(doYouWantToTakeThisPacket) Its' name is \(self.packageList[marker.iconView!.tag].name)", preferredStyle: .alert)
             let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: nil)
             let okayButton = UIAlertAction(title: okString, style: .default) { (alert) in
                 let location = marker.iconView!.tag
@@ -192,7 +193,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     "cargoId": String(describing: self.packageList[location].id),
                     "courierId": CID
                 ]
-                print(packet)
+                print("MapView: \(packet)")
                 // Push to db
                 Alamofire.request(DataService.ds.REF_COURIER_OWN, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
                     response in
@@ -200,6 +201,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     case .success:
                         print(response)
                         self.packageTakenList.append(self.packageList[location])
+                        self.packageList[location].status = "ASSIGNED"
                         marker.iconView = UIImageView(image: UIImage(named: "courierItself"))
                         self.packageList.remove(at: location)
                         self.tableView.reloadData()
