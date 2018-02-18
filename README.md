@@ -37,10 +37,10 @@ This view is for creating a package. We used Google Locations for taking source 
 ![Entrance](/Images/UserView_Payment.png)
 When the user clicked save, we redirect the user to this page for payment.
 
-![Entrance](/Images/PackageVeiw.png)
+![Entrance](/Images/PackageView.png)
 This view shows up when user is clicked sign in as courier
 
-![Entrance](/Images/PackageVeiw_MyPackages.png)
+![Entrance](/Images/PackageView_MyPackages.png)
 This is an alert view with the table view. It shows couriers' current packages.
 
 ### Features
