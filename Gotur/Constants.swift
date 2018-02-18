@@ -28,7 +28,7 @@ let primaryBigFont = UIFont.systemFont(ofSize: 24)
 
 // Colors
 let primaryColor = UIColor(red: 0.00, green: 0.54, blue: 0.48, alpha: 1.0);
-let primaryLightColor = UIColor(red: 0.31, green: 0.73, blue: 0.67, alpha: 1.0);
+let primaryLightColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0);
 let primaryDarkColor = UIColor(red: 0.00, green: 0.36, blue: 0.31, alpha: 1.0);
 let primaryTextColor = UIColor(red: 0.00, green: 0.00, blue: 0.00, alpha: 1.0);
 

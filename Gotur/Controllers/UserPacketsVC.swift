@@ -131,6 +131,10 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        fetchData()
+    }
+    
     // When my package delivered 
     // pop up an info alert view
     func checkPackageStatus(){

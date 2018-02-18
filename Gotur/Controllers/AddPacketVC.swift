@@ -19,6 +19,9 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     var locationManager = CLLocationManager()
     
     var isSource: Bool!
+    var isSourceChosen: Bool!
+    var isDestinationChosen: Bool!
+    
     var source: GMSPlace!
     var destination: GMSPlace!
     
@@ -110,6 +113,8 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         placesClient = GMSPlacesClient.shared()
         
         isSource = true
+        isSourceChosen = false
+        isDestinationChosen = false
         
         self.view.backgroundColor = primaryLightColor
         
@@ -164,14 +169,26 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         viewController.dismiss(animated: true, completion: nil)
         
         if isSource {
-            sourceButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
-                .joined(separator: "\n")
+            if place.formattedAddress == nil {
+                sourceButton.titleLabel?.text = "\(place.coordinate.latitude, place.coordinate.longitude)"
+            }
+            else {
+                sourceButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
+                    .joined(separator: "\n")
+            }
             source = place
+            isSourceChosen = true
         }
         else {
-            destinationButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
-                .joined(separator: "\n")
+            if place.formattedAddress == nil {
+                destinationButton.titleLabel?.text = "\(place.coordinate.latitude, place.coordinate.longitude)"
+            }
+            else {
+                destinationButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
+                    .joined(separator: "\n")
+            }
             destination = place
+            isDestinationChosen = true
         }
     }
     
@@ -263,14 +280,12 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
             return false
         }
         
-        guard let _ = source else {
-            // Display error
+        if !isSourceChosen {
             self.present(alertDisplay(title: errorSourceAddress, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
             return false
         }
         
-        guard let _ = destination else {
-            // Display error
+        if !isDestinationChosen {
             self.present(alertDisplay(title: errorDestinationAddress, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
             return false
         }
