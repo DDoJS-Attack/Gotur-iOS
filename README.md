@@ -36,7 +36,7 @@ Götür is a mobile application that allows people to be freelance courier. Peop
 
 ![PackageView_MyPackages](/Images/PackageView_MyPackages.png "This is an alert view with the table view. It shows couriers' current packages.")
 
-![PackageView_MyPackages](/Images/Notification.jpeg"Notification")
+![PackageView_MyPackages](/Images/Notification.jpeg "Notification")
 
 ### Features
 * It allows user to track theiri package. We implemented this with socket IO. 🛵
