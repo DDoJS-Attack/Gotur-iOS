@@ -244,8 +244,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     func confirmDrop(withPackage package: Packet) {
-
-        if(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation) <= 0){
+        if(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation) <= 0.05){
             // Update in database
             let packet: Dictionary<String, String> = [
                 "cargoId": String(describing: package.id),
