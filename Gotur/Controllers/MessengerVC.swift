@@ -157,14 +157,14 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         // When user tapped to marker, it runs this code
         if (self.packageList[marker.iconView!.tag].status == "INITIAL") {
-            let alert = UIAlertController(title: "Package", message: "Do you want to take this package", preferredStyle: .alert)
-            let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
-            let okayButton = UIAlertAction(title: "Okay", style: .default) { (alert) in
+            let alert = UIAlertController(title: packageString, message: doYouWantToTakeThisPacket, preferredStyle: .alert)
+            let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: nil)
+            let okayButton = UIAlertAction(title: okString, style: .default) { (alert) in
                 let location = marker.iconView!.tag
                 // Update in database
                 let packet: Dictionary<String, String> = [
                     "cargoId": String(describing: self.packageList[location].id),
-                    "courierId":"5a88606059efcb2d3f60fef5"
+                    "courierId": CID
                 ]
                 print(packet)
                 // Push to db
@@ -215,12 +215,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     func confirmDrop(withPackage package: Packet) {
-        print(package.name)
-        print(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation))
-        print("destionation: location: \(package.destinationLoc.longitude) - \(package.destinationLoc.latitude)")
-        print("current location: \(currentLocation.longitude) - \(currentLocation.latitude)")
-        print("---------------")
-        
+
         if(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation) <= 0){
             // Update in database
             let packet: Dictionary<String, String> = [
@@ -240,7 +235,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     print(error)
                 }
             }
-            print("Package dropped")
+            print("Package delivered")
         }else {
             self.view.shake()
         }

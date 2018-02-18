@@ -37,3 +37,5 @@
 "Fail" = "Hata";
 "Packet is successfully added" = "Paket başarıyla eklendi";
 "Error occured! Please contact Götür A.Ş" = "Error oluştu! Lütfen Götür A.Ş ile iletişime geçiniz";
+"Package" = "Paket"
+"Do you want to take this package" = "Bu paketi götürmek istiyor musunuz?"
