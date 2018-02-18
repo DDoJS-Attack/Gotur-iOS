@@ -26,6 +26,7 @@
 		EC01516420377795003025CF /* UserPacketsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01516320377795003025CF /* UserPacketsVC.swift */; };
 		ECC7059F2038832200C51C05 /* OmiseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECC7059E2038832200C51C05 /* OmiseSDK.framework */; };
 		ECC705A22038C8BD00C51C05 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC705A12038C8BD00C51C05 /* DataService.swift */; };
+		ECC705A72039322E00C51C05 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECC705A62039322E00C51C05 /* GoogleService-Info.plist */; };
 		ECFB27B920379347008462E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27B820379347008462E0 /* Constants.swift */; };
 		ECFB27BE203793DF008462E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECFB27C0203793DF008462E0 /* Localizable.strings */; };
 		ECFB27C62037B451008462E0 /* AddPacketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27C52037B451008462E0 /* AddPacketVC.swift */; };
@@ -82,6 +83,8 @@
 		EC01516320377795003025CF /* UserPacketsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPacketsVC.swift; sourceTree = "<group>"; };
 		ECC7059E2038832200C51C05 /* OmiseSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OmiseSDK.framework; path = Carthage/Build/iOS/OmiseSDK.framework; sourceTree = "<group>"; };
 		ECC705A12038C8BD00C51C05 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		ECC705A3203928A600C51C05 /* Gotur.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gotur.entitlements; sourceTree = "<group>"; };
+		ECC705A62039322E00C51C05 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECFB27B820379347008462E0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ECFB27BA20379390008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Main.strings; sourceTree = "<group>"; };
 		ECFB27BB20379390008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
@@ -186,6 +189,7 @@
 		EC01512A203766D8003025CF /* Gotur */ = {
 			isa = PBXGroup;
 			children = (
+				ECC705A3203928A600C51C05 /* Gotur.entitlements */,
 				686EAB2D20389F1B004E8AA5 /* Models */,
 				68C2197C2037ED4E002F3EE6 /* Views */,
 				EC01515C203766FF003025CF /* Extensions */,
@@ -196,6 +200,7 @@
 				EC015137203766D8003025CF /* LaunchScreen.storyboard */,
 				EC01513A203766D8003025CF /* Info.plist */,
 				EC015132203766D8003025CF /* Gotur.xcdatamodeld */,
+				ECC705A62039322E00C51C05 /* GoogleService-Info.plist */,
 				ECFB27B820379347008462E0 /* Constants.swift */,
 				ECC705A12038C8BD00C51C05 /* DataService.swift */,
 				ECFB27C0203793DF008462E0 /* Localizable.strings */,
@@ -322,6 +327,11 @@
 						DevelopmentTeam = V6KFG398S6;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					EC01513E203766D8003025CF = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -367,6 +377,7 @@
 			files = (
 				EC015139203766D8003025CF /* LaunchScreen.storyboard in Resources */,
 				ECFB27BE203793DF008462E0 /* Localizable.strings in Resources */,
+				ECC705A72039322E00C51C05 /* GoogleService-Info.plist in Resources */,
 				EC015136203766D8003025CF /* Assets.xcassets in Resources */,
 				EC015131203766D8003025CF /* Main.storyboard in Resources */,
 			);
@@ -434,7 +445,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		69D81367D9D9BE9149784BC3 /* [CP] Check Pods Manifest.lock */ = {
@@ -452,7 +463,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B3CAB7389F1AB0118B17939C /* [CP] Copy Pods Resources */ = {
@@ -546,7 +557,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		ECC705A02038833000C51C05 /* ShellScript */ = {
@@ -760,6 +771,8 @@
 			baseConfigurationReference = 7A9124AC26E81AB9A561EF28 /* Pods-Gotur.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Gotur/Gotur.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = V6KFG398S6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -767,8 +780,9 @@
 				);
 				INFOPLIST_FILE = Gotur/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -778,6 +792,8 @@
 			baseConfigurationReference = D55F4E0BEDA76EF3C053F880 /* Pods-Gotur.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Gotur/Gotur.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = V6KFG398S6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -785,8 +801,9 @@
 				);
 				INFOPLIST_FILE = Gotur/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

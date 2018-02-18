@@ -8,61 +8,71 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
+		</dict>
+		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>IQKeyboardManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-Gotur.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>Pods-GoturTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>Pods-GoturUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
+		</dict>
+		<key>Protobuf.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>StarReview.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SwiftSocket.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
+		</dict>
+		<key>nanopb.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1F939A7951365AA4A23AC22015CD70AD</key>
+		<key>14AD304A166A672C86D913E9CA23A24E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2AB1C00D447CD55173990F1D64E8C95E</key>
+		<key>26C7A4203F6BAF21BB06B235840360FD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3CC5B9862913A83EBB17BC714A43D0E5</key>
+		<key>279AA6726F52A334C45E85774BD21A3D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,17 +82,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5CA216BBE145DBDEEA374B9BC33711E7</key>
+		<key>6BA44CBB2755106E508B1F8E9E022024</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7C1EAB633428454CABBD771008FB1302</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7FEEAA31021530F7877D69B1DCF02FD3</key>
+		<key>7FE1C3C971A1405418A229500B7E9AAF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -97,17 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E3BD63A411626D99DDF202317361040F</key>
+		<key>C5B80060FE8C664DF08841000F41D515</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EDC0C00CA2A20F3A3FFC4A136AA728FB</key>
+		<key>E4DD95323C54A78F879DAB0F1508B8E7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F89467994969F542B9F9F794BA01CB65</key>
+		<key>E7454CD1F8B8B6F47B67B3993842E19E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

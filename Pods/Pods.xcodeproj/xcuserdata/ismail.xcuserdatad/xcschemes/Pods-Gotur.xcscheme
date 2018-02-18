@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7FEEAA31021530F7877D69B1DCF02FD3"
+               BlueprintIdentifier = "E7454CD1F8B8B6F47B67B3993842E19E"
                BuildableName = "Pods_Gotur.framework"
                BlueprintName = "Pods-Gotur"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7FEEAA31021530F7877D69B1DCF02FD3"
+            BlueprintIdentifier = "E7454CD1F8B8B6F47B67B3993842E19E"
             BuildableName = "Pods_Gotur.framework"
             BlueprintName = "Pods-Gotur"
             ReferencedContainer = "container:Pods.xcodeproj">

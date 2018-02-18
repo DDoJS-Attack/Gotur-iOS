@@ -55,6 +55,39 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }()
     
     override func fetchData() {
+        // Parse already assigned packets
+        // TODO: Test this function
+        // let param = ["customer": CID]
+        /*
+        Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+            switch response.result {
+            case .success:
+                if let json = response.result.value {
+                    let jsonKSwift = JSON(json)
+                    let jsonSwiftData = jsonKSwift["data"]
+                    var i = 0
+                    // While data is not null append values to charity array that will be used for tableview
+                    while(jsonSwiftData[i] != JSON.null){
+                        let tempPacket = self.packetCreator(withJSONData: jsonSwiftData[i])
+                        self.packageList.append(tempPacket)
+                        i += 1
+                    }
+                    DispatchQueue.main.async {
+                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+                    }
+                }
+                
+                // Setting up taken package
+                for e in self.packageList{
+                    if(e.status == "ASSIGNED" || e.status == "ONWAY" || e.status == "DELIVERY"){
+                        self.packageTakenList.append(e)
+                    }
+                }
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }*/
         startSocket()
     }
     
@@ -128,9 +161,12 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     
     func fetchNearPackets() {
         // Parsing datas from api
-        let params = ["status": ["INITIAL"],
+        // Courier can only see packets that has a status of INITIAL, that means no one took it,
+        // and packets in the radius of 20km
+        // "status": ["INITIAL"] add and test
+        let params = [
                       "near": ["latitude": currentLocation.latitude, "longitude": currentLocation.longitude, "radius": range]
-            ] as [String : Any]
+                    ] as [String : Any]
         
         Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
             switch response.result {
@@ -183,8 +219,9 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     case .success:
                         print(response)
                         self.packageTakenList.append(self.packageList[location])
-                        marker.iconView = UIImageView(image: UIImage(named: "takenPackage"))
+                        marker.iconView = UIImageView(image: UIImage(named: "courierItself"))
                         self.packageList.remove(at: location)
+                        self.tableView.reloadData()
                     case .failure(let error):
                         
                         print(error)
