@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
         
+        // Subscribe to topic
+        Messaging.messaging().subscribe(toTopic: "all")
         application.registerForRemoteNotifications()
         requestNotificationAuthorization(application: application)
         if let userInfo = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] {
