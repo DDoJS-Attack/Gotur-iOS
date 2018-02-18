@@ -22,25 +22,25 @@ iOS web client made wtih Swift3 and Xcode.
 Götür is a mobile application that allows people to be freelance courier. People can use it for transporting of their belongings.
 
 ### Screens
-![Entrance](/images/Entrance.png)
+![Entrance](/Images/Entrance.png)
 This view comes up when the user first enters the app. S/he can decide whether s/he is courier or normal user
 
-![Entrance](/images/UserView.png)
+![Entrance](/Images/UserView.png)
 This view shows up when user is clicked sign in as user
 
-![Entrance](/images/UserVieiw_MyPackets.png)
+![Entrance](/Images/UserVieiw_MyPackets.png)
 This is an alert view with the table view. It shows users' current packages.
 
-![Entrance](/images/UserView_CreatePackage.png)
+![Entrance](/Images/UserView_CreatePackage.png)
 This view is for creating a package. We used Google Locations for taking source and destination address.
 
-![Entrance](/images/UserView_Payment.png)
+![Entrance](/Images/UserView_Payment.png)
 When the user clicked save, we redirect the user to this page for payment.
 
-![Entrance](/images/PackageVeiw.png)
+![Entrance](/Images/PackageVeiw.png)
 This view shows up when user is clicked sign in as courier
 
-![Entrance](/images/PackageVeiw_MyPackages.png)
+![Entrance](/Images/PackageVeiw_MyPackages.png)
 This is an alert view with the table view. It shows couriers' current packages.
 
 ### Features
