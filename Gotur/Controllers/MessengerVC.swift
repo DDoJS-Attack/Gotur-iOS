@@ -55,38 +55,9 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }()
     
     override func fetchData() {
-        // Parsing datas from api
-        Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
-            switch response.result {
-            case .success:
-                if let json = response.result.value {
-                    let jsonKSwift = JSON(json)
-                    let jsonSwiftData = jsonKSwift["data"]
-                    var i = 0
-                    // While data is not null append values to charity array that will be used for tableview
-                    while(jsonSwiftData[i] != JSON.null){
-                        let tempPacket = self.packetCreator(withJSONData: jsonSwiftData[i])
-                        self.packageList.append(tempPacket)
-                        i += 1
-                    }
-                    DispatchQueue.main.async {
-                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
-                    }
-                }
-                
-                // Setting up taken package
-                for e in self.packageList{
-                    if(e.status == "ASSIGNED" || e.status == "ONWAY" || e.status == "DELIVERY"){
-                        self.packageTakenList.append(e)
-                    }
-                }
-                self.tableView.reloadData()
-            case .failure(let error):
-                print(error)
-            }
-        }
         startSocket()
     }
+    
     func startSocket() {
         let client = TCPClient(address: "www.apple.com", port: 80)
         switch client.connect(timeout: 1) {
@@ -150,8 +121,46 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         let camera = GMSCameraPosition.camera(withLatitude:  currentLocation.latitude, longitude:  currentLocation.longitude, zoom: courierMapViewZoom)
         mapView.animate(to: camera)
         
+        fetchNearPackets()
         self.locationManager.stopUpdatingLocation()
         
+    }
+    
+    func fetchNearPackets() {
+        // Parsing datas from api
+        let params = ["status": ["INITIAL"],
+                      "near": ["latitude": currentLocation.latitude, "longitude": currentLocation.longitude, "radius": range]
+            ] as [String : Any]
+        
+        Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+            switch response.result {
+            case .success:
+                if let json = response.result.value {
+                    let jsonKSwift = JSON(json)
+                    let jsonSwiftData = jsonKSwift["data"]
+                    var i = 0
+                    // While data is not null append values to charity array that will be used for tableview
+                    while(jsonSwiftData[i] != JSON.null){
+                        let tempPacket = self.packetCreator(withJSONData: jsonSwiftData[i])
+                        self.packageList.append(tempPacket)
+                        i += 1
+                    }
+                    DispatchQueue.main.async {
+                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+                    }
+                }
+                
+                // Setting up taken package
+                for e in self.packageList{
+                    if(e.status == "ASSIGNED" || e.status == "ONWAY" || e.status == "DELIVERY"){
+                        self.packageTakenList.append(e)
+                    }
+                }
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {

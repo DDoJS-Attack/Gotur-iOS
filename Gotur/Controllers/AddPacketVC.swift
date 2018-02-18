@@ -22,6 +22,9 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     var isSourceChosen: Bool!
     var isDestinationChosen: Bool!
     
+    var sourceAddress: String!
+    var destinationAddress: String!
+    
     var source: GMSPlace!
     var destination: GMSPlace!
     
@@ -171,10 +174,12 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         if isSource {
             if place.formattedAddress == nil {
                 sourceButton.titleLabel?.text = "\(place.coordinate.latitude, place.coordinate.longitude)"
+                sourceAddress = "Arbitrary place"
             }
             else {
                 sourceButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
                     .joined(separator: "\n")
+                sourceAddress = place.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n")
             }
             source = place
             isSourceChosen = true
@@ -182,10 +187,12 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         else {
             if place.formattedAddress == nil {
                 destinationButton.titleLabel?.text = "\(place.coordinate.latitude, place.coordinate.longitude)"
+                destinationAddress = "Arbitrary place"
             }
             else {
                 destinationButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
                     .joined(separator: "\n")
+                destinationAddress = place.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n")
             }
             destination = place
             isDestinationChosen = true
@@ -223,8 +230,8 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
             // Initialize packet JSON
             let packet: Dictionary<String, Any> = [
                 "name": nameTextField.text!,
-                "sourceAddress": source.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n") as AnyObject,
-                "destinationAddress": destination.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n") as AnyObject,
+                "sourceAddress": sourceAddress!,
+                "destinationAddress": destinationAddress!,
                 "sourceLoc": [source.coordinate.longitude, source.coordinate.latitude],
                 "destinationLoc": [destination.coordinate.longitude, destination.coordinate.latitude],
                 "customer": UID,

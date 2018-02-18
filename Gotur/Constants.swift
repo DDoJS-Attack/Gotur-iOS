@@ -15,6 +15,10 @@ let UID = "5a88c87130f43a52aa00e4eb"
 // Hard Coded Courier ID
 let CID = "5a88606e59efcb2d3f60fef6"
 
+// Hard Coded Courier Range
+// Range 20km
+let range = 20000
+
 // Credit Card Payment Key
 let publicKey = "pkey_test_5ayztv3t3nxkzyu2cm7"
 
