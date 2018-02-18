@@ -50,11 +50,11 @@ class SocketIOManager: NSObject {
             if let lat = Double(JSON(data[0])["lat"].stringValue) {
                 latOutside = lat
             }
-            if let long = Double(JSON(data[0])["lon"].stringValue) {
+            if let long = Double(JSON(data[0])["long"].stringValue) {
                 longOutside = long
             }
             print("data2: \(JSON(data[0])["lat"])")
-            print("data2: \(JSON(data[0])["lon"])")
+            print("data2: \(JSON(data[0])["long"])")
             completionHandler(Coordinate(longitude: longOutside, latitude: latOutside))
             
         }

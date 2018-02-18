@@ -11,7 +11,7 @@ target 'Gotur' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
-  pod 'SwiftSocket'
+  pod 'Socket.IO-Client-Swift', '~> 11.1.3'
   # Keyboard Managing
   pod 'IQKeyboardManager'
   # Firebase
