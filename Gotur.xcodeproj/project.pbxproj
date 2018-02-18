@@ -10,6 +10,7 @@
 		547507C5ED0A410EC198CFBE /* Pods_Gotur.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A992AF81C813A17BD4627E05 /* Pods_Gotur.framework */; };
 		6138CCDF8202A13B643E6E2D /* Pods_GoturUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 242E822E4356887176BAD32E /* Pods_GoturUITests.framework */; };
 		686EAB3120389F51004E8AA5 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686EAB3020389F51004E8AA5 /* Packet.swift */; };
+		686EAB332038EA8F004E8AA5 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686EAB322038EA8F004E8AA5 /* SocketIOManager.swift */; };
 		6875FEA120376CDB001706D6 /* MessengerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6875FEA020376CDB001706D6 /* MessengerVC.swift */; };
 		6875FEA3203770E2001706D6 /* EntranceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6875FEA2203770E2001706D6 /* EntranceVC.swift */; };
 		6875FEA82037760F001706D6 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6875FEA72037760F001706D6 /* BaseButton.swift */; };
@@ -53,6 +54,7 @@
 		242E822E4356887176BAD32E /* Pods_GoturUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoturUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5553430FB71397977C7D49ED /* Pods-GoturTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoturTests/Pods-GoturTests.release.xcconfig"; sourceTree = "<group>"; };
 		686EAB3020389F51004E8AA5 /* Packet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Packet.swift; path = Gotur/Models/Packet.swift; sourceTree = SOURCE_ROOT; };
+		686EAB322038EA8F004E8AA5 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		6875FEA020376CDB001706D6 /* MessengerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerVC.swift; sourceTree = "<group>"; };
 		6875FEA2203770E2001706D6 /* EntranceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntranceVC.swift; sourceTree = "<group>"; };
 		6875FEA72037760F001706D6 /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				6875FEA2203770E2001706D6 /* EntranceVC.swift */,
 				EC01516320377795003025CF /* UserPacketsVC.swift */,
 				ECFB27C52037B451008462E0 /* AddPacketVC.swift */,
+				686EAB322038EA8F004E8AA5 /* SocketIOManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -500,15 +503,17 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Gotur/Pods-Gotur-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/StarReview/StarReview.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftSocket/SwiftSocket.framework",
+				"${BUILT_PRODUCTS_DIR}/StarscreamSocketIO/StarscreamSocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StarReview.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StarscreamSocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -580,6 +585,7 @@
 				EC015134203766D8003025CF /* Gotur.xcdatamodeld in Sources */,
 				68C2197B2037ED26002F3EE6 /* MessengerPopupTableViewCell.swift in Sources */,
 				ECFB27C62037B451008462E0 /* AddPacketVC.swift in Sources */,
+				686EAB332038EA8F004E8AA5 /* SocketIOManager.swift in Sources */,
 				EC015161203766FF003025CF /* BaseVC.swift in Sources */,
 				ECFB27B920379347008462E0 /* Constants.swift in Sources */,
 				686EAB3120389F51004E8AA5 /* Packet.swift in Sources */,

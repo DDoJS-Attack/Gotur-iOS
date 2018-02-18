@@ -59,7 +59,7 @@ class BaseVC: UIViewController {
             let sourceMarker = GMSMarker(position: sourcePosition)
             var sourceImageView = UIImageView()
             if(p.status != "INITIAL"){
-                sourceImageView = UIImageView(image: UIImage(named: "takenPackage"))
+                sourceImageView = UIImageView(image: UIImage(named: "courierItself"))
             }else{
                 sourceImageView = UIImageView(image: UIImage(named: "nontakenPackage"))
             }

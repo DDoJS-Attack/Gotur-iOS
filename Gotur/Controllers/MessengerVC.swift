@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import Alamofire
 import SwiftyJSON
-import SwiftSocket
+import SocketIO
 
 class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, GMSMapViewDelegate {
     
@@ -88,22 +88,8 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         startSocket()
     }
     func startSocket() {
-        let client = TCPClient(address: "www.apple.com", port: 80)
-        switch client.connect(timeout: 1) {
-        case .success:
-            switch client.send(string: "GET / HTTP/1.0\n\n" ) {
-            case .success:
-                guard let data = client.read(1024*10) else { return }
-                
-                if let response = String(bytes: data, encoding: .utf8) {
-                    print(response)
-                }
-            case .failure(let error):
-                print(error)
-            }
-        case .failure(let error):
-            print(error)
-        }
+        var socket = SocketIOManager()
+        socket.establishConnection()
     }
     
     func packetCreator(withJSONData jsonSwiftData : JSON) -> Packet{
@@ -175,7 +161,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     case .success:
                         print(response)
                         self.packageTakenList.append(self.packageList[location])
-                        marker.iconView = UIImageView(image: UIImage(named: "takenPackage"))
+                        marker.iconView = UIImageView(image: UIImage(named: "courierItself"))
                         self.packageList.remove(at: location)
                     case .failure(let error):
                         
