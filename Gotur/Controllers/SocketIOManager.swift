@@ -30,8 +30,6 @@ class SocketIOManager: NSObject {
             if let long = Double(JSON(data[0])["lon"].stringValue) {
                 self.coordinate.longitude = long
             }
-            print("data2: \(JSON(data[0])["lat"])")
-            print("data2: \(JSON(data[0])["lon"])")
 
 
         }
@@ -45,18 +43,17 @@ class SocketIOManager: NSObject {
     }
     func connectToServer(completionHandler: @escaping (_ coordinateTaken: Coordinate) -> Void) {
         socket.on("broadcast") {data, ack in
-            var latOutside: Double!
-            var longOutside: Double!
+            var latOutside: Double?
+            var longOutside: Double?
             if let lat = Double(JSON(data[0])["lat"].stringValue) {
                 latOutside = lat
             }
             if let long = Double(JSON(data[0])["long"].stringValue) {
                 longOutside = long
             }
-            print("data2: \(JSON(data[0])["lat"])")
-            print("data2: \(JSON(data[0])["long"])")
-            completionHandler(Coordinate(longitude: longOutside, latitude: latOutside))
-            
+            if let latPost = latOutside, let longPost = longOutside{
+              completionHandler(Coordinate(longitude: longPost, latitude: latPost))
+            }
         }
     }
     func closeConnection() {

@@ -16,7 +16,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     
     var mapView: GMSMapView!
     var locationManager = CLLocationManager()
-    
+    let socket = SocketIOManager()
     var packageTakenList = [Packet]()
     
     lazy var addButton: UIButton = {
@@ -87,7 +87,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     
     override func fetchData() {
         let param = ["customer": UID]
-        
+
         Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: param,encoding: JSONEncoding.default, headers: nil).responseJSON {
             response in
             switch response.result {
@@ -96,14 +96,15 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
                     let jsonKSwift = JSON(json)
                     let jsonSwiftData = jsonKSwift["data"]
                     for cargo in jsonSwiftData {
+                        print("SwiftDataCostumerID: \(cargo.1["customer"])")
                         let packet = Packet(data: cargo.1)
                         self.packageList.append(packet)
                     }
-                    
-//                    DispatchQueue.main.async {
-//                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
-//                    }
-                    
+
+                    DispatchQueue.main.async {
+                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+                    }
+
                     // Setting up taken package
                     for e in self.packageList{
                         if(e.status == "ASSIGNED" || e.status == "ONWAY"){
@@ -119,26 +120,25 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
          startSocket()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        fetchData()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        fetchData()
+//    }
     
     // When my package delivered 
     // pop up an info alert view
     func startSocket() {
-        let socket = SocketIOManager()
         socket.connectToServer { (coordinate) in
             print("Long: \(coordinate.longitude)")
             print("Lat: \(coordinate.latitude)")
-            var i = 0
-            while i < self.packageList.count{
-                if(self.packageList[i].status != "INITIAL"){
-                    self.packageList[i].sourceLoc = coordinate
+            print("size: \(self.packageList.count)")
+            for element in self.packageList{
+                if(element.status != "INITIAL"){
+                    element.sourceLoc = coordinate
                 }
-                i += 1
             }
             
             DispatchQueue.main.async{
+                print("packetSize: \(self.packageList.count)")
                 self.mapView.clear()
                 self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
                 self.mapView.reloadInputViews()
@@ -165,6 +165,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
         showPackagesAlert.view.addSubview(tableView)
         
         _ = tableView.anchor(self.showPackagesAlert.view.topAnchor, left: self.showPackagesAlert.view.leftAnchor, bottom: self.showPackagesAlert.view.bottomAnchor, right: self.showPackagesAlert.view.rightAnchor, topConstant: 8, leftConstant: 8, bottomConstant: 72, rightConstant: 8, widthConstant: 0, heightConstant: 0)
+        
         
         self.present(showPackagesAlert, animated: true, completion:{})
     }
@@ -241,6 +242,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     
     func goToAddPacketVC() {
         let addPacketVC = AddPacketVC()
+        self.socket.closeConnection()
         present(addPacketVC, animated: true, completion: nil)
     }
 }

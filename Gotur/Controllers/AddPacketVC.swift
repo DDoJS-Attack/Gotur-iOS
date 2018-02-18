@@ -327,7 +327,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         self.dismissCreditCardForm()
         let alert = UIAlertController(title: completedString,   message: justCreatedPackage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: okString, style: .default, handler:{ (action) in
-            self.dismiss(animated: true, completion: nil)
+            self.present(UserPacketsVC(), animated: true, completion: nil)
         }))
         present(alert, animated: true, completion: nil)
         // Sends `OmiseToken` to your server for creating a charge, or a customer object.
