@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import Alamofire
 import SwiftyJSON
-import StarReview
+import SocketIO
 
 class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -42,19 +42,6 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
         controller.view.addConstraint(height)
         controller.addAction(cancelButton)
         return controller
-    }()
-
-    lazy var starView: StarReview = {
-        let star = StarReview()
-        star.starMarginScale = 0.3
-        star.value = 5
-        star.starCount = 5
-        star.allowEdit = true
-        star.allowAccruteStars = true
-        
-        star.starFillColor = UIColor.orange
-        star.starBackgroundColor = UIColor.lightGray
-        return star
     }()
     
     lazy var tableView: UITableView = {
@@ -113,9 +100,9 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
                         self.packageList.append(packet)
                     }
                     
-                    DispatchQueue.main.async {
-                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
-                    }
+//                    DispatchQueue.main.async {
+//                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+//                    }
                     
                     // Setting up taken package
                     for e in self.packageList{
@@ -129,6 +116,7 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
                 print(error)
             }
         }
+         startSocket()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -137,23 +125,26 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     
     // When my package delivered 
     // pop up an info alert view
-    func checkPackageStatus(){
-        if(checkIfPackageDropredOrNot()){
-            showPackagesAlert.title = "Fish has been dropped"
-            showPackagesAlert.view.addSubview(starView)
+    func startSocket() {
+        let socket = SocketIOManager()
+        socket.connectToServer { (coordinate) in
+            print("Long: \(coordinate.longitude)")
+            print("Lat: \(coordinate.latitude)")
+            var i = 0
+            while i < self.packageList.count{
+                if(self.packageList[i].status != "INITIAL"){
+                    self.packageList[i].sourceLoc = coordinate
+                }
+                i += 1
+            }
             
-            _ = starView.anchor(self.showPackagesAlert.view.topAnchor, left: self.showPackagesAlert.view.leftAnchor, bottom: self.showPackagesAlert.view.bottomAnchor, right: self.showPackagesAlert.view.rightAnchor, topConstant: 48, leftConstant: 8, bottomConstant: 48, rightConstant: 8, widthConstant: 0, heightConstant: 0)
-            
-            self.present(showPackagesAlert, animated: true, completion:{})
+            DispatchQueue.main.async{
+                self.mapView.clear()
+                self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+                self.mapView.reloadInputViews()
+            }
         }
-    }
-    func sendStars() {
-        // Send stars to database
-        print("current Start Value \(starView.value)")
-    }
-    func checkIfPackageDropredOrNot() -> Bool {
-        // Implement this
-        return true
+        
     }
     
     func mapViewSnapshotReady(_ mapView: GMSMapView) {

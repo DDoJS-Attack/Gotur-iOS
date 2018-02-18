@@ -88,14 +88,9 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                 print(error)
             }
         }*/
-        startSocket()
     }
     
-    func startSocket() {
-        var socket = SocketIOManager()
-        socket.establishConnection()
-    }
-    
+
     func packetCreator(withJSONData jsonSwiftData : JSON) -> Packet{
         return Packet.init(data: jsonSwiftData)
     }
