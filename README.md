@@ -1,4 +1,4 @@
-# Gotur iOS App
+# Götür iOS App
 
 iOS web client made wtih Swift3 and Xcode.
 
@@ -22,26 +22,19 @@ iOS web client made wtih Swift3 and Xcode.
 Götür is a mobile application that allows people to be freelance courier. People can use it for transporting of their belongings.
 
 ### Screens
-![Entrance](/Images/Entrance.png)
-This view comes up when the user first enters the app. S/he can decide whether s/he is courier or normal user
+![Entrance](/Images/Entrance.png "This view comes up when the user first enters the app. S/he can decide whether s/he is courier or normal user")
 
-![UserView](/Images/UserView.png)
-This view shows up when user is clicked sign in as user
+![UserView](/Images/UserView.png "This view shows up when user is clicked sign in as user")
 
-![UserVieiw_MyPackets](/Images/UserVieiw_MyPackets.png)
-This is an alert view with the table view. It shows users' current packages.
+![UserVieiw_MyPackets](/Images/UserVieiw_MyPackets.png "This is an alert view with the table view. It shows users' current packages.")
 
-![UserView_CreatePackage](/Images/UserView_CreatePackage.png)
-This view is for creating a package. We used Google Locations for taking source and destination address.
+![UserView_CreatePackage](/Images/UserView_CreatePackage.png "This view is for creating a package. We used Google Locations for taking source and destination address.")
 
-![UserView_Payment](/Images/UserView_Payment.png)
-When the user clicked save, we redirect the user to this page for payment.
+![UserView_Payment](/Images/UserView_Payment.png "When the user clicked save, we redirect the user to this page for payment.")
 
-![PackageView](/Images/PackageView.png)
-This view shows up when user is clicked sign in as courier
+![PackageView](/Images/PackageView.png "This view shows up when user is clicked sign in as courier")
 
-![PackageView_MyPackages](/Images/PackageView_MyPackages.png)
-This is an alert view with the table view. It shows couriers' current packages.
+![PackageView_MyPackages](/Images/PackageView_MyPackages.png "This is an alert view with the table view. It shows couriers' current packages.")
 
 ### Features
 * It allows user to track theiri package. We implemented this with socket IO. 🛵
