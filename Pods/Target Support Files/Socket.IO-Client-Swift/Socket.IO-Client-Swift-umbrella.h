@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double SwiftSocketVersionNumber;
-FOUNDATION_EXPORT const unsigned char SwiftSocketVersionString[];
+FOUNDATION_EXPORT double SocketIOVersionNumber;
+FOUNDATION_EXPORT const unsigned char SocketIOVersionString[];
 
