@@ -19,6 +19,12 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     var locationManager = CLLocationManager()
     
     var isSource: Bool!
+    var isSourceChosen: Bool!
+    var isDestinationChosen: Bool!
+    
+    var sourceAddress: String!
+    var destinationAddress: String!
+    
     var source: GMSPlace!
     var destination: GMSPlace!
     
@@ -110,6 +116,8 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         placesClient = GMSPlacesClient.shared()
         
         isSource = true
+        isSourceChosen = false
+        isDestinationChosen = false
         
         self.view.backgroundColor = primaryLightColor
         
@@ -164,14 +172,30 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
         viewController.dismiss(animated: true, completion: nil)
         
         if isSource {
-            sourceButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
-                .joined(separator: "\n")
+            if place.formattedAddress == nil {
+                sourceButton.titleLabel?.text = "\(place.coordinate.latitude, place.coordinate.longitude)"
+                sourceAddress = "Arbitrary place"
+            }
+            else {
+                sourceButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
+                    .joined(separator: "\n")
+                sourceAddress = place.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n")
+            }
             source = place
+            isSourceChosen = true
         }
         else {
-            destinationButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
-                .joined(separator: "\n")
+            if place.formattedAddress == nil {
+                destinationButton.titleLabel?.text = "\(place.coordinate.latitude, place.coordinate.longitude)"
+                destinationAddress = "Arbitrary place"
+            }
+            else {
+                destinationButton.titleLabel?.text = place.formattedAddress?.components(separatedBy: ", ")
+                    .joined(separator: "\n")
+                destinationAddress = place.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n")
+            }
             destination = place
+            isDestinationChosen = true
         }
     }
     
@@ -206,8 +230,8 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
             // Initialize packet JSON
             let packet: Dictionary<String, Any> = [
                 "name": nameTextField.text!,
-                "sourceAddress": source.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n") as AnyObject,
-                "destinationAddress": destination.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n") as AnyObject,
+                "sourceAddress": sourceAddress!,
+                "destinationAddress": destinationAddress!,
                 "sourceLoc": [source.coordinate.longitude, source.coordinate.latitude],
                 "destinationLoc": [destination.coordinate.longitude, destination.coordinate.latitude],
                 "customer": UID,
@@ -220,10 +244,10 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
                 response in
                 switch response.result {
                 case .success:
-                    self.present(self.alertDisplay(title: "Success", message: "Packet successfully added your list", buttonTitle: okString, buttonStyle: .default, sender: nil), animated: true)
+                    self.present(self.alertDisplay(title: successString, message: packetSuccessfullyAdded, buttonTitle: okString, buttonStyle: .default, sender: nil), animated: true)
                     break
                 case .failure(let error):
-                    self.present(self.alertDisplay(title: "Fail", message: "Error occured! Please contact Götür A.Ş", buttonTitle: okString, buttonStyle: .default, sender: nil), animated: true)
+                    self.present(self.alertDisplay(title: failString, message: errorOccured, buttonTitle: okString, buttonStyle: .default, sender: nil), animated: true)
                     print(error)
                 }
             }
@@ -237,7 +261,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     
     func calculatePriceAsKurus(price: String) -> Double {
         if let price = Double(price) {
-            return Double(price) * 60.0
+            return Double(price) * 100.0
         }
         
         return 0.0
@@ -263,14 +287,12 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
             return false
         }
         
-        guard let _ = source else {
-            // Display error
+        if !isSourceChosen {
             self.present(alertDisplay(title: errorSourceAddress, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
             return false
         }
         
-        guard let _ = destination else {
-            // Display error
+        if !isDestinationChosen {
             self.present(alertDisplay(title: errorDestinationAddress, message: "", buttonTitle: okString, buttonStyle: UIAlertActionStyle.default, sender: nil), animated: true, completion: nil)
             return false
         }
@@ -303,7 +325,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     
     func creditCardForm(_ controller: CreditCardFormController, didSucceedWithToken token: OmiseToken) {
         self.dismissCreditCardForm()
-        let alert = UIAlertController(title: "Completed",   message: "You just created your package", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: completedString,   message: justCreatedPackage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: okString, style: .default, handler:{ (action) in
             self.dismiss(animated: true, completion: nil)
         }))
@@ -313,7 +335,7 @@ class AddPacketVC: BaseVC, CLLocationManagerDelegate, UISearchBarDelegate, GMSPl
     
     func creditCardForm(_ controller: CreditCardFormController, didFailWithError error: Error) {
         self.dismissCreditCardForm()
-        let alert = UIAlertController(title: "Error",   message: "Something Bad Happened about your payment. However we have created you package", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: errorString,   message: somethingBadHappened, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: okString, style: .default, handler:{ (action) in
             self.dismiss(animated: true, completion: nil)
         }))

@@ -55,7 +55,10 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }()
     
     override func fetchData() {
-        // Parsing datas from api
+        // Parse already assigned packets
+        // TODO: Test this function
+        // let param = ["customer": CID]
+        /*
         Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
             switch response.result {
             case .success:
@@ -76,7 +79,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                 
                 // Setting up taken package
                 for e in self.packageList{
-                    if(e.status == "ASSIGNED" || e.status == "ONWAY"){
+                    if(e.status == "ASSIGNED" || e.status == "ONWAY" || e.status == "DELIVERY"){
                         self.packageTakenList.append(e)
                     }
                 }
@@ -84,9 +87,10 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
             case .failure(let error):
                 print(error)
             }
-        }
+        }*/
         startSocket()
     }
+    
     func startSocket() {
         var socket = SocketIOManager()
         socket.establishConnection()
@@ -136,26 +140,66 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
         let camera = GMSCameraPosition.camera(withLatitude:  currentLocation.latitude, longitude:  currentLocation.longitude, zoom: courierMapViewZoom)
         mapView.animate(to: camera)
         
+        fetchNearPackets()
         self.locationManager.stopUpdatingLocation()
         
+    }
+    
+    func fetchNearPackets() {
+        // Parsing datas from api
+        // Courier can only see packets that has a status of INITIAL, that means no one took it,
+        // and packets in the radius of 20km
+        // "status": ["INITIAL"] add and test
+        let params = [
+                      "near": ["latitude": currentLocation.latitude, "longitude": currentLocation.longitude, "radius": range]
+                    ] as [String : Any]
+        
+        Alamofire.request(DataService.ds.REF_CARGO, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
+            switch response.result {
+            case .success:
+                if let json = response.result.value {
+                    let jsonKSwift = JSON(json)
+                    let jsonSwiftData = jsonKSwift["data"]
+                    var i = 0
+                    // While data is not null append values to charity array that will be used for tableview
+                    while(jsonSwiftData[i] != JSON.null){
+                        let tempPacket = self.packetCreator(withJSONData: jsonSwiftData[i])
+                        self.packageList.append(tempPacket)
+                        i += 1
+                    }
+                    DispatchQueue.main.async {
+                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+                    }
+                }
+                
+                // Setting up taken package
+                for e in self.packageList{
+                    if(e.status == "ASSIGNED" || e.status == "ONWAY" || e.status == "DELIVERY"){
+                        self.packageTakenList.append(e)
+                    }
+                }
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         // When user tapped to marker, it runs this code
         if (self.packageList[marker.iconView!.tag].status == "INITIAL") {
-            let alert = UIAlertController(title: "Package", message: "Do you want to take this package", preferredStyle: .alert)
-            let cancelButton = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
-            let okayButton = UIAlertAction(title: "Okay", style: .default) { (alert) in
+            let alert = UIAlertController(title: packageString, message: doYouWantToTakeThisPacket, preferredStyle: .alert)
+            let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: nil)
+            let okayButton = UIAlertAction(title: okString, style: .default) { (alert) in
                 let location = marker.iconView!.tag
                 // Update in database
                 let packet: Dictionary<String, String> = [
                     "cargoId": String(describing: self.packageList[location].id),
-                    "courierId":"5a88606059efcb2d3f60fef5"
+                    "courierId": CID
                 ]
                 print(packet)
                 // Push to db
-                let urlString = "https://chatbot-avci.olut.xyz/courier/own"
-                Alamofire.request(urlString, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
+                Alamofire.request(DataService.ds.REF_COURIER_OWN, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
                     response in
                     switch response.result {
                     case .success:
@@ -163,6 +207,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                         self.packageTakenList.append(self.packageList[location])
                         marker.iconView = UIImageView(image: UIImage(named: "courierItself"))
                         self.packageList.remove(at: location)
+                        self.tableView.reloadData()
                     case .failure(let error):
                         
                         print(error)
@@ -202,12 +247,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
     }
     
     func confirmDrop(withPackage package: Packet) {
-        print(package.name)
-        print(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation))
-        print("destionation: location: \(package.destinationLoc.longitude) - \(package.destinationLoc.latitude)")
-        print("current location: \(currentLocation.longitude) - \(currentLocation.latitude)")
-        print("---------------")
-        
+
         if(findDistanceBetweenTwoLocations(package.destinationLoc, currentLocation) <= 0){
             // Update in database
             let packet: Dictionary<String, String> = [
@@ -215,8 +255,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
             ]
             print(packet)
             // Push to db
-            let urlString = "https://chatbot-avci.olut.xyz/courier/deliver"
-            Alamofire.request(urlString, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
+            Alamofire.request(DataService.ds.REF_COURIER_DELIVER, method: .post, parameters: packet,encoding: JSONEncoding.default, headers: nil).responseString {
                 response in
                 switch response.result {
                 case .success:
@@ -228,7 +267,7 @@ class MessengerVC: BaseVC, UITableViewDataSource, UITableViewDelegate, CLLocatio
                     print(error)
                 }
             }
-            print("Package dropped")
+            print("Package delivered")
         }else {
             self.view.shake()
         }

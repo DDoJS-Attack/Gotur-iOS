@@ -27,6 +27,7 @@
 		EC01516420377795003025CF /* UserPacketsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC01516320377795003025CF /* UserPacketsVC.swift */; };
 		ECC7059F2038832200C51C05 /* OmiseSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECC7059E2038832200C51C05 /* OmiseSDK.framework */; };
 		ECC705A22038C8BD00C51C05 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC705A12038C8BD00C51C05 /* DataService.swift */; };
+		ECC705A72039322E00C51C05 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECC705A62039322E00C51C05 /* GoogleService-Info.plist */; };
 		ECFB27B920379347008462E0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27B820379347008462E0 /* Constants.swift */; };
 		ECFB27BE203793DF008462E0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = ECFB27C0203793DF008462E0 /* Localizable.strings */; };
 		ECFB27C62037B451008462E0 /* AddPacketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFB27C52037B451008462E0 /* AddPacketVC.swift */; };
@@ -51,8 +52,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F9F3BC29E516514B64F76DA /* Pods-Gotur.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gotur.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gotur/Pods-Gotur.release.xcconfig"; sourceTree = "<group>"; };
 		242E822E4356887176BAD32E /* Pods_GoturUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoturUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5553430FB71397977C7D49ED /* Pods-GoturTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoturTests/Pods-GoturTests.release.xcconfig"; sourceTree = "<group>"; };
+		2E3C1C5A67708CE0E75E71F1 /* Pods-GoturTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoturTests/Pods-GoturTests.release.xcconfig"; sourceTree = "<group>"; };
+		3EDD96A4DA1E762AA0701A47 /* Pods-GoturUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoturUITests/Pods-GoturUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		423FACF284D6485C1C9F2B38 /* Pods-GoturUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoturUITests/Pods-GoturUITests.release.xcconfig"; sourceTree = "<group>"; };
 		686EAB3020389F51004E8AA5 /* Packet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Packet.swift; path = Gotur/Models/Packet.swift; sourceTree = SOURCE_ROOT; };
 		686EAB322038EA8F004E8AA5 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		6875FEA020376CDB001706D6 /* MessengerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerVC.swift; sourceTree = "<group>"; };
@@ -60,12 +64,8 @@
 		6875FEA72037760F001706D6 /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		68C2197A2037ED25002F3EE6 /* MessengerPopupTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessengerPopupTableViewCell.swift; sourceTree = "<group>"; };
 		6D2A76B020FE0CD92BBBCD19 /* Pods_GoturTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoturTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		70B98C94183924CB296A4D91 /* Pods-GoturTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoturTests/Pods-GoturTests.debug.xcconfig"; sourceTree = "<group>"; };
-		7A9124AC26E81AB9A561EF28 /* Pods-Gotur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gotur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gotur/Pods-Gotur.debug.xcconfig"; sourceTree = "<group>"; };
-		97F47CBF5D3489511506C003 /* Pods-GoturUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoturUITests/Pods-GoturUITests.release.xcconfig"; sourceTree = "<group>"; };
+		A3A1EBBF487B5571145F0DBC /* Pods-Gotur.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gotur.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gotur/Pods-Gotur.debug.xcconfig"; sourceTree = "<group>"; };
 		A992AF81C813A17BD4627E05 /* Pods_Gotur.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gotur.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CB8DF95A950EBD837F6229D2 /* Pods-GoturUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoturUITests/Pods-GoturUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		D55F4E0BEDA76EF3C053F880 /* Pods-Gotur.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gotur.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gotur/Pods-Gotur.release.xcconfig"; sourceTree = "<group>"; };
 		EC015128203766D8003025CF /* Gotur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gotur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC01512B203766D8003025CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EC015130203766D8003025CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -84,12 +84,15 @@
 		EC01516320377795003025CF /* UserPacketsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPacketsVC.swift; sourceTree = "<group>"; };
 		ECC7059E2038832200C51C05 /* OmiseSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OmiseSDK.framework; path = Carthage/Build/iOS/OmiseSDK.framework; sourceTree = "<group>"; };
 		ECC705A12038C8BD00C51C05 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		ECC705A3203928A600C51C05 /* Gotur.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gotur.entitlements; sourceTree = "<group>"; };
+		ECC705A62039322E00C51C05 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ECFB27B820379347008462E0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		ECFB27BA20379390008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Main.strings; sourceTree = "<group>"; };
 		ECFB27BB20379390008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		ECFB27BF203793DF008462E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECFB27C1203793E2008462E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		ECFB27C52037B451008462E0 /* AddPacketVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPacketVC.swift; sourceTree = "<group>"; };
+		F01001544151EC869FB96C13 /* Pods-GoturTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoturTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoturTests/Pods-GoturTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,12 +156,12 @@
 		B594B9A883C0B3381D32D3DF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7A9124AC26E81AB9A561EF28 /* Pods-Gotur.debug.xcconfig */,
-				D55F4E0BEDA76EF3C053F880 /* Pods-Gotur.release.xcconfig */,
-				70B98C94183924CB296A4D91 /* Pods-GoturTests.debug.xcconfig */,
-				5553430FB71397977C7D49ED /* Pods-GoturTests.release.xcconfig */,
-				CB8DF95A950EBD837F6229D2 /* Pods-GoturUITests.debug.xcconfig */,
-				97F47CBF5D3489511506C003 /* Pods-GoturUITests.release.xcconfig */,
+				A3A1EBBF487B5571145F0DBC /* Pods-Gotur.debug.xcconfig */,
+				0F9F3BC29E516514B64F76DA /* Pods-Gotur.release.xcconfig */,
+				F01001544151EC869FB96C13 /* Pods-GoturTests.debug.xcconfig */,
+				2E3C1C5A67708CE0E75E71F1 /* Pods-GoturTests.release.xcconfig */,
+				3EDD96A4DA1E762AA0701A47 /* Pods-GoturUITests.debug.xcconfig */,
+				423FACF284D6485C1C9F2B38 /* Pods-GoturUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 		EC01512A203766D8003025CF /* Gotur */ = {
 			isa = PBXGroup;
 			children = (
+				ECC705A3203928A600C51C05 /* Gotur.entitlements */,
 				686EAB2D20389F1B004E8AA5 /* Models */,
 				68C2197C2037ED4E002F3EE6 /* Views */,
 				EC01515C203766FF003025CF /* Extensions */,
@@ -198,6 +202,7 @@
 				EC015137203766D8003025CF /* LaunchScreen.storyboard */,
 				EC01513A203766D8003025CF /* Info.plist */,
 				EC015132203766D8003025CF /* Gotur.xcdatamodeld */,
+				ECC705A62039322E00C51C05 /* GoogleService-Info.plist */,
 				ECFB27B820379347008462E0 /* Constants.swift */,
 				ECC705A12038C8BD00C51C05 /* DataService.swift */,
 				ECFB27C0203793DF008462E0 /* Localizable.strings */,
@@ -325,6 +330,11 @@
 						DevelopmentTeam = V6KFG398S6;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					EC01513E203766D8003025CF = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -370,6 +380,7 @@
 			files = (
 				EC015139203766D8003025CF /* LaunchScreen.storyboard in Resources */,
 				ECFB27BE203793DF008462E0 /* Localizable.strings in Resources */,
+				ECC705A72039322E00C51C05 /* GoogleService-Info.plist in Resources */,
 				EC015136203766D8003025CF /* Assets.xcassets in Resources */,
 				EC015131203766D8003025CF /* Main.storyboard in Resources */,
 			);
@@ -503,18 +514,22 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Gotur/Pods-Gotur-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
-				"${BUILT_PRODUCTS_DIR}/StarReview/StarReview.framework",
-				"${BUILT_PRODUCTS_DIR}/StarscreamSocketIO/StarscreamSocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftSocket/SwiftSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StarReview.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StarscreamSocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -763,9 +778,11 @@
 		};
 		EC015154203766D8003025CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A9124AC26E81AB9A561EF28 /* Pods-Gotur.debug.xcconfig */;
+			baseConfigurationReference = A3A1EBBF487B5571145F0DBC /* Pods-Gotur.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Gotur/Gotur.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = V6KFG398S6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -773,17 +790,20 @@
 				);
 				INFOPLIST_FILE = Gotur/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		EC015155203766D8003025CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D55F4E0BEDA76EF3C053F880 /* Pods-Gotur.release.xcconfig */;
+			baseConfigurationReference = 0F9F3BC29E516514B64F76DA /* Pods-Gotur.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Gotur/Gotur.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = V6KFG398S6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -791,15 +811,16 @@
 				);
 				INFOPLIST_FILE = Gotur/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.DDosJS-Attack.Gotur2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		EC015157203766D8003025CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 70B98C94183924CB296A4D91 /* Pods-GoturTests.debug.xcconfig */;
+			baseConfigurationReference = F01001544151EC869FB96C13 /* Pods-GoturTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -815,7 +836,7 @@
 		};
 		EC015158203766D8003025CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5553430FB71397977C7D49ED /* Pods-GoturTests.release.xcconfig */;
+			baseConfigurationReference = 2E3C1C5A67708CE0E75E71F1 /* Pods-GoturTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -831,7 +852,7 @@
 		};
 		EC01515A203766D8003025CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CB8DF95A950EBD837F6229D2 /* Pods-GoturUITests.debug.xcconfig */;
+			baseConfigurationReference = 3EDD96A4DA1E762AA0701A47 /* Pods-GoturUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = V6KFG398S6;
@@ -846,7 +867,7 @@
 		};
 		EC01515B203766D8003025CF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 97F47CBF5D3489511506C003 /* Pods-GoturUITests.release.xcconfig */;
+			baseConfigurationReference = 423FACF284D6485C1C9F2B38 /* Pods-GoturUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = V6KFG398S6;

@@ -10,10 +10,14 @@ import Foundation
 import UIKit
 
 // Hard Coded User ID
-let UID = "5a884c04947e116eed78b2f7"
+let UID = "5a88c87130f43a52aa00e4eb"
 
 // Hard Coded Courier ID
-let CID = "5a88606e59efcb2d3f60fef6"
+let CID = "5a88e8a64ed91a460bf2e01e"
+
+// Hard Coded Courier Range
+// Range 20km
+let range = 20000
 
 // Credit Card Payment Key
 let publicKey = "pkey_test_5ayztv3t3nxkzyu2cm7"
@@ -28,7 +32,7 @@ let primaryBigFont = UIFont.systemFont(ofSize: 24)
 
 // Colors
 let primaryColor = UIColor(red: 0.00, green: 0.54, blue: 0.48, alpha: 1.0);
-let primaryLightColor = UIColor(red: 0.31, green: 0.73, blue: 0.67, alpha: 1.0);
+let primaryLightColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0);
 let primaryDarkColor = UIColor(red: 0.00, green: 0.36, blue: 0.31, alpha: 1.0);
 let primaryTextColor = UIColor(red: 0.00, green: 0.00, blue: 0.00, alpha: 1.0);
 
@@ -56,3 +60,13 @@ let errorIncorrectPrice = NSLocalizedString("Please enter the price correctly", 
 let myPackagesButtonTitle = NSLocalizedString("My Packages", comment: "")
 let errorEmptyName = NSLocalizedString("Please enter the name", comment: "")
 let errorCharacterCount3To24 = NSLocalizedString("Characters must be between 3 and 24", comment: "")
+let errorString = NSLocalizedString("Error", comment: "")
+let justCreatedPackage = NSLocalizedString("You just created your package", comment: "")
+let completedString = NSLocalizedString("Completed", comment: "")
+let somethingBadHappened = NSLocalizedString("Something Bad Happened about your payment. However we have created you package", comment: "")
+let successString = NSLocalizedString("Success", comment: "")
+let failString = NSLocalizedString("Fail", comment: "")
+let packetSuccessfullyAdded = NSLocalizedString("Packet is successfully added", comment: "")
+let errorOccured = NSLocalizedString("Error occured! Please contact Götür A.Ş", comment: "")
+let packageString = NSLocalizedString("Package", comment: "")
+let doYouWantToTakeThisPacket = NSLocalizedString("Do you want to take this package", comment: "")
