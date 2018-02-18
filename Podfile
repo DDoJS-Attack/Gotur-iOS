@@ -11,9 +11,13 @@ target 'Gotur' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
-  pod 'StarReview', '~> 1.0'
-  pod 'Socket.IO-Client-Swift', '~> 11.0.0'
-  
+  pod 'SwiftSocket'
+  # Keyboard Managing
+  pod 'IQKeyboardManager'
+  # Firebase
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+
   target 'GoturTests' do
     inherit! :search_paths
     # Pods for testing

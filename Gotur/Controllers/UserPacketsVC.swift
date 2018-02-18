@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import Alamofire
 import SwiftyJSON
-import StarReview
+import SocketIO
 
 class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -35,24 +35,13 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
     
     lazy var showPackagesAlert: UIAlertController = {
         let controller = UIAlertController(title: "", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")})
+        let cancelButton = UIAlertAction(title: cancelString, style: UIAlertActionStyle.cancel, handler: {(alert: UIAlertAction!) in print("cancel")
+        
+        })
         var height:NSLayoutConstraint = NSLayoutConstraint(item: controller.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.40)
         controller.view.addConstraint(height)
         controller.addAction(cancelButton)
         return controller
-    }()
-
-    lazy var starView: StarReview = {
-        let star = StarReview()
-        star.starMarginScale = 0.3
-        star.value = 5
-        star.starCount = 5
-        star.allowEdit = true
-        star.allowAccruteStars = true
-        
-        star.starFillColor = UIColor.orange
-        star.starBackgroundColor = UIColor.lightGray
-        return star
     }()
     
     lazy var tableView: UITableView = {
@@ -111,9 +100,9 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
                         self.packageList.append(packet)
                     }
                     
-                    DispatchQueue.main.async {
-                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
-                    }
+//                    DispatchQueue.main.async {
+//                        self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+//                    }
                     
                     // Setting up taken package
                     for e in self.packageList{
@@ -127,25 +116,35 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
                 print(error)
             }
         }
+         startSocket()
     }
     
-    func checkPackageStatus(){
-        if(checkIfPackageDropredOrNot()){
-            showPackagesAlert.title = "Fish has been dropped"
-            showPackagesAlert.view.addSubview(starView)
+    override func viewDidAppear(_ animated: Bool) {
+        fetchData()
+    }
+    
+    // When my package delivered 
+    // pop up an info alert view
+    func startSocket() {
+        let socket = SocketIOManager()
+        socket.connectToServer { (coordinate) in
+            print("Long: \(coordinate.longitude)")
+            print("Lat: \(coordinate.latitude)")
+            var i = 0
+            while i < self.packageList.count{
+                if(self.packageList[i].status != "INITIAL"){
+                    self.packageList[i].sourceLoc = coordinate
+                }
+                i += 1
+            }
             
-            _ = starView.anchor(self.showPackagesAlert.view.topAnchor, left: self.showPackagesAlert.view.leftAnchor, bottom: self.showPackagesAlert.view.bottomAnchor, right: self.showPackagesAlert.view.rightAnchor, topConstant: 48, leftConstant: 8, bottomConstant: 48, rightConstant: 8, widthConstant: 0, heightConstant: 0)
-            
-            self.present(showPackagesAlert, animated: true, completion:{})
+            DispatchQueue.main.async{
+                self.mapView.clear()
+                self.setupMarkersAndLinesBetweenThem(withMap: self.mapView)
+                self.mapView.reloadInputViews()
+            }
         }
-    }
-    func sendStars() {
-        // Send stars to database
-        print("current Start Value \(starView.value)")
-    }
-    func checkIfPackageDropredOrNot() -> Bool {
-        // Implement this
-        return true
+        
     }
     
     func mapViewSnapshotReady(_ mapView: GMSMapView) {
@@ -179,30 +178,65 @@ class UserPacketsVC: BaseVC, GMSMapViewDelegate, CLLocationManagerDelegate, UITa
         //Assigning values to custom cell
         cell.nameLabel.text = packageList[indexPath.item].name
         
-        if(packageList[indexPath.item].status == "ASSIGNED" || packageList[indexPath.item].status == "ONWAY"){
-//            cell.backgroundColor = 
-        }else{
-            
+        // If packet is assigned to courier add icon that indicates this status
+        if(packageList[indexPath.item].status == "ASSIGNED" || packageList[indexPath.item].status == "ONWAY" || packageList[indexPath.item].status == "DELIVERY"){
+            cell.icon.image = UIImage(named: "courierItself")!
+        } else {
+            cell.icon.image = UIImage(named: "nontakenPackage")
         }
+        
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 0.1
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        //adding left pull action
-        let drop = UITableViewRowAction(style: .destructive, title: cancelString) { (action, indexPath) in
-            let droppedPackage = self.packageList[indexPath.row]
-            self.confirmDrop(withPackage: droppedPackage)
-        }
-        drop.backgroundColor = UIColor(red: 186.0/255.0, green: 46.0/255.0, blue: 88.0/255.0, alpha: 1.0)
-        return [drop]
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
-    func confirmDrop(withPackage package: Packet) {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        //adding left pull action
+        if packageList[indexPath.row].status == "INITIAL" {
+            // Cancel action
+            let cancel = UITableViewRowAction(style: .destructive, title: cancelString) { (action, indexPath) in
+                self.confirmCancel(index: indexPath.row)
+            }
+            cancel.backgroundColor = UIColor(red: 186.0/255.0, green: 46.0/255.0, blue: 88.0/255.0, alpha: 1.0)
+            return [cancel]
+        }
+        return [UITableViewRowAction()]
+    }
+    
+    func confirmCancel(index: Int) {
         // Implement
+        let param = ["cargoId": packageList[index].id, "customerId": UID]
+        print(param)
+        // Remove from db
+        Alamofire.request(DataService.ds.REF_CUSTOMER_DELETE_CARGO, method: .delete, parameters: param,encoding: JSONEncoding.default, headers: nil).responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                print(response)
+                print("SUCCESS")
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+        // Remove from packageList
+        self.packageList.remove(at: index)
+        // Remove markers and lines from map
+        self.removePacketFromMap(index: index)
+        
+        self.tableView.reloadData()
         self.view.shake()
+    }
+    
+    func removePacketFromMap(index: Int) {
+        self.srcMarkers[index].map = nil
+        self.destMarkers[index].map = nil
+        self.polylines[index].map = nil
     }
     
     func goToAddPacketVC() {

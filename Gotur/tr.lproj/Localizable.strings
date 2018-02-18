@@ -16,7 +16,7 @@
 "Click to enter destination address" = "Varış adresini girmek için tıklayınız";
 "Enter the weight of the item" = "Ürünün ağırlığı giriniz";
 "Enter the price of the item" = "Verilecek taşıma fiyatı giriniz";
-"Enter the name of the item" = "Verilecek taşıma adını giriniz";
+"Enter the name of the item" = "Paketin adını giriniz";
 "Save" = "Kaydet";
 "My Location" = "Konumum";
 "Cancel" = "İptal";
@@ -29,3 +29,13 @@
 "Please enter the price correctly" = "Lütfen fiyatı doğru giriniz";
 "Please enter the name" = "Lütfen adınızı giriniz";
 "Characters must be between 3 and 24" = "Karakterler 3 ile 24 arasında olmalıdır";
+"Error" = "Error";
+"You just created your package" = "Paket oluşturuldu";
+"Completed" = "Tamamlandı";
+"Something Bad Happened about your payment. However we have created you package" = "Ödeme başarısız ancak kargonuz yine de oluşturuldu. Ödemenizi daha sonra yapabilirsiniz";
+"Success" = "Başarılı";
+"Fail" = "Hata";
+"Packet is successfully added" = "Paket başarıyla eklendi";
+"Error occured! Please contact Götür A.Ş" = "Error oluştu! Lütfen Götür A.Ş ile iletişime geçiniz";
+"Package" = "Paket";
+"Do you want to take this package" = "Bu paketi götürmek istiyor musunuz?";
